@@ -14,7 +14,7 @@
 
 <div id="erreur" class="erreur" hidden>
   <h2>Les données ne se chargent pas.</h2>
-  <p>Cette page lit trois fichiers JSON dans <code>data/</code>. Un navigateur bloque ces lectures quand la page est ouverte directement depuis le disque (<code>file://</code>).</p>
+  <p>Cette page lit quatre fichiers JSON dans <code>data/</code>. Un navigateur bloque ces lectures quand la page est ouverte directement depuis le disque (<code>file://</code>).</p>
   <p>Deux solutions : publier le dossier sur GitHub Pages, ou lancer un serveur local depuis le dossier du site&nbsp;:</p>
   <pre>python3 -m http.server 8000</pre>
   <p>puis ouvrir <code>http://localhost:8000</code>.</p>
@@ -70,13 +70,22 @@
   </section>
 
   <section class="section">
-    <div class="etiquette"><span class="etiquette__num">05</span> Séances &amp; analyses</div>
+    <div class="etiquette"><span class="etiquette__num">05</span> Renforcement</div>
+    <p class="section__intro" id="renfo-intro"></p>
+    <div id="renfo-ressources"></div>
+    <p class="note" id="renfo-avertissement"></p>
+    <div id="renfo-blocs"></div>
+    <p class="renfo-principe" id="renfo-principe"></p>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">06</span> Séances &amp; analyses</div>
     <p class="section__intro">Chaque séance est mesurée sur la même échelle cardiaque. Le trait blanc, c'est ton plafond de 155&nbsp;bpm.</p>
     <div id="seances" class="seances"></div>
   </section>
 
   <section class="section">
-    <div class="etiquette"><span class="etiquette__num">06</span> Statistiques</div>
+    <div class="etiquette"><span class="etiquette__num">07</span> Statistiques</div>
     <div class="stats-grille" id="stats-cles"></div>
 
     <div class="graphe-bloc">
@@ -99,7 +108,7 @@
   </section>
 
   <footer class="pied">
-    <p class="pied__note">Page statique. Les données vivent dans <code>data/athlete.json</code>, <code>data/programme.json</code> et <code>data/seances.json</code>.</p>
+    <p class="pied__note">Page statique. Les données vivent dans <code>data/athlete.json</code>, <code>data/programme.json</code>, <code>data/seances.json</code> et <code>data/renforcement.json</code>.</p>
     <p class="pied__note" id="pied-materiel"></p>
   </footer>
 
