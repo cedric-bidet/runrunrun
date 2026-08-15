@@ -13,46 +13,11 @@
     "note_plafond": "Plafond Z2 relevé de 150 à 155 bpm après validation du test de la parole à 155–158 bpm. Le calcul théorique sous-estimait ta zone réelle."
   },
   "zones": [
-    {
-      "id": "Z1",
-      "nom": "Endurance très légère",
-      "min": 125,
-      "max": 137,
-      "couleur": "#4E8BA8",
-      "role": "Récupération, décrassage"
-    },
-    {
-      "id": "Z2",
-      "nom": "Endurance fondamentale",
-      "min": 137,
-      "max": 150,
-      "couleur": "#3FB39B",
-      "role": "Base aérobie, mitochondries, capillarisation"
-    },
-    {
-      "id": "Z3",
-      "nom": "Tempo",
-      "min": 150,
-      "max": 162,
-      "couleur": "#E0B84C",
-      "role": "Zone grise — utile en bloc, coûteuse en base"
-    },
-    {
-      "id": "Z4",
-      "nom": "Seuil lactique",
-      "min": 162,
-      "max": 175,
-      "couleur": "#E07C3E",
-      "role": "Le levier n°1 pour passer sous 50 min"
-    },
-    {
-      "id": "Z5",
-      "nom": "VMA / VO2max",
-      "min": 175,
-      "max": 187,
-      "couleur": "#D4514B",
-      "role": "Outil final, après le seuil"
-    }
+    { "id": "Z1", "nom": "Endurance très légère", "min": 125, "max": 137, "couleur": "#4E8BA8", "role": "Récupération, décrassage" },
+    { "id": "Z2", "nom": "Endurance fondamentale", "min": 137, "max": 150, "couleur": "#3FB39B", "role": "Base aérobie, mitochondries, capillarisation" },
+    { "id": "Z3", "nom": "Tempo", "min": 150, "max": 162, "couleur": "#E0B84C", "role": "Zone grise — utile en bloc, coûteuse en base" },
+    { "id": "Z4", "nom": "Seuil lactique", "min": 162, "max": 175, "couleur": "#E07C3E", "role": "Le levier n°1 pour passer sous 50 min" },
+    { "id": "Z5", "nom": "VMA / VO2max", "min": 175, "max": 187, "couleur": "#D4514B", "role": "Outil final, après le seuil" }
   ],
   "objectifs": [
     {
@@ -60,9 +25,9 @@
       "titre": "Passer sous 50 minutes au 10 km",
       "cible_chrono": 2999,
       "allure_cible": "4:59 / km",
-      "fenetre": "Octobre – novembre 2026",
+      "fenetre": "Dimanche 22 novembre 2026",
       "statut": "en cours",
-      "note": "Course non encore choisie. Décision à prendre fin septembre, une fois le bloc seuil engagé."
+      "note": "Date calée sur le calendrier de garde alternée. Course précise à choisir fin septembre, une fois le bloc seuil engagé."
     },
     {
       "id": "semi",
@@ -75,38 +40,10 @@
     }
   ],
   "chronos_10km": [
-    {
-      "date": "2025-12-24",
-      "libelle": "10,07 km en solo",
-      "temps_s": 2984,
-      "allure": "4:58 / km",
-      "type": "reference",
-      "note": "Chrono réel 50:06 sur 10,07 km — soit 49:44 ramené à 10 km pile. Sortie non chronométrée officiellement."
-    },
-    {
-      "date": "2026-06-07",
-      "libelle": "10 km de la Liberté",
-      "temps_s": 3273,
-      "allure": "5:27 / km",
-      "type": "course",
-      "note": "Négatif split de 2:17. Premier kilomètre bouché."
-    },
-    {
-      "date": "2026-07-04",
-      "libelle": "10 km solo, en soirée",
-      "temps_s": 3168,
-      "allure": "5:17 / km",
-      "type": "test",
-      "note": "Positif split sévère : 1:20 perdues sur la seconde moitié."
-    },
-    {
-      "date": "2026-11-01",
-      "libelle": "Objectif sub-50",
-      "temps_s": 2999,
-      "allure": "4:59 / km",
-      "type": "cible",
-      "note": "Course à choisir fin septembre."
-    }
+    { "date": "2025-12-24", "libelle": "10,07 km en solo", "temps_s": 2984, "allure": "4:58 / km", "type": "reference", "note": "Chrono réel 50:06 sur 10,07 km — soit 49:44 ramené à 10 km pile. Sortie non chronométrée officiellement." },
+    { "date": "2026-06-07", "libelle": "10 km de la Liberté", "temps_s": 3273, "allure": "5:27 / km", "type": "course", "note": "Négatif split de 2:17. Premier kilomètre bouché." },
+    { "date": "2026-07-04", "libelle": "10 km solo, en soirée", "temps_s": 3168, "allure": "5:17 / km", "type": "test", "note": "Positif split sévère : 1:20 perdues sur la seconde moitié." },
+    { "date": "2026-11-22", "libelle": "Objectif sub-50", "temps_s": 2999, "allure": "4:59 / km", "type": "cible", "note": "Dimanche 22 novembre : un des rares week-ends sans garde de la fenêtre, avec une semaine d'affûtage complète derrière. Course précise à choisir fin septembre." }
   ],
   "diagnostic": {
     "titre": "Tu es déjà passé sous les 50. Il s'agit d'y retourner, et d'y rester.",
@@ -118,17 +55,8 @@
     ]
   },
   "materiel": [
-    {
-      "nom": "Garmin Forerunner 165",
-      "detail": "Alerte FC à 155 bpm, zones en % RFC (Karvonen) sur le profil « Course à pied »"
-    },
-    {
-      "nom": "Brooks Ghost 17",
-      "detail": "EU 44, largeur 2E, avec semelles orthopédiques sur mesure"
-    },
-    {
-      "nom": "Salomon Active Skin",
-      "detail": "Gilet + flasques souples, pour les sorties longues et la chaleur"
-    }
+    { "nom": "Garmin Forerunner 165", "detail": "Alerte FC à 155 bpm, zones en % RFC (Karvonen) sur le profil « Course à pied »" },
+    { "nom": "Brooks Ghost 17", "detail": "EU 44, largeur 2E, avec semelles orthopédiques sur mesure" },
+    { "nom": "Salomon Active Skin", "detail": "Gilet + flasques souples, pour les sorties longues et la chaleur" }
   ]
 }
