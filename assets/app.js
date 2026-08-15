@@ -186,7 +186,7 @@ function rendreBlocs(actif) {
 /* ---------- Semaines ---------- */
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
-const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifique', sortie_longue: 'Longue', renfo: 'Renfo', course: 'Course', reprise: 'Reprise' };
+const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifique', sortie_longue: 'Longue', renfo: 'Renfo', course: 'Course', reprise: 'Reprise', repos: 'Repos' };
 
 function rendreSemaines(filtre = 'tout') {
   const liste = P.semaines.filter((s) => filtre === 'tout' || s.bloc === filtre);
