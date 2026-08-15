@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "maj": "2026-08-15",
+  "intro": "Deux blocs de 25 minutes par semaine en août, un seul par semaine dès que le travail au seuil démarre en septembre. Poids du corps uniquement. La pliométrie viendra plus tard, quand la base sera solide.",
+  "avertissement": "La plupart des tutoriels que tu trouveras en ligne sont filmés pour la musculation esthétique : on y cherche l'amplitude et la charge. Toi, tu cherches la stabilité et le contrôle. Les points de contrôle ci-dessous priment sur ce que montre la vidéo.",
+  "ressources": [
+    {
+      "titre": "Les 3 meilleures séances de musculation pour la course à pied",
+      "source": "YouTube · kinés du sport & préparateurs physiques",
+      "duree": "moins de 15 min",
+      "url": "https://www.youtube.com/watch?v=25ipoZyQYuA",
+      "note": "Format court, cohérent avec tes créneaux. Bonne entrée en matière."
+    },
+    {
+      "titre": "Séance de renfo spéciale course à pied : 20 min, 4 exercices",
+      "source": "YouTube · Running Addict",
+      "duree": "20 min",
+      "url": "https://www.youtube.com/watch?v=Jh4LVAThdE0",
+      "note": "Séance guidée en temps réel. Pour la première fois, tu n'as qu'à suivre."
+    },
+    {
+      "titre": "Renforcement musculaire — dossier PPG",
+      "source": "Running Addict",
+      "duree": "articles",
+      "url": "https://www.running-addict.fr/category/conseil-running/renforcement-musculaire/",
+      "note": "Exercices détaillés photo par photo, avec l'explication de leur utilité."
+    },
+    {
+      "titre": "Tutoriel : mollet genou fléchi (soléaire)",
+      "source": "Runna",
+      "duree": "fiche",
+      "url": "https://support.runna.com/fr/articles/6379527-tutoriel-d-exercice-pour-le-renforcement-des-mollets-a-genoux-flechis",
+      "note": "Le mouvement le plus mal exécuté de la liste. À lire avant de le faire."
+    }
+  ],
+  "principe": "Si tu n'arrives pas à contrôler un mouvement, le problème n'est jamais la force — c'est l'amplitude ou l'équilibre. Réduis l'un ou l'autre, ne compense jamais avec le dos.",
+  "blocs": [
+    {
+      "id": "A",
+      "nom": "Bloc A — Chaîne postérieure & stabilité frontale",
+      "duree": "25 min",
+      "exercices": [
+        {
+          "nom": "Fentes marchées",
+          "dose": "3 × 10 par jambe",
+          "role": "Force unilatérale et étirement actif des fléchisseurs de hanche, souvent raides chez le coureur.",
+          "controle": "Le genou avant ne part ni vers l'intérieur ni au-delà de la pointe de pied. Torse vertical.",
+          "erreur": "Descendre trop bas : le genou arrière frôle le sol, il ne le touche pas."
+        },
+        {
+          "nom": "Montées de banc",
+          "dose": "3 × 10 par jambe",
+          "role": "Le geste le plus proche de la propulsion en course : extension de hanche sur un seul appui.",
+          "controle": "Tout le travail vient de la jambe posée sur le banc. Redescente lente et contrôlée.",
+          "erreur": "Pousser sur la jambe restée au sol pour s'aider. C'est l'erreur universelle."
+        },
+        {
+          "nom": "Mollets genou tendu",
+          "dose": "3 × 15",
+          "role": "Cible le gastrocnémien. Restitution élastique à chaque foulée.",
+          "controle": "Amplitude complète : talon bien sous le niveau de la marche en bas, pointe maximale en haut.",
+          "erreur": "Rebondir. Trois secondes pour redescendre."
+        },
+        {
+          "nom": "Gainage latéral",
+          "dose": "3 × 30 s par côté",
+          "role": "Stabilité frontale du bassin — directement liée à la qualité de la foulée.",
+          "controle": "Le bassin ne s'affaisse pas. Ligne épaule–hanche–cheville.",
+          "erreur": "Tenir plus longtemps en perdant la position. Mieux vaut 20 s propres que 45 s avachies."
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "nom": "Bloc B — Cheville, soléaire & anti-rotation",
+      "duree": "25 min",
+      "exercices": [
+        {
+          "nom": "Squat bulgare",
+          "dose": "3 × 8 par jambe",
+          "role": "Le plus exigeant en contrôle. Reproduit la nature asymétrique de la foulée.",
+          "controle": "Le pied arrière est un simple appui, pas un moteur. Commence sans charge.",
+          "erreur": "Compenser avec le tronc quand on vacille. Tiens-toi plutôt à un mur d'une main."
+        },
+        {
+          "nom": "Mollets genou fléchi (soléaire)",
+          "dose": "3 × 15",
+          "role": "Le soléaire absorbe l'essentiel de la force en course, et c'est souvent le plus faible des deux. Prioritaire pour toi.",
+          "controle": "Genou plié à 30° environ, et il reste plié en haut du mouvement.",
+          "erreur": "Tendre la jambe en position haute. C'est là que 90 % des gens trichent — et l'exercice ne sert alors plus à rien."
+        },
+        {
+          "nom": "Équilibre unipodal",
+          "dose": "3 × 45 s par pied",
+          "role": "Probablement le meilleur rendement de toute la liste, compte tenu de ton instabilité de cheville.",
+          "controle": "Fixe un point précis. Progresse ensuite : yeux fermés, puis sur un coussin.",
+          "erreur": "Regarder dans le vide. Sans point de fixation, l'exercice perd sa valeur proprioceptive."
+        },
+        {
+          "nom": "Dead bug",
+          "dose": "3 × 10",
+          "role": "Anti-rotation du tronc. Empêche l'énergie de se dissiper latéralement à chaque appui.",
+          "controle": "Le bas du dos reste plaqué au sol pendant tout le mouvement.",
+          "erreur": "Continuer quand le dos se décolle. Réduis l'amplitude plutôt que le nombre de séries."
+        }
+      ]
+    }
+  ]
+}
