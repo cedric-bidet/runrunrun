@@ -65,6 +65,7 @@ function demarrer() {
   rendreDiagnostic();
   rendreZones();
   rendreBlocs(blocActif);
+  rendreRegleCalendrier();
   rendreSemaines();
   rendreSeances();
   rendreStats();
@@ -87,7 +88,7 @@ function rendreTete() {
   const cible = A.chronos_10km.find((c) => c.type === 'cible');
   const j = joursDepuis(cible.date);
   $('#compteur-10k').innerHTML =
-    `<b>${j > 0 ? j : '—'}</b> jours avant la fenêtre 10 km <span style="color:var(--brume-2)">· ${esc(o10.fenetre)}</span>`;
+    `<b>${j > 0 ? j : '—'}</b> jours avant la course <span style="color:var(--brume-2)">· ${esc(o10.fenetre)}</span>`;
   $('#compteur-semi').innerHTML =
     `<b>${Math.round(joursDepuis('2027-06-13') / 7)}</b> semaines avant le semi Pégasus`;
 
@@ -184,6 +185,13 @@ function rendreBlocs(actif) {
 }
 
 /* ---------- Semaines ---------- */
+
+function rendreRegleCalendrier() {
+  const r = P.regle_calendrier;
+  if (!r) return;
+  $('#regle-calendrier').innerHTML =
+    `<h3 class="sous-titre">${esc(r.titre)}</h3><ul>${r.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>`;
+}
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
 const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifique', sortie_longue: 'Longue', renfo: 'Renfo', course: 'Course', reprise: 'Reprise', repos: 'Repos' };
