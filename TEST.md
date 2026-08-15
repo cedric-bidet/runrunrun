@@ -1,0 +1,1 @@
+Test d'accès en écriture.
