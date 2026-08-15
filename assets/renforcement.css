@@ -1,0 +1,67 @@
+/* ---------- Renforcement ---------- */
+
+.renfo-ress {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1px; background: var(--bord-fin); border: 1px solid var(--bord-fin);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 1.6rem;
+}
+.ress {
+  background: var(--fond-2); padding: 1rem 1.1rem 1.1rem;
+  display: block; text-decoration: none; color: inherit; transition: background 0.15s;
+}
+.ress:hover { background: var(--carte); }
+.ress:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.ress__src {
+  display: block; font-family: var(--mo); font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--brume-2); margin-bottom: 0.45rem;
+}
+.ress__titre {
+  display: block; font-family: var(--dp); font-variation-settings: "wdth" 95;
+  font-weight: 600; font-size: 0.95rem; line-height: 1.25; margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+.ress:hover .ress__titre { color: var(--accent); }
+.ress__note { display: block; font-size: 0.79rem; color: var(--brume); line-height: 1.45; }
+
+.renfo-bloc { margin-top: 2.6rem; }
+.renfo-duree {
+  font-family: var(--mo); font-size: 0.62rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--brume-2); margin-left: 0.5rem;
+  font-variation-settings: normal; font-weight: 400;
+}
+.exos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0.8rem; margin-top: 1rem;
+}
+.exo {
+  background: var(--fond-2); border: 1px solid var(--bord-fin);
+  border-radius: var(--r); padding: 1.1rem 1.2rem 1.2rem;
+}
+.exo__nom {
+  font-family: var(--dp); font-variation-settings: "wdth" 92; font-weight: 700;
+  font-size: 1rem; margin: 0 0 0.15rem; letter-spacing: -0.01em;
+}
+.exo__dose {
+  font-family: var(--mo); font-size: 0.72rem; color: var(--accent);
+  margin: 0 0 0.7rem; letter-spacing: 0.02em;
+}
+.exo__role { font-size: 0.83rem; color: var(--brume); margin: 0 0 0.9rem; }
+.exo__controle, .exo__erreur {
+  font-size: 0.82rem; margin: 0 0 0.5rem; padding-left: 0.8rem;
+  border-left: 2px solid var(--bord); color: var(--craie);
+}
+.exo__controle { border-left-color: var(--accent); }
+.exo__erreur { border-left-color: var(--alerte); color: var(--brume); margin-bottom: 0; }
+.exo__controle b, .exo__erreur b {
+  display: block; font-family: var(--mo); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.15rem;
+}
+.exo__controle b { color: var(--accent); }
+.exo__erreur b { color: var(--alerte); }
+
+.renfo-principe {
+  margin: 2.6rem 0 0; padding: 1rem 1.2rem;
+  background: var(--carte); border-radius: var(--r);
+  border-left: 2px solid var(--craie);
+  font-size: 0.92rem; max-width: 62ch;
+}
