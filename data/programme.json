@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "maj": "2026-08-15",
   "blocs": [
     {
@@ -114,13 +114,14 @@
       "titre": "Extension",
       "statut": "a_venir",
       "volume_cible_km": 20,
-      "objectif": "Stabiliser les 40 minutes et ajouter une sortie plus longue. Le renforcement démarre pour de bon.",
+      "objectif": "Stabiliser les 40 minutes et ajouter une sortie plus longue. Le renforcement démarre pour de bon. Semaine ramassée du lundi au vendredi : week-end avec les enfants.",
       "seances": [
         { "jour": "Lundi 17", "type": "z2", "libelle": "Z2, 40 min", "detail": "Plat, La Prairie ou bords de l'Orne. Avant 9h ou après 19h30.", "fait": false },
         { "jour": "Mardi 18", "type": "renfo", "libelle": "Renforcement A, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
         { "jour": "Mercredi 19", "type": "z2", "libelle": "Z2, 40 min", "detail": "Mêmes consignes. Viser un départ à 6:30/km ou plus lent.", "fait": false },
-        { "jour": "Vendredi 21", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
-        { "jour": "Samedi 22", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Première sortie au-delà de 45 min. Flasque d'eau si > 20 °C.", "fait": false }
+        { "jour": "Jeudi 20", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
+        { "jour": "Vendredi 21", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Sortie longue avancée au vendredi. Première fois au-delà de 45 min. Flasque d'eau si > 20 °C. Si le vendredi ne tient pas, bascule-la au jeudi et le renforcement au vendredi — l'ordre importe peu, la séance oui.", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Deux jours pleins sans course après la sortie longue. À ce stade du bloc, c'est de la récupération utile, pas du temps perdu.", "fait": false }
       ],
       "bilan": null
     },
@@ -138,7 +139,7 @@
         { "jour": "Mardi 25", "type": "renfo", "libelle": "Renforcement A, 25 min", "detail": "", "fait": false },
         { "jour": "Mercredi 26", "type": "z2", "libelle": "Z2, 40 min + 6 lignes droites", "detail": "6 × 20 s en accélération progressive sur terrain plat, récupération marchée complète. Pas un fractionné : un rappel neuromusculaire.", "fait": false },
         { "jour": "Vendredi 28", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "", "fait": false },
-        { "jour": "Samedi 29", "type": "sortie_longue", "libelle": "Z2, 55 min", "detail": "Plus longue sortie depuis la reprise.", "fait": false }
+        { "jour": "Samedi 29", "type": "sortie_longue", "libelle": "Z2, 55 min", "detail": "Plus longue sortie depuis la reprise. Même parcours plat que le 15 août, même heure : c'est ton test de référence, la comparaison sera propre.", "fait": false }
       ],
       "bilan": null
     },
