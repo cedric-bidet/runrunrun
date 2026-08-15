@@ -1,87 +1,27 @@
 {
-  "version": "1.1",
+  "version": "2.0",
   "maj": "2026-08-15",
+  "regle_calendrier": {
+    "titre": "La contrainte structure le plan",
+    "points": [
+      "Semaines impaires (35, 37, 39…) — week-end libre : qualité le mardi, Z2 le jeudi, sortie longue le samedi.",
+      "Semaines paires (34, 36, 38…) — enfants le week-end : tout est ramassé du lundi au vendredi. Qualité le lundi, Z2 le mercredi, sortie longue le vendredi.",
+      "À partir du 2 septembre, mercredis et jeudis soir pris : ces jours-là, on court en fin de matinée.",
+      "Course objectif fixée au dimanche 22 novembre — un week-end sans garde, avec une semaine d'affûtage complète derrière."
+    ]
+  },
   "blocs": [
-    {
-      "id": "b1",
-      "nom": "Reconstruction aérobie",
-      "debut": "2026-08-03",
-      "fin": "2026-08-30",
-      "couleur": "#3FB39B",
-      "zone_dominante": "Z2",
-      "intention": "Reconstruire la base après un mois d'arrêt. Tout sous 155 bpm, sans exception. Introduction du renforcement pendant que l'intensité est basse.",
-      "sortie_cle": "Allonger la durée, jamais l'allure."
-    },
-    {
-      "id": "b2",
-      "nom": "Calibrage",
-      "debut": "2026-08-31",
-      "fin": "2026-09-06",
-      "couleur": "#4E8BA8",
-      "zone_dominante": "Z2",
-      "intention": "Test de terrain demi-Cooper pour poser une VMA réelle et en déduire des allures de seuil justes.",
-      "sortie_cle": "6 minutes à fond. Distance ÷ 100 = VMA en km/h."
-    },
-    {
-      "id": "b3",
-      "nom": "Seuil & économie",
-      "debut": "2026-09-07",
-      "fin": "2026-10-18",
-      "couleur": "#E07C3E",
-      "zone_dominante": "Z4",
-      "intention": "Le bloc décisif. Repousser le seuil lactique pour pouvoir tenir 4:59/km sans saturer. Le renforcement bascule sur du pliométrique léger.",
-      "sortie_cle": "Fractionné long au seuil : 2×8 min → 2×15 min."
-    },
-    {
-      "id": "b4",
-      "nom": "Spécifique 10 km",
-      "debut": "2026-10-19",
-      "fin": "2026-11-15",
-      "couleur": "#D4514B",
-      "zone_dominante": "Z4-Z5",
-      "intention": "Rendre l'allure 4:55–5:00/km familière et confortable. Puis affûter : volume en baisse, intensité maintenue.",
-      "sortie_cle": "Répétitions de 1000 m à l'allure objectif."
-    },
-    {
-      "id": "b5",
-      "nom": "Transition & base hivernale",
-      "debut": "2026-11-16",
-      "fin": "2027-01-31",
-      "couleur": "#4E8BA8",
-      "zone_dominante": "Z2",
-      "intention": "Digérer le bloc 10 km, puis remonter progressivement le volume vers 40–45 km/semaine. Introduction de la sortie longue au-delà de 1h15.",
-      "sortie_cle": "Sortie longue hebdomadaire, en Z2 strict."
-    },
-    {
-      "id": "b6",
-      "nom": "Développement semi",
-      "debut": "2027-02-01",
-      "fin": "2027-04-25",
-      "couleur": "#E0B84C",
-      "zone_dominante": "Z3-Z4",
-      "intention": "Endurance au seuil : le semi se joue sur la capacité à tenir une allure élevée longtemps, pas sur la VMA.",
-      "sortie_cle": "Tempo long : 3×20 min, puis 40 min continues."
-    },
-    {
-      "id": "b7",
-      "nom": "Spécifique semi & affûtage",
-      "debut": "2027-04-26",
-      "fin": "2027-06-20",
-      "couleur": "#D4514B",
-      "zone_dominante": "Z3",
-      "intention": "Allure semi en conditions réelles, gestion de la nutrition et de l'hydratation, reconnaissance du parcours Pégasus.",
-      "sortie_cle": "Sortie longue avec 2×5 km à l'allure course."
-    }
+    { "id": "b1", "nom": "Reconstruction aérobie", "debut": "2026-08-03", "fin": "2026-08-30", "couleur": "#3FB39B", "zone_dominante": "Z2", "intention": "Reconstruire la base après un mois d'arrêt. Tout sous 155 bpm, sans exception. Introduction du renforcement pendant que l'intensité est basse.", "sortie_cle": "Allonger la durée, jamais l'allure." },
+    { "id": "b2", "nom": "Calibrage", "debut": "2026-08-31", "fin": "2026-09-06", "couleur": "#4E8BA8", "zone_dominante": "Z2", "intention": "Test de terrain demi-Cooper pour poser une VMA réelle et en déduire des allures de seuil justes.", "sortie_cle": "6 minutes à fond. Distance ÷ 100 = VMA en km/h." },
+    { "id": "b3", "nom": "Seuil & économie", "debut": "2026-09-07", "fin": "2026-10-18", "couleur": "#E07C3E", "zone_dominante": "Z4", "intention": "Le bloc décisif. Repousser le seuil lactique pour pouvoir tenir 4:59/km sans saturer. Le renforcement bascule sur du pliométrique léger.", "sortie_cle": "Fractionné long au seuil : 2×8 min → 2×15 min." },
+    { "id": "b4", "nom": "Spécifique 10 km", "debut": "2026-10-19", "fin": "2026-11-22", "couleur": "#D4514B", "zone_dominante": "Z4-Z5", "intention": "Rendre l'allure 4:55–5:00/km familière et confortable, puis affûter : volume en baisse, intensité maintenue. Course le dimanche 22 novembre.", "sortie_cle": "Répétitions de 1000 m à l'allure objectif." },
+    { "id": "b5", "nom": "Transition & base hivernale", "debut": "2026-11-23", "fin": "2027-01-31", "couleur": "#4E8BA8", "zone_dominante": "Z2", "intention": "Digérer le bloc 10 km, puis remonter progressivement le volume vers 40–45 km/semaine. Introduction de la sortie longue au-delà de 1h15.", "sortie_cle": "Sortie longue hebdomadaire, en Z2 strict." },
+    { "id": "b6", "nom": "Développement semi", "debut": "2027-02-01", "fin": "2027-04-25", "couleur": "#E0B84C", "zone_dominante": "Z3-Z4", "intention": "Endurance au seuil : le semi se joue sur la capacité à tenir une allure élevée longtemps, pas sur la VMA.", "sortie_cle": "Tempo long : 3×20 min, puis 40 min continues." },
+    { "id": "b7", "nom": "Spécifique semi & affûtage", "debut": "2027-04-26", "fin": "2027-06-20", "couleur": "#D4514B", "zone_dominante": "Z3", "intention": "Allure semi en conditions réelles, gestion de la nutrition et de l'hydratation, reconnaissance du parcours Pégasus.", "sortie_cle": "Sortie longue avec 2×5 km à l'allure course." }
   ],
   "semaines": [
     {
-      "num": 32,
-      "bloc": "b1",
-      "debut": "2026-08-03",
-      "fin": "2026-08-09",
-      "titre": "Reprise",
-      "statut": "termine",
-      "volume_cible_km": 10,
+      "num": 32, "bloc": "b1", "debut": "2026-08-03", "fin": "2026-08-09", "titre": "Reprise", "statut": "termine", "volume_cible_km": 10,
       "objectif": "Remettre la machine en route après un mois complet sans courir. Aucun objectif d'allure.",
       "seances": [
         { "jour": "Jeudi 6", "type": "z2", "libelle": "Sortie de reprise, 35–40 min", "detail": "Tournus, en vacances. Terrain vallonné.", "fait": true },
@@ -90,13 +30,7 @@
       "bilan": "Reprise réussie sur le plan de l'assiduité. La première sortie est partie trop vite pour une reprise ; la seconde a corrigé le tir."
     },
     {
-      "num": 33,
-      "bloc": "b1",
-      "debut": "2026-08-10",
-      "fin": "2026-08-16",
-      "titre": "Contrôle cardiaque",
-      "statut": "en_cours",
-      "volume_cible_km": 15,
+      "num": 33, "bloc": "b1", "debut": "2026-08-10", "fin": "2026-08-16", "titre": "Contrôle cardiaque", "statut": "en_cours", "volume_cible_km": 15,
       "objectif": "Trois sorties Z2, en allongeant la durée : 30 / 30 / 40 min. Départ lent obligatoire sur les 10 premières minutes.",
       "seances": [
         { "jour": "Lundi 10", "type": "z2", "libelle": "Z2, 35 min", "detail": "Sortie du midi — mauvais créneau horaire.", "fait": true },
@@ -107,217 +41,161 @@
       "bilan": "Trois sorties sur trois, dont la meilleure séance depuis la reprise le 15. Le renforcement n'a pas démarré : c'est le seul point noir de la semaine."
     },
     {
-      "num": 34,
-      "bloc": "b1",
-      "debut": "2026-08-17",
-      "fin": "2026-08-23",
-      "titre": "Extension",
-      "statut": "a_venir",
-      "volume_cible_km": 20,
-      "objectif": "Stabiliser les 40 minutes et ajouter une sortie plus longue. Le renforcement démarre pour de bon. Semaine ramassée du lundi au vendredi : week-end avec les enfants.",
+      "num": 34, "bloc": "b1", "debut": "2026-08-17", "fin": "2026-08-23", "titre": "Extension", "statut": "a_venir", "volume_cible_km": 20,
+      "objectif": "Stabiliser les 40 minutes et passer à 50. Le renforcement démarre pour de bon. Semaine ramassée du lundi au vendredi.",
       "seances": [
-        { "jour": "Lundi 17", "type": "z2", "libelle": "Z2, 40 min", "detail": "Plat, La Prairie ou bords de l'Orne. Avant 9h ou après 19h30.", "fait": false },
+        { "jour": "Lundi 17", "type": "z2", "libelle": "Z2, 40 min", "detail": "Plat, La Prairie ou bords de l'Orne. Fin de matinée.", "fait": false },
         { "jour": "Mardi 18", "type": "renfo", "libelle": "Renforcement A, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
-        { "jour": "Mercredi 19", "type": "z2", "libelle": "Z2, 40 min", "detail": "Mêmes consignes. Viser un départ à 6:30/km ou plus lent.", "fait": false },
+        { "jour": "Mercredi 19", "type": "z2", "libelle": "Z2, 40 min", "detail": "Viser un départ à 6:30/km ou plus lent.", "fait": false },
         { "jour": "Jeudi 20", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
-        { "jour": "Vendredi 21", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Sortie longue avancée au vendredi. Première fois au-delà de 45 min. Flasque d'eau si > 20 °C. Si le vendredi ne tient pas, bascule-la au jeudi et le renforcement au vendredi — l'ordre importe peu, la séance oui.", "fait": false },
-        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Deux jours pleins sans course après la sortie longue. À ce stade du bloc, c'est de la récupération utile, pas du temps perdu.", "fait": false }
+        { "jour": "Vendredi 21", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Sortie longue avancée au vendredi. Première fois au-delà de 45 min. Flasque d'eau si > 20 °C.", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 35,
-      "bloc": "b1",
-      "debut": "2026-08-24",
-      "fin": "2026-08-30",
-      "titre": "Consolidation",
-      "statut": "a_venir",
-      "volume_cible_km": 24,
-      "objectif": "Dernière semaine de base pure. On atteint 55 minutes sur la sortie longue, et on introduit les lignes droites pour préparer le corps à l'intensité de septembre.",
+      "num": 35, "bloc": "b1", "debut": "2026-08-24", "fin": "2026-08-30", "titre": "Consolidation", "statut": "a_venir", "volume_cible_km": 24,
+      "objectif": "Dernière semaine de base pure. 55 minutes sur la sortie longue, et introduction des lignes droites pour préparer le corps à l'intensité de septembre.",
       "seances": [
         { "jour": "Lundi 24", "type": "z2", "libelle": "Z2, 45 min", "detail": "", "fait": false },
-        { "jour": "Mardi 25", "type": "renfo", "libelle": "Renforcement A, 25 min", "detail": "", "fait": false },
+        { "jour": "Mardi 25", "type": "renfo", "libelle": "Renforcement A, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
         { "jour": "Mercredi 26", "type": "z2", "libelle": "Z2, 40 min + 6 lignes droites", "detail": "6 × 20 s en accélération progressive sur terrain plat, récupération marchée complète. Pas un fractionné : un rappel neuromusculaire.", "fait": false },
-        { "jour": "Vendredi 28", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "", "fait": false },
-        { "jour": "Samedi 29", "type": "sortie_longue", "libelle": "Z2, 55 min", "detail": "Plus longue sortie depuis la reprise. Même parcours plat que le 15 août, même heure : c'est ton test de référence, la comparaison sera propre.", "fait": false }
+        { "jour": "Vendredi 28", "type": "renfo", "libelle": "Renforcement B, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
+        { "jour": "Samedi 29", "type": "sortie_longue", "libelle": "Z2, 55 min", "detail": "Même parcours plat et même heure que le 15 août : c'est ton test de référence, la comparaison sera propre.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 36,
-      "bloc": "b2",
-      "debut": "2026-08-31",
-      "fin": "2026-09-06",
-      "titre": "Test VMA",
-      "statut": "a_venir",
-      "volume_cible_km": 20,
-      "objectif": "Poser un chiffre réel sur ta VMA. Toutes les allures du bloc seuil en découleront.",
+      "num": 36, "bloc": "b2", "debut": "2026-08-31", "fin": "2026-09-06", "titre": "Test VMA", "statut": "a_venir", "volume_cible_km": 20,
+      "objectif": "Poser un chiffre réel sur ta VMA. Toutes les allures du bloc seuil en découleront. Première semaine avec les mercredis et jeudis soir pris : le test passe en fin de matinée.",
       "seances": [
         { "jour": "Lundi 31", "type": "z2", "libelle": "Z2, 40 min", "detail": "Sortie facile — surtout ne pas arriver fatigué au test.", "fait": false },
-        { "jour": "Mercredi 2", "type": "vma", "libelle": "Test demi-Cooper", "detail": "Échauffement 20 min Z1-Z2 + 3 lignes droites. Puis 6 min à fond, sur piste ou boucle plate mesurée. Distance en mètres ÷ 100 = VMA en km/h. Retour au calme 10 min.", "fait": false },
-        { "jour": "Vendredi 4", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "", "fait": false },
-        { "jour": "Samedi 5", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Récupération active après le test.", "fait": false }
+        { "jour": "Mardi 1er", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
+        { "jour": "Mercredi 2", "type": "vma", "libelle": "Test demi-Cooper", "detail": "En fin de matinée. Échauffement 20 min Z1-Z2 + 3 lignes droites. Puis 6 min à fond, sur piste ou boucle plate mesurée. Distance en mètres ÷ 100 = VMA en km/h. Retour au calme 10 min.", "fait": false },
+        { "jour": "Vendredi 4", "type": "sortie_longue", "libelle": "Z2, 50 min", "detail": "Récupération active après le test.", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 37,
-      "bloc": "b3",
-      "debut": "2026-09-07",
-      "fin": "2026-09-13",
-      "titre": "Entrée dans le seuil",
-      "statut": "a_venir",
-      "volume_cible_km": 22,
+      "num": 37, "bloc": "b3", "debut": "2026-09-07", "fin": "2026-09-13", "titre": "Entrée dans le seuil", "statut": "a_venir", "volume_cible_km": 22,
       "objectif": "Première séance de seuil depuis très longtemps. Volontairement courte : l'objectif est la sensation, pas la performance.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "2 × 8 min au seuil, récup 3 min trot", "detail": "Allure cible à confirmer après le test VMA — vraisemblablement autour de 5:25–5:35/km. FC visée 162–172. Si la FC dépasse 175, tu es trop rapide.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 40 min", "detail": "Récupération. Vraiment lent.", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 60 min", "detail": "", "fait": false },
-        { "jour": "1 séance", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "On passe à une séance par semaine pendant les blocs intensifs.", "fait": false }
+        { "jour": "Lundi 7", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
+        { "jour": "Mardi 8", "type": "seuil", "libelle": "2 × 8 min au seuil, récup 3 min trot", "detail": "Allure à confirmer après le test VMA — vraisemblablement 5:25–5:35/km. FC visée 162–172. Au-delà de 175, tu es trop rapide.", "fait": false },
+        { "jour": "Jeudi 10", "type": "z2", "libelle": "Z2, 40 min", "detail": "En journée, le soir est pris. Récupération : vraiment lent.", "fait": false },
+        { "jour": "Samedi 12", "type": "sortie_longue", "libelle": "Z2, 60 min", "detail": "Week-end libre.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 38,
-      "bloc": "b3",
-      "debut": "2026-09-14",
-      "fin": "2026-09-20",
-      "titre": "Volume au seuil",
-      "statut": "a_venir",
-      "volume_cible_km": 24,
-      "objectif": "Augmenter le temps passé au seuil sans toucher à l'allure.",
+      "num": 38, "bloc": "b3", "debut": "2026-09-14", "fin": "2026-09-20", "titre": "Volume au seuil", "statut": "a_venir", "volume_cible_km": 22,
+      "objectif": "Augmenter le temps passé au seuil sans toucher à l'allure. Semaine de garde : tout se joue du lundi au vendredi.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "3 × 8 min au seuil, récup 3 min", "detail": "24 min au seuil au total.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 45 min", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 65 min", "detail": "", "fait": false }
+        { "jour": "Lundi 14", "type": "seuil", "libelle": "3 × 8 min au seuil, récup 3 min", "detail": "24 min au seuil au total.", "fait": false },
+        { "jour": "Mardi 15", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
+        { "jour": "Mercredi 16", "type": "z2", "libelle": "Z2, 40 min", "detail": "En journée.", "fait": false },
+        { "jour": "Vendredi 18", "type": "sortie_longue", "libelle": "Z2, 60 min", "detail": "La sortie longue de la semaine, décalée au vendredi.", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 39,
-      "bloc": "b3",
-      "debut": "2026-09-21",
-      "fin": "2026-09-27",
-      "titre": "Blocs longs",
-      "statut": "a_venir",
-      "volume_cible_km": 25,
+      "num": 39, "bloc": "b3", "debut": "2026-09-21", "fin": "2026-09-27", "titre": "Blocs longs", "statut": "a_venir", "volume_cible_km": 25,
       "objectif": "Fractions plus longues, moins nombreuses. Le seuil devient une allure tenable, plus un effort.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "2 × 12 min au seuil, récup 4 min", "detail": "", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 45 min + 6 lignes droites", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "", "fait": false }
+        { "jour": "Lundi 21", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
+        { "jour": "Mardi 22", "type": "seuil", "libelle": "2 × 12 min au seuil, récup 4 min", "detail": "", "fait": false },
+        { "jour": "Jeudi 24", "type": "z2", "libelle": "Z2, 45 min + 6 lignes droites", "detail": "En journée.", "fait": false },
+        { "jour": "Samedi 26", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "Week-end libre — la plus longue du bloc jusqu'ici.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 40,
-      "bloc": "b3",
-      "debut": "2026-09-28",
-      "fin": "2026-10-04",
-      "titre": "Semaine allégée",
-      "statut": "a_venir",
-      "volume_cible_km": 18,
-      "objectif": "Absorber les trois semaines précédentes. Le progrès se construit pendant la récupération, pas pendant la charge.",
+      "num": 40, "bloc": "b3", "debut": "2026-09-28", "fin": "2026-10-04", "titre": "Semaine allégée", "statut": "a_venir", "volume_cible_km": 18,
+      "objectif": "Absorber les trois semaines précédentes. Le progrès se construit pendant la récupération, pas pendant la charge. La semaine de garde tombe au bon moment.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "20 min de tempo continu", "detail": "Un seul bloc, légèrement plus lent que le seuil. Test de tenue mentale.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 35 min", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "z2", "libelle": "Z2, 50 min", "detail": "", "fait": false }
+        { "jour": "Lundi 28", "type": "seuil", "libelle": "20 min de tempo continu", "detail": "Un seul bloc, légèrement plus lent que le seuil. Test de tenue mentale.", "fait": false },
+        { "jour": "Mercredi 30", "type": "z2", "libelle": "Z2, 35 min", "detail": "", "fait": false },
+        { "jour": "Vendredi 2", "type": "z2", "libelle": "Z2, 50 min", "detail": "", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 41,
-      "bloc": "b3",
-      "debut": "2026-10-05",
-      "fin": "2026-10-11",
-      "titre": "Charge maximale au seuil",
-      "statut": "a_venir",
-      "volume_cible_km": 28,
+      "num": 41, "bloc": "b3", "debut": "2026-10-05", "fin": "2026-10-11", "titre": "Charge maximale au seuil", "statut": "a_venir", "volume_cible_km": 28,
       "objectif": "Le pic du bloc seuil. C'est cette semaine qui détermine si le sub-50 est atteignable en novembre.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "2 × 15 min au seuil, récup 4 min", "detail": "30 min au seuil. Séance de référence.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 45 min", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 75 min", "detail": "", "fait": false }
+        { "jour": "Lundi 5", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
+        { "jour": "Mardi 6", "type": "seuil", "libelle": "2 × 15 min au seuil, récup 4 min", "detail": "30 min au seuil. Séance de référence du bloc.", "fait": false },
+        { "jour": "Jeudi 8", "type": "z2", "libelle": "Z2, 45 min", "detail": "En journée.", "fait": false },
+        { "jour": "Samedi 10", "type": "sortie_longue", "libelle": "Z2, 75 min", "detail": "Week-end libre.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 42,
-      "bloc": "b3",
-      "debut": "2026-10-12",
-      "fin": "2026-10-18",
-      "titre": "Transition vers le spécifique",
-      "statut": "a_venir",
-      "volume_cible_km": 25,
+      "num": 42, "bloc": "b3", "debut": "2026-10-12", "fin": "2026-10-18", "titre": "Transition vers le spécifique", "statut": "a_venir", "volume_cible_km": 24,
       "objectif": "Basculer du seuil vers l'allure course. On commence à toucher au 4:55/km.",
       "seances": [
-        { "jour": "Mardi", "type": "seuil", "libelle": "3 × 10 min, dont le dernier à l'allure 10 km", "detail": "", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 40 min + 8 côtes courtes de 15 s", "detail": "Puissance et raideur du tendon d'Achille. Récupération en descente marchée.", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "", "fait": false }
+        { "jour": "Lundi 12", "type": "seuil", "libelle": "3 × 10 min, dont le dernier à l'allure 10 km", "detail": "", "fait": false },
+        { "jour": "Mercredi 14", "type": "z2", "libelle": "Z2, 40 min + 8 côtes courtes de 15 s", "detail": "Puissance et raideur du tendon d'Achille. Récupération en descente marchée.", "fait": false },
+        { "jour": "Vendredi 16", "type": "sortie_longue", "libelle": "Z2, 65 min", "detail": "", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 43,
-      "bloc": "b4",
-      "debut": "2026-10-19",
-      "fin": "2026-10-25",
-      "titre": "Allure objectif",
-      "statut": "a_venir",
-      "volume_cible_km": 26,
+      "num": 43, "bloc": "b4", "debut": "2026-10-19", "fin": "2026-10-25", "titre": "Allure objectif", "statut": "a_venir", "volume_cible_km": 26,
       "objectif": "Rendre le 4:55/km familier. Sur des fractions courtes, ça doit paraître presque facile.",
       "seances": [
-        { "jour": "Mardi", "type": "specifique", "libelle": "5 × 1000 m à 4:55/km, récup 90 s trot", "detail": "Si le dernier 1000 est plus rapide que le premier, la séance est réussie.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 40 min", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "", "fait": false }
+        { "jour": "Lundi 19", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Squat bulgare 3×8/jambe · mollets genou fléchi (soléaire) 3×15 · équilibre unipodal 3×45 s/pied · dead bug 3×10.", "fait": false },
+        { "jour": "Mardi 20", "type": "specifique", "libelle": "5 × 1000 m à 4:55/km, récup 90 s trot", "detail": "Si le dernier 1000 est plus rapide que le premier, la séance est réussie.", "fait": false },
+        { "jour": "Jeudi 22", "type": "z2", "libelle": "Z2, 40 min", "detail": "En journée.", "fait": false },
+        { "jour": "Samedi 24", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "Week-end libre.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 44,
-      "bloc": "b4",
-      "debut": "2026-10-26",
-      "fin": "2026-11-01",
-      "titre": "Densité",
-      "statut": "a_venir",
-      "volume_cible_km": 28,
+      "num": 44, "bloc": "b4", "debut": "2026-10-26", "fin": "2026-11-01", "titre": "Densité", "statut": "a_venir", "volume_cible_km": 26,
       "objectif": "Plus de volume à l'allure course, récupérations raccourcies.",
       "seances": [
-        { "jour": "Mardi", "type": "specifique", "libelle": "6 × 1000 m à 4:55/km, récup 75 s", "detail": "", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 40 min + lignes droites", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "sortie_longue", "libelle": "Z2, 65 min", "detail": "", "fait": false }
+        { "jour": "Lundi 26", "type": "specifique", "libelle": "6 × 1000 m à 4:55/km, récup 75 s", "detail": "", "fait": false },
+        { "jour": "Mercredi 28", "type": "z2", "libelle": "Z2, 40 min + lignes droites", "detail": "", "fait": false },
+        { "jour": "Vendredi 30", "type": "sortie_longue", "libelle": "Z2, 60 min", "detail": "", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos, ou 20–25 min très tranquilles avec eux si l'envie est là — sans montre, sans objectif.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 45,
-      "bloc": "b4",
-      "debut": "2026-11-02",
-      "fin": "2026-11-08",
-      "titre": "Début d'affûtage",
-      "statut": "a_venir",
-      "volume_cible_km": 22,
-      "objectif": "Le volume baisse de 30 %, l'intensité reste. La fraîcheur remonte.",
+      "num": 45, "bloc": "b4", "debut": "2026-11-02", "fin": "2026-11-08", "titre": "Dernier gros bloc", "statut": "a_venir", "volume_cible_km": 28,
+      "objectif": "La dernière semaine de charge réelle. À partir de lundi prochain, on ne fait plus que retirer.",
       "seances": [
-        { "jour": "Mardi", "type": "specifique", "libelle": "4 × 1500 m à 5:00/km, récup 2 min", "detail": "", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 35 min", "detail": "", "fait": false },
-        { "jour": "Samedi", "type": "z2", "libelle": "Z2, 50 min", "detail": "", "fait": false }
+        { "jour": "Lundi 2", "type": "renfo", "libelle": "Renforcement, 25 min", "detail": "Fentes marchées 3×10/jambe · montées de banc 3×10/jambe · mollets genou tendu 3×15 · gainage latéral 3×30 s/côté.", "fait": false },
+        { "jour": "Mardi 3", "type": "specifique", "libelle": "4 × 1500 m à 5:00/km, récup 2 min", "detail": "", "fait": false },
+        { "jour": "Jeudi 5", "type": "z2", "libelle": "Z2, 40 min", "detail": "En journée.", "fait": false },
+        { "jour": "Samedi 7", "type": "sortie_longue", "libelle": "Z2, 70 min", "detail": "Dernière sortie longue avant la course.", "fait": false }
       ],
       "bilan": null
     },
     {
-      "num": 46,
-      "bloc": "b4",
-      "debut": "2026-11-09",
-      "fin": "2026-11-15",
-      "titre": "Affûtage & course",
-      "statut": "a_venir",
-      "volume_cible_km": 16,
+      "num": 46, "bloc": "b4", "debut": "2026-11-09", "fin": "2026-11-15", "titre": "Début d'affûtage", "statut": "a_venir", "volume_cible_km": 20,
+      "objectif": "Le volume baisse de 30 %, l'intensité reste. La semaine de garde tombe parfaitement : deux jours de repos complet en fin de semaine, c'est exactement ce que demande un affûtage.",
+      "seances": [
+        { "jour": "Lundi 9", "type": "specifique", "libelle": "5 × 1000 m à 4:55/km, récup 90 s", "detail": "", "fait": false },
+        { "jour": "Mercredi 11", "type": "z2", "libelle": "Z2, 35 min", "detail": "", "fait": false },
+        { "jour": "Vendredi 13", "type": "z2", "libelle": "Z2, 45 min", "detail": "", "fait": false },
+        { "jour": "Week-end", "type": "repos", "libelle": "Repos — enfants", "detail": "Week-end avec les enfants. Repos complet : c'est le meilleur affûtage possible.", "fait": false }
+      ],
+      "bilan": null
+    },
+    {
+      "num": 47, "bloc": "b4", "debut": "2026-11-16", "fin": "2026-11-22", "titre": "Affûtage & course", "statut": "a_venir", "volume_cible_km": 16,
       "objectif": "Arriver frais. Rien de ce que tu feras cette semaine ne peut te rendre plus fort — mais beaucoup de choses peuvent te fatiguer.",
       "seances": [
-        { "jour": "Mardi", "type": "specifique", "libelle": "3 × 1000 m à 4:55/km, récup 2 min", "detail": "Sensation, pas performance.", "fait": false },
-        { "jour": "Jeudi", "type": "z2", "libelle": "Z2, 25 min + 4 lignes droites", "detail": "", "fait": false },
-        { "jour": "Dimanche", "type": "course", "libelle": "10 km — objectif sub-50", "detail": "Plan de course : km 1–3 à 5:03, km 4–7 à 4:58, km 8–10 à tout ce qui reste. Le négatif split du 7 juin est ton modèle, pas le 4 juillet.", "fait": false }
+        { "jour": "Mardi 17", "type": "specifique", "libelle": "3 × 1000 m à 4:55/km, récup 2 min", "detail": "Sensation, pas performance. Si ça paraît dur, ralentis.", "fait": false },
+        { "jour": "Jeudi 19", "type": "z2", "libelle": "Z2, 25 min + 4 lignes droites", "detail": "", "fait": false },
+        { "jour": "Samedi 21", "type": "z2", "libelle": "20 min très faciles + 3 lignes droites", "detail": "Déverrouiller les jambes, rien de plus.", "fait": false },
+        { "jour": "Dimanche 22", "type": "course", "libelle": "10 km — objectif sub-50", "detail": "Plan de course : km 1–3 à 5:03, km 4–7 à 4:58, km 8–10 à tout ce qui reste. Le négatif split du 7 juin est ton modèle, pas le 4 juillet.", "fait": false }
       ],
       "bilan": null
     }
