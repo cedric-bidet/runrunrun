@@ -1,4 +1,4 @@
-/* Carnet d'entraînement — rendu à partir des trois fichiers JSON de data/. */
+/* Carnet d'entraînement — rendu à partir des fichiers JSON de data/. */
 
 const $ = (s) => document.querySelector(s);
 const MOIS = ['janv.','févr.','mars','avril','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
@@ -38,7 +38,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 
 /* ---------- État ---------- */
 
-let A, P, S, ZONES;
+let A, P, S, R, ZONES;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
 /* ---------- Chargement ---------- */
@@ -46,9 +46,10 @@ const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc 
 Promise.all([
   fetch('data/athlete.json').then((r) => r.json()),
   fetch('data/programme.json').then((r) => r.json()),
-  fetch('data/seances.json').then((r) => r.json())
-]).then(([a, p, s]) => {
-  A = a; P = p; S = s.seances; ZONES = a.zones;
+  fetch('data/seances.json').then((r) => r.json()),
+  fetch('data/renforcement.json').then((r) => r.json())
+]).then(([a, p, s, r]) => {
+  A = a; P = p; S = s.seances; R = r; ZONES = a.zones;
   S.sort((x, y) => y.date.localeCompare(x.date));
   demarrer();
 }).catch((e) => {
@@ -67,6 +68,7 @@ function demarrer() {
   rendreBlocs(blocActif);
   rendreRegleCalendrier();
   rendreSemaines();
+  rendreRenfo();
   rendreSeances();
   rendreStats();
 
@@ -246,6 +248,35 @@ function rendreSemaines(filtre = 'tout') {
       });
     });
   }
+}
+
+/* ---------- Renforcement ---------- */
+
+function rendreRenfo() {
+  if (!R) return;
+  $('#renfo-intro').textContent = R.intro;
+  $('#renfo-avertissement').textContent = R.avertissement;
+  $('#renfo-principe').textContent = R.principe;
+
+  $('#renfo-ressources').innerHTML = `<div class="renfo-ress">${R.ressources.map((r) => `
+    <a class="ress" href="${esc(r.url)}" target="_blank" rel="noopener">
+      <span class="ress__src">${esc(r.source)} · ${esc(r.duree)}</span>
+      <span class="ress__titre">${esc(r.titre)}</span>
+      <span class="ress__note">${esc(r.note)}</span>
+    </a>`).join('')}</div>`;
+
+  $('#renfo-blocs').innerHTML = R.blocs.map((b) => `
+    <div class="renfo-bloc">
+      <h3 class="sous-titre">${esc(b.nom)} <span class="renfo-duree">${esc(b.duree)}</span></h3>
+      <div class="exos">${b.exercices.map((e) => `
+        <article class="exo">
+          <h4 class="exo__nom">${esc(e.nom)}</h4>
+          <p class="exo__dose">${esc(e.dose)}</p>
+          <p class="exo__role">${esc(e.role)}</p>
+          <p class="exo__controle"><b>Point de contrôle</b>${esc(e.controle)}</p>
+          <p class="exo__erreur"><b>Erreur fréquente</b>${esc(e.erreur)}</p>
+        </article>`).join('')}</div>
+    </div>`).join('');
 }
 
 /* ---------- Séances ---------- */
