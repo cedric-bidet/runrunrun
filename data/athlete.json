@@ -1,0 +1,134 @@
+{
+  "prenom": "Cédric",
+  "ville": "Caen",
+  "maj": "2026-08-15",
+  "physio": {
+    "fc_max": 187,
+    "fc_repos": 63,
+    "reserve": 124,
+    "plafond_z2_pratique": 155,
+    "vo2max_garmin": 47,
+    "vdot_course": 36,
+    "vma_estimee": "12,0 – 12,5 km/h",
+    "note_plafond": "Plafond Z2 relevé de 150 à 155 bpm après validation du test de la parole à 155–158 bpm. Le calcul théorique sous-estimait ta zone réelle."
+  },
+  "zones": [
+    {
+      "id": "Z1",
+      "nom": "Endurance très légère",
+      "min": 125,
+      "max": 137,
+      "couleur": "#4E8BA8",
+      "role": "Récupération, décrassage"
+    },
+    {
+      "id": "Z2",
+      "nom": "Endurance fondamentale",
+      "min": 137,
+      "max": 150,
+      "couleur": "#3FB39B",
+      "role": "Base aérobie, mitochondries, capillarisation"
+    },
+    {
+      "id": "Z3",
+      "nom": "Tempo",
+      "min": 150,
+      "max": 162,
+      "couleur": "#E0B84C",
+      "role": "Zone grise — utile en bloc, coûteuse en base"
+    },
+    {
+      "id": "Z4",
+      "nom": "Seuil lactique",
+      "min": 162,
+      "max": 175,
+      "couleur": "#E07C3E",
+      "role": "Le levier n°1 pour passer sous 50 min"
+    },
+    {
+      "id": "Z5",
+      "nom": "VMA / VO2max",
+      "min": 175,
+      "max": 187,
+      "couleur": "#D4514B",
+      "role": "Outil final, après le seuil"
+    }
+  ],
+  "objectifs": [
+    {
+      "id": "sub50",
+      "titre": "Passer sous 50 minutes au 10 km",
+      "cible_chrono": 2999,
+      "allure_cible": "4:59 / km",
+      "fenetre": "Octobre – novembre 2026",
+      "statut": "en cours",
+      "note": "Course non encore choisie. Décision à prendre fin septembre, une fois le bloc seuil engagé."
+    },
+    {
+      "id": "semi",
+      "titre": "Semi-marathon Pégasus",
+      "cible_chrono": null,
+      "allure_cible": "à définir après le 10 km",
+      "fenetre": "Juin 2027 — Marathon de la Liberté, Caen",
+      "statut": "planifié",
+      "note": "Même socle aérobie que le 10 km. Le sub-50 est la marche intermédiaire, pas un détour."
+    }
+  ],
+  "chronos_10km": [
+    {
+      "date": "2025-12-24",
+      "libelle": "10,07 km en solo",
+      "temps_s": 2984,
+      "allure": "4:58 / km",
+      "type": "reference",
+      "note": "Chrono réel 50:06 sur 10,07 km — soit 49:44 ramené à 10 km pile. Sortie non chronométrée officiellement."
+    },
+    {
+      "date": "2026-06-07",
+      "libelle": "10 km de la Liberté",
+      "temps_s": 3273,
+      "allure": "5:27 / km",
+      "type": "course",
+      "note": "Négatif split de 2:17. Premier kilomètre bouché."
+    },
+    {
+      "date": "2026-07-04",
+      "libelle": "10 km solo, en soirée",
+      "temps_s": 3168,
+      "allure": "5:17 / km",
+      "type": "test",
+      "note": "Positif split sévère : 1:20 perdues sur la seconde moitié."
+    },
+    {
+      "date": "2026-11-01",
+      "libelle": "Objectif sub-50",
+      "temps_s": 2999,
+      "allure": "4:59 / km",
+      "type": "cible",
+      "note": "Course à choisir fin septembre."
+    }
+  ],
+  "diagnostic": {
+    "titre": "Tu es déjà passé sous les 50. Il s'agit d'y retourner, et d'y rester.",
+    "corps": "Le 24 décembre 2025, tu as couru 10,07 km à 4:58/km — l'allure exacte du sub-50. Ce n'est donc pas un territoire inconnu, c'est un niveau perdu pendant l'hiver et le printemps. Le reste du diagnostic va dans le même sens : ton VO2max estimé (~47) correspond à un 10 km nettement sous 50 minutes, alors que ta performance récente correspond à un VDOT d'environ 36. Cet écart n'est pas un problème de cylindrée — c'est un problème de seuil lactique, d'économie de course et de régularité. Conclusion pratique : inutile d'empiler du volume à l'infini. Il faut du seuil, du renforcement, et de la discipline d'allure en course.",
+    "leviers": [
+      "Seuil lactique — travail en Z4, à partir de septembre",
+      "Économie de course — renforcement unilatéral + chaîne cheville/pied",
+      "Discipline d'allure — partir lent, finir vite (validé le 7 juin, raté le 4 juillet)"
+    ]
+  },
+  "materiel": [
+    {
+      "nom": "Garmin Forerunner 165",
+      "detail": "Alerte FC à 155 bpm, zones en % RFC (Karvonen) sur le profil « Course à pied »"
+    },
+    {
+      "nom": "Brooks Ghost 17",
+      "detail": "EU 44, largeur 2E, avec semelles orthopédiques sur mesure"
+    },
+    {
+      "nom": "Salomon Active Skin",
+      "detail": "Gilet + flasques souples, pour les sorties longues et la chaleur"
+    }
+  ]
+}
