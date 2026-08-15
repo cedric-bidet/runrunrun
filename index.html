@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Objectif sub-50 — carnet d'entraînement</title>
+<meta name="description" content="Programme, séances et statistiques — objectif 10 km sous 50 minutes, puis semi-marathon Pégasus.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Spline+Sans+Mono:wght@300..600&family=Spline+Sans:wght@300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="erreur" class="erreur" hidden>
+  <h2>Les données ne se chargent pas.</h2>
+  <p>Cette page lit trois fichiers JSON dans <code>data/</code>. Un navigateur bloque ces lectures quand la page est ouverte directement depuis le disque (<code>file://</code>).</p>
+  <p>Deux solutions : publier le dossier sur GitHub Pages, ou lancer un serveur local depuis le dossier du site&nbsp;:</p>
+  <pre>python3 -m http.server 8000</pre>
+  <p>puis ouvrir <code>http://localhost:8000</code>.</p>
+</div>
+
+<main id="app" hidden>
+
+  <header class="tete">
+    <div class="tete__gauche">
+      <p class="oeil">Carnet d'entraînement · <span id="tete-ville"></span></p>
+      <h1 class="tete__titre">Sous&nbsp;les<br><span class="tete__chrono">50:00</span></h1>
+      <p class="tete__sous" id="tete-sous"></p>
+    </div>
+    <div class="tete__droite">
+      <div class="compteur" id="compteur-10k"></div>
+      <div class="compteur" id="compteur-semi"></div>
+      <p class="maj">Dernière mise à jour <span id="tete-maj"></span></p>
+    </div>
+  </header>
+
+  <section class="section section--regle">
+    <div class="etiquette"><span class="etiquette__num">01</span> La règle</div>
+    <p class="section__intro">Chaque 10 km couru, placé sur une même graduation. La distance qui reste à gagner est visible, littéralement.</p>
+    <div id="regle-chrono" class="regle"></div>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">02</span> Diagnostic</div>
+    <div class="diag">
+      <h2 class="diag__titre" id="diag-titre"></h2>
+      <p class="diag__corps" id="diag-corps"></p>
+      <ul class="leviers" id="diag-leviers"></ul>
+    </div>
+    <div class="zones">
+      <h3 class="sous-titre">Zones cardiaques — méthode Karvonen</h3>
+      <div id="zones-echelle"></div>
+      <table class="tableau" id="zones-table"></table>
+      <p class="note" id="zones-note"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">03</span> Périodisation</div>
+    <p class="section__intro">Dix mois, sept blocs. Chaque bloc a une intention unique — empiler les objectifs, c'est n'en atteindre aucun.</p>
+    <div id="blocs" class="blocs"></div>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">04</span> Semaine par semaine</div>
+    <div class="filtres" id="filtres-semaines"></div>
+    <div id="semaines" class="semaines"></div>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">05</span> Séances &amp; analyses</div>
+    <p class="section__intro">Chaque séance est mesurée sur la même échelle cardiaque. Le trait blanc, c'est ton plafond de 155&nbsp;bpm.</p>
+    <div id="seances" class="seances"></div>
+  </section>
+
+  <section class="section">
+    <div class="etiquette"><span class="etiquette__num">06</span> Statistiques</div>
+    <div class="stats-grille" id="stats-cles"></div>
+
+    <div class="graphe-bloc">
+      <h3 class="sous-titre">Volume hebdomadaire</h3>
+      <p class="note">Kilomètres courus par semaine, comparés à la cible du programme.</p>
+      <div id="graphe-volume"></div>
+    </div>
+
+    <div class="graphe-bloc">
+      <h3 class="sous-titre">Coût cardiaque</h3>
+      <p class="note">Battements par kilomètre : fréquence cardiaque moyenne × durée d'un kilomètre. Plus le chiffre baisse, plus tu deviens économique. C'est l'indicateur qui compte le plus en ce moment, parce qu'il neutralise l'allure et le terrain plat ou vallonné.</p>
+      <div id="graphe-cout"></div>
+    </div>
+
+    <div class="graphe-bloc">
+      <h3 class="sous-titre">Allure et fréquence cardiaque, séance par séance</h3>
+      <p class="note">Chaque point est une séance. En bas à droite, c'est là qu'il faut aller : rapide, et pour pas cher.</p>
+      <div id="graphe-nuage"></div>
+    </div>
+  </section>
+
+  <footer class="pied">
+    <p class="pied__note">Page statique. Les données vivent dans <code>data/athlete.json</code>, <code>data/programme.json</code> et <code>data/seances.json</code>.</p>
+    <p class="pied__note" id="pied-materiel"></p>
+  </footer>
+
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
