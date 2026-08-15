@@ -258,6 +258,21 @@ pre {
 }
 @media (max-width: 620px) { .bloc { grid-template-columns: 1fr; gap: 0.7rem; } }
 
+/* ---------- Règle du calendrier ---------- */
+
+.regle-cal {
+  border-left: 2px solid var(--accent);
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 68ch;
+}
+.regle-cal ul { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; gap: 0.45rem; }
+.regle-cal li { font-size: 0.87rem; color: var(--brume); padding-left: 1.1rem; position: relative; }
+.regle-cal li::before {
+  content: ""; position: absolute; left: 0; top: 0.6em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--brume-2);
+}
+
 /* ---------- Filtres ---------- */
 
 .filtres { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
