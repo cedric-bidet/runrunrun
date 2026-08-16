@@ -1,0 +1,16 @@
+{
+  "name": "Objectif sub-50 — carnet d'entraînement",
+  "short_name": "Sub-50",
+  "description": "Programme, séances et statistiques — objectif 10 km sous 50 minutes, puis semi-marathon Pégasus.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08202A",
+  "theme_color": "#08202A",
+  "lang": "fr",
+  "icons": [
+    { "src": "assets/icones/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

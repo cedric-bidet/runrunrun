@@ -1,0 +1,64 @@
+/* ---------- Barre d'onglets basse ---------- */
+
+.onglet[hidden] { display: none; }
+
+/* place pour ne pas passer sous la barre fixe */
+main#app {
+  padding-bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px));
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  padding: 0.3rem max(0.4rem, env(safe-area-inset-left, 0px)) calc(0.3rem + env(safe-area-inset-bottom, 0px)) max(0.4rem, env(safe-area-inset-right, 0px));
+  background: color-mix(in srgb, var(--fond) 90%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-top: 1px solid var(--bord-fin);
+}
+
+/* repli si color-mix n'est pas supporté */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .tabbar { background: var(--fond-2); }
+}
+
+.tabbar__item {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.5rem 0.2rem 0.4rem;
+  background: none;
+  border: 0;
+  border-radius: var(--r);
+  color: var(--brume-2);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s;
+}
+.tabbar__item:hover { color: var(--brume); }
+.tabbar__item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.tabbar__icone { width: 1.4rem; height: 1.4rem; transition: transform 0.15s; }
+
+.tabbar__item span {
+  font-family: var(--mo);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+}
+
+.tabbar__item[aria-selected="true"] { color: var(--accent); }
+.tabbar__item[aria-selected="true"] .tabbar__icone { transform: translateY(-1px); }
+.tabbar__item[aria-selected="true"] span { color: var(--craie); font-weight: 500; }
+
+@media (min-width: 720px) {
+  .tabbar { justify-content: center; gap: 0.5rem; }
+  .tabbar__item { flex: 0 0 auto; flex-direction: row; padding: 0.6rem 1.1rem; gap: 0.5rem; }
+  .tabbar__item span { font-size: 0.72rem; }
+}

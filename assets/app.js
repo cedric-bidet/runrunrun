@@ -73,51 +73,39 @@ function demarrer() {
   rendreStats();
 
   $('#app').hidden = false;
-  activerNav();
+  activerOnglets();
 }
 function aujourdhuiDans(d, f) {
   const t = new Date().toISOString().slice(0, 10);
   return t >= d && t <= f;
 }
 
-/* ---------- Menu collant ---------- */
+/* ---------- Barre d'onglets basse ---------- */
 
-function activerNav() {
-  const liens = [...document.querySelectorAll('.nav__item')];
-  const sections = liens
-    .map((a) => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
-  if (!sections.length) return;
+const ONGLETS = ['accueil', 'objectifs', 'seances', 'stats'];
 
-  const marquer = (sid) => liens.forEach((a) =>
-    a.setAttribute('aria-current', a.getAttribute('href') === '#' + sid));
+function activerOnglets() {
+  const boutons = [...document.querySelectorAll('.tabbar__item')];
+  if (!boutons.length) return;
 
-  // la section active est la dernière dont le haut est passé sous la barre
-  const observateur = new IntersectionObserver(() => {
-    const seuil = 80;
-    let courante = sections[0];
-    sections.forEach((s) => {
-      if (s.getBoundingClientRect().top <= seuil) courante = s;
+  const depart = ONGLETS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (localStorage.getItem('onglet') || 'accueil');
+
+  const afficher = (id) => {
+    ONGLETS.forEach((o) => {
+      $('#onglet-' + o).hidden = o !== id;
     });
-    marquer(courante.id);
-  }, { rootMargin: '-70px 0px -70% 0px', threshold: [0, 0.02, 0.5, 1] });
+    boutons.forEach((b) => b.setAttribute('aria-selected', b.dataset.onglet === id));
+    localStorage.setItem('onglet', id);
+  };
 
-  sections.forEach((s) => observateur.observe(s));
+  boutons.forEach((b) => {
+    b.addEventListener('click', () => {
+      afficher(b.dataset.onglet);
+      window.scrollTo(0, 0);
+    });
+  });
 
-  // fait défiler la barre pour garder l'entrée active visible sur mobile
-  const nav = $('#nav');
-  let dernier = null;
-  new MutationObserver(() => {
-    const actif = nav.querySelector('.nav__item[aria-current="true"]');
-    if (!actif || actif === dernier) return;
-    dernier = actif;
-    if (nav.scrollWidth > nav.clientWidth) {
-      const g = actif.offsetLeft - nav.clientWidth / 2 + actif.offsetWidth / 2;
-      nav.scrollTo({ left: Math.max(g, 0), behavior: 'smooth' });
-    }
-  }).observe(nav, { attributes: true, subtree: true, attributeFilter: ['aria-current'] });
-
-  marquer(sections[0].id);
+  afficher(depart);
 }
 
 /* ---------- Tête ---------- */
