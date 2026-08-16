@@ -1,14 +1,27 @@
 # Objectif sub-50 — carnet d'entraînement
 
-Page statique qui affiche le programme semaine par semaine, le journal des séances avec analyse, et les statistiques. Aucune dépendance, aucun build : du HTML, du CSS et un fichier JavaScript qui lit trois fichiers JSON.
+Web app mobile qui affiche le programme semaine par semaine, le journal des séances avec analyse, et les statistiques. Aucune dépendance, aucun build : du HTML, du CSS et un fichier JavaScript qui lit quatre fichiers JSON.
+
+La page est organisée en 4 onglets, avec une barre de navigation fixée en bas (comme une app mobile) :
+
+- **Accueil** — règle chronos + diagnostic et zones cardiaques
+- **Objectifs** — périodisation, semaine par semaine, renforcement
+- **Séances** — journal des séances et analyses
+- **Stats** — statistiques clés et graphes
+
+Elle est installable sur l'écran d'accueil (iOS/Android) via `manifest.json` — ouverture en plein écran, sans barre d'adresse.
 
 ```
 index.html
+manifest.json
 assets/style.css
+assets/tabbar.css
 assets/app.js
+assets/icones/         icônes de l'app (192, 180, 512 px)
 data/athlete.json      profil, zones cardiaques, objectifs, chronos de référence
 data/programme.json    blocs de périodisation + semaines détaillées
 data/seances.json      séances réalisées + analyse de chacune
+data/renforcement.json exercices de renforcement
 ```
 
 ## Publier sur GitHub Pages

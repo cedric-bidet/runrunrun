@@ -2,15 +2,23 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Objectif sub-50 — carnet d'entraînement</title>
 <meta name="description" content="Programme, séances et statistiques — objectif 10 km sous 50 minutes, puis semi-marathon Pégasus.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#08202A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sub-50">
+<link rel="apple-touch-icon" href="assets/icones/icone-180.png">
+<link rel="icon" href="assets/icones/icone-192.png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Spline+Sans+Mono:wght@300..600&family=Spline+Sans:wght@300..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/renforcement.css">
-<link rel="stylesheet" href="assets/nav.css">
+<link rel="stylesheet" href="assets/tabbar.css">
 </head>
 <body>
 
@@ -24,105 +32,158 @@
 
 <main id="app" hidden>
 
-  <header class="tete">
-    <div class="tete__gauche">
-      <p class="oeil">Carnet d'entraînement · <span id="tete-ville"></span></p>
-      <h1 class="tete__titre">Sous&nbsp;les<br><span class="tete__chrono">50:00</span></h1>
-      <p class="tete__sous" id="tete-sous"></p>
-    </div>
-    <div class="tete__droite">
-      <div class="compteur" id="compteur-10k"></div>
-      <div class="compteur" id="compteur-semi"></div>
-      <p class="maj">Dernière mise à jour <span id="tete-maj"></span></p>
-    </div>
-  </header>
+  <div class="onglet" id="onglet-accueil" data-onglet="accueil">
 
-  <nav class="nav" id="nav" aria-label="Sections">
-    <a class="nav__item" href="#s-regle"><span class="nav__num">01</span>Règle</a>
-    <a class="nav__item" href="#s-diagnostic"><span class="nav__num">02</span>Diagnostic</a>
-    <a class="nav__item" href="#s-periodisation"><span class="nav__num">03</span>Périodisation</a>
-    <a class="nav__item" href="#s-semaines"><span class="nav__num">04</span>Semaines</a>
-    <a class="nav__item" href="#s-renforcement"><span class="nav__num">05</span>Renfo</a>
-    <a class="nav__item" href="#s-seances"><span class="nav__num">06</span>Séances</a>
-    <a class="nav__item" href="#s-stats"><span class="nav__num">07</span>Stats</a>
-  </nav>
+    <header class="tete">
+      <div class="tete__gauche">
+        <p class="oeil">Carnet d'entraînement · <span id="tete-ville"></span></p>
+        <h1 class="tete__titre">Sous&nbsp;les<br><span class="tete__chrono">50:00</span></h1>
+        <p class="tete__sous" id="tete-sous"></p>
+      </div>
+      <div class="tete__droite">
+        <div class="compteur" id="compteur-10k"></div>
+        <div class="compteur" id="compteur-semi"></div>
+        <p class="maj">Dernière mise à jour <span id="tete-maj"></span></p>
+      </div>
+    </header>
 
-  <section class="section section--regle" id="s-regle">
-    <div class="etiquette"><span class="etiquette__num">01</span> La règle</div>
-    <p class="section__intro">Chaque 10 km couru, placé sur une même graduation. La distance qui reste à gagner est visible, littéralement.</p>
-    <div id="regle-chrono" class="regle"></div>
-  </section>
+    <section class="section section--regle" id="s-regle">
+      <div class="etiquette"><span class="etiquette__num">01</span> La règle</div>
+      <p class="section__intro">Chaque 10 km couru, placé sur une même graduation. La distance qui reste à gagner est visible, littéralement.</p>
+      <div id="regle-chrono" class="regle"></div>
+    </section>
 
-  <section class="section" id="s-diagnostic">
-    <div class="etiquette"><span class="etiquette__num">02</span> Diagnostic</div>
-    <div class="diag">
-      <h2 class="diag__titre" id="diag-titre"></h2>
-      <p class="diag__corps" id="diag-corps"></p>
-      <ul class="leviers" id="diag-leviers"></ul>
-    </div>
-    <div class="zones">
-      <h3 class="sous-titre">Zones cardiaques — méthode Karvonen</h3>
-      <div id="zones-echelle"></div>
-      <table class="tableau" id="zones-table"></table>
-      <p class="note" id="zones-note"></p>
-    </div>
-  </section>
+    <section class="section" id="s-diagnostic">
+      <div class="etiquette"><span class="etiquette__num">02</span> Diagnostic</div>
+      <div class="diag">
+        <h2 class="diag__titre" id="diag-titre"></h2>
+        <p class="diag__corps" id="diag-corps"></p>
+        <ul class="leviers" id="diag-leviers"></ul>
+      </div>
+      <div class="zones">
+        <h3 class="sous-titre">Zones cardiaques — méthode Karvonen</h3>
+        <div id="zones-echelle"></div>
+        <table class="tableau" id="zones-table"></table>
+        <p class="note" id="zones-note"></p>
+      </div>
+    </section>
 
-  <section class="section" id="s-periodisation">
-    <div class="etiquette"><span class="etiquette__num">03</span> Périodisation</div>
-    <p class="section__intro">Dix mois, sept blocs. Chaque bloc a une intention unique — empiler les objectifs, c'est n'en atteindre aucun.</p>
-    <div id="blocs" class="blocs"></div>
-  </section>
+  </div>
 
-  <section class="section" id="s-semaines">
-    <div class="etiquette"><span class="etiquette__num">04</span> Semaine par semaine</div>
-    <div class="regle-cal" id="regle-calendrier"></div>
-    <div class="filtres" id="filtres-semaines"></div>
-    <div id="semaines" class="semaines"></div>
-  </section>
+  <div class="onglet" id="onglet-objectifs" data-onglet="objectifs" hidden>
 
-  <section class="section" id="s-renforcement">
-    <div class="etiquette"><span class="etiquette__num">05</span> Renforcement</div>
-    <p class="section__intro" id="renfo-intro"></p>
-    <div id="renfo-ressources"></div>
-    <p class="note" id="renfo-avertissement"></p>
-    <div id="renfo-blocs"></div>
-    <p class="renfo-principe" id="renfo-principe"></p>
-  </section>
+    <section class="section" id="s-periodisation">
+      <div class="etiquette"><span class="etiquette__num">01</span> Périodisation</div>
+      <p class="section__intro">Dix mois, sept blocs. Chaque bloc a une intention unique — empiler les objectifs, c'est n'en atteindre aucun.</p>
+      <div id="blocs" class="blocs"></div>
+    </section>
 
-  <section class="section" id="s-seances">
-    <div class="etiquette"><span class="etiquette__num">06</span> Séances &amp; analyses</div>
-    <p class="section__intro">Chaque séance est mesurée sur la même échelle cardiaque. Le trait blanc, c'est ton plafond de 155&nbsp;bpm.</p>
-    <div id="seances" class="seances"></div>
-  </section>
+    <section class="section" id="s-semaines">
+      <div class="etiquette"><span class="etiquette__num">02</span> Semaine par semaine</div>
+      <div class="regle-cal" id="regle-calendrier"></div>
+      <div class="filtres" id="filtres-semaines"></div>
+      <div id="semaines" class="semaines"></div>
+    </section>
 
-  <section class="section" id="s-stats">
-    <div class="etiquette"><span class="etiquette__num">07</span> Statistiques</div>
-    <div class="stats-grille" id="stats-cles"></div>
+    <section class="section" id="s-renforcement">
+      <div class="etiquette"><span class="etiquette__num">03</span> Renforcement</div>
+      <p class="section__intro" id="renfo-intro"></p>
+      <div id="renfo-ressources"></div>
+      <p class="note" id="renfo-avertissement"></p>
+      <div id="renfo-blocs"></div>
+      <p class="renfo-principe" id="renfo-principe"></p>
+    </section>
 
-    <div class="graphe-bloc">
-      <h3 class="sous-titre">Volume hebdomadaire</h3>
-      <p class="note">Kilomètres courus par semaine, comparés à la cible du programme.</p>
-      <div id="graphe-volume"></div>
-    </div>
+  </div>
 
-    <div class="graphe-bloc">
-      <h3 class="sous-titre">Coût cardiaque</h3>
-      <p class="note">Battements par kilomètre : fréquence cardiaque moyenne × durée d'un kilomètre. Plus le chiffre baisse, plus tu deviens économique. C'est l'indicateur qui compte le plus en ce moment, parce qu'il neutralise l'allure et le terrain plat ou vallonné.</p>
-      <div id="graphe-cout"></div>
-    </div>
+  <div class="onglet" id="onglet-seances" data-onglet="seances" hidden>
 
-    <div class="graphe-bloc">
-      <h3 class="sous-titre">Allure et fréquence cardiaque, séance par séance</h3>
-      <p class="note">Chaque point est une séance. En bas à droite, c'est là qu'il faut aller : rapide, et pour pas cher.</p>
-      <div id="graphe-nuage"></div>
-    </div>
-  </section>
+    <section class="section" id="s-seances">
+      <div class="etiquette"><span class="etiquette__num">01</span> Séances &amp; analyses</div>
+      <p class="section__intro">Chaque séance est mesurée sur la même échelle cardiaque. Le trait blanc, c'est ton plafond de 155&nbsp;bpm.</p>
+
+      <div class="sem-tete" id="sem-tete" hidden>
+        <span class="sem-tete__badge" id="sem-badge"></span>
+        <h3 class="sem-tete__titre" id="sem-titre"></h3>
+        <p class="sem-tete__objectif" id="sem-objectif"></p>
+      </div>
+
+      <div id="seances" class="seances"></div>
+    </section>
+
+    <nav class="semnav" id="semnav" aria-label="Navigation entre semaines">
+      <button class="semnav__fleche" id="semnav-prev" type="button" aria-label="Semaine précédente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="semnav__info">
+        <span class="semnav__num" id="semnav-num"></span>
+        <span class="semnav__dates" id="semnav-dates"></span>
+      </div>
+      <button class="semnav__fleche" id="semnav-next" type="button" aria-label="Semaine suivante">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </nav>
+
+  </div>
+
+  <div class="onglet" id="onglet-stats" data-onglet="stats" hidden>
+
+    <section class="section" id="s-stats">
+      <div class="etiquette"><span class="etiquette__num">01</span> Statistiques</div>
+      <div class="stats-grille" id="stats-cles"></div>
+
+      <div class="graphe-bloc">
+        <h3 class="sous-titre">Volume hebdomadaire</h3>
+        <p class="note">Kilomètres courus par semaine, comparés à la cible du programme.</p>
+        <div id="graphe-volume"></div>
+      </div>
+
+      <div class="graphe-bloc">
+        <h3 class="sous-titre">Coût cardiaque</h3>
+        <p class="note">Battements par kilomètre : fréquence cardiaque moyenne × durée d'un kilomètre. Plus le chiffre baisse, plus tu deviens économique. C'est l'indicateur qui compte le plus en ce moment, parce qu'il neutralise l'allure et le terrain plat ou vallonné.</p>
+        <div id="graphe-cout"></div>
+      </div>
+
+      <div class="graphe-bloc">
+        <h3 class="sous-titre">Allure et fréquence cardiaque, séance par séance</h3>
+        <p class="note">Chaque point est une séance. En bas à droite, c'est là qu'il faut aller : rapide, et pour pas cher.</p>
+        <div id="graphe-nuage"></div>
+      </div>
+    </section>
+
+  </div>
 
   <footer class="pied">
     <p class="pied__note">Page statique. Les données vivent dans <code>data/athlete.json</code>, <code>data/programme.json</code>, <code>data/seances.json</code> et <code>data/renforcement.json</code>.</p>
     <p class="pied__note" id="pied-materiel"></p>
   </footer>
+
+  <nav class="tabbar" id="tabbar" aria-label="Navigation principale" role="tablist">
+    <button class="tabbar__item" type="button" role="tab" data-onglet="accueil" aria-selected="true" aria-controls="onglet-accueil">
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-9"/><path d="M9.5 20v-6h5v6"/>
+      </svg>
+      <span>Accueil</span>
+    </button>
+    <button class="tabbar__item" type="button" role="tab" data-onglet="objectifs" aria-selected="false" aria-controls="onglet-objectifs">
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>
+      </svg>
+      <span>Objectifs</span>
+    </button>
+    <button class="tabbar__item" type="button" role="tab" data-onglet="seances" aria-selected="false" aria-controls="onglet-seances">
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 13h3.2l2-5 3 10 2.2-7.5 1.6 3.5H21"/>
+      </svg>
+      <span>Séances</span>
+    </button>
+    <button class="tabbar__item" type="button" role="tab" data-onglet="stats" aria-selected="false" aria-controls="onglet-stats">
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 20V10.5"/><path d="M12 20V4"/><path d="M20 20v-7"/>
+      </svg>
+      <span>Stats</span>
+    </button>
+  </nav>
 
 </main>
 
