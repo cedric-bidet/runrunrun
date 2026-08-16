@@ -70,7 +70,7 @@
 
   </div>
 
-  <div class="onglet" id="onglet-objectifs" data-onglet="objectifs" hidden>
+  <div class="onglet" id="onglet-programme" data-onglet="programme" hidden>
 
     <section class="section" id="s-periodisation">
       <div class="etiquette"><span class="etiquette__num">01</span> Périodisation</div>
@@ -78,15 +78,8 @@
       <div id="blocs" class="blocs"></div>
     </section>
 
-    <section class="section" id="s-semaines">
-      <div class="etiquette"><span class="etiquette__num">02</span> Semaine par semaine</div>
-      <div class="regle-cal" id="regle-calendrier"></div>
-      <div class="filtres" id="filtres-semaines"></div>
-      <div id="semaines" class="semaines"></div>
-    </section>
-
     <section class="section" id="s-renforcement">
-      <div class="etiquette"><span class="etiquette__num">03</span> Renforcement</div>
+      <div class="etiquette"><span class="etiquette__num">02</span> Renforcement</div>
       <p class="section__intro" id="renfo-intro"></p>
       <div id="renfo-ressources"></div>
       <p class="note" id="renfo-avertissement"></p>
@@ -101,10 +94,16 @@
     <section class="section" id="s-seances">
       <div class="etiquette"><span class="etiquette__num">01</span> Séances &amp; analyses</div>
 
+      <details class="regle-cal-repli">
+        <summary>Règle du calendrier</summary>
+        <div class="regle-cal" id="regle-calendrier"></div>
+      </details>
+
       <div class="sem-tete" id="sem-tete" hidden>
         <span class="sem-tete__badge" id="sem-badge"></span>
         <h3 class="sem-tete__titre" id="sem-titre"></h3>
         <p class="sem-tete__objectif" id="sem-objectif"></p>
+        <div class="semaine__bilan" id="sem-bilan" hidden><b>Bilan</b><span id="sem-bilan-texte"></span></div>
       </div>
 
       <div id="seances" class="seances"></div>
@@ -159,11 +158,11 @@
       </svg>
       <span>Accueil</span>
     </button>
-    <button class="tabbar__item" type="button" role="tab" data-onglet="objectifs" aria-selected="false" aria-controls="onglet-objectifs">
+    <button class="tabbar__item" type="button" role="tab" data-onglet="programme" aria-selected="false" aria-controls="onglet-programme">
       <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>
       </svg>
-      <span>Objectifs</span>
+      <span>Programme</span>
     </button>
     <button class="tabbar__item" type="button" role="tab" data-onglet="seances" aria-selected="false" aria-controls="onglet-seances">
       <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

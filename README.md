@@ -5,8 +5,8 @@ Web app mobile qui affiche le programme semaine par semaine, le journal des séa
 La page est organisée en 4 onglets, avec une barre de navigation fixée en bas (comme une app mobile) :
 
 - **Accueil** — règle chronos + diagnostic et zones cardiaques
-- **Objectifs** — périodisation, semaine par semaine, renforcement
-- **Séances** — journal des séances et analyses
+- **Programme** — périodisation, renforcement
+- **Séances** — journal des séances, semaine par semaine (programme du jour, bilan, séances réalisées)
 - **Stats** — statistiques clés et graphes
 
 Elle est installable sur l'écran d'accueil (iOS/Android) via `manifest.json` — ouverture en plein écran, sans barre d'adresse.
