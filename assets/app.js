@@ -50,6 +50,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 /* ---------- État ---------- */
 
 let A, P, S, R, ZONES;
+let S_REALISE = [];
 let SEM_LISTE = [], semaineIdx = 0;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
@@ -62,7 +63,9 @@ Promise.all([
   fetch('data/renforcement.json').then((r) => r.json())
 ]).then(([a, p, s, r]) => {
   A = a; P = p; S = s.seances; R = r; ZONES = a.zones;
-  S.sort((x, y) => y.date.localeCompare(x.date));
+  // journal unifié : passé et futur, course et renforcement — statut 'realise' ou 'prevu'
+  S.sort((x, y) => x.date.localeCompare(y.date));
+  S_REALISE = S.filter((x) => x.statut === 'realise');
   demarrer();
 }).catch((e) => {
   console.error(e);
@@ -78,6 +81,7 @@ function demarrer() {
   rendreDiagnostic();
   rendreZones();
   rendreBlocs(blocActif);
+  rendreJalons();
   rendreRenfo();
   rendreRegleCalendrier();
   activerNavSemaines();
@@ -238,6 +242,23 @@ function rendreBlocs(actif) {
     </article>`).join('');
 }
 
+/* ---------- Jalons ---------- */
+
+function rendreJalons() {
+  const auj = new Date().toISOString().slice(0, 10);
+  $('#jalons').innerHTML = P.jalons.map((j) => {
+    const passe = j.date < auj;
+    return `<div class="jalon ${passe ? 'jalon--passe' : 'jalon--avenir'}">
+      <div class="jalon__marque"></div>
+      <div class="jalon__corps">
+        <div class="jalon__date">${dateFr(j.date)}${passe ? '' : `<span class="jalon__compte">J-${joursDepuis(j.date)}</span>`}</div>
+        <h4 class="jalon__libelle">${esc(j.libelle)}</h4>
+        <p class="jalon__detail">${esc(j.detail)}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 /* ---------- Semaines ---------- */
 
 function rendreRegleCalendrier() {
@@ -248,12 +269,8 @@ function rendreRegleCalendrier() {
 }
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
-const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifique', sortie_longue: 'Longue', renfo: 'Renfo', course: 'Course', reprise: 'Reprise', repos: 'Repos' };
-// différencie visuellement les sorties course à pied du renforcement (et neutralise le repos)
-const CATEGORIE_TYPE = { renfo: 'renfo', repos: 'repos' };
-const categorieType = (t) => CATEGORIE_TYPE[t] || 'run';
 
-/* ---------- Renforcement ---------- */
+/* ---------- Renforcement — ressources générales (les exercices vivent dans les cartes de séance) ---------- */
 
 function rendreRenfo() {
   if (!R) return;
@@ -267,19 +284,11 @@ function rendreRenfo() {
       <span class="ress__titre">${esc(r.titre)}</span>
       <span class="ress__note">${esc(r.note)}</span>
     </a>`).join('')}</div>`;
+}
 
-  $('#renfo-blocs').innerHTML = R.blocs.map((b) => `
-    <div class="renfo-bloc">
-      <h3 class="sous-titre">${esc(b.nom)} <span class="renfo-duree">${esc(b.duree)}</span></h3>
-      <div class="exos">${b.exercices.map((e) => `
-        <article class="exo">
-          <h4 class="exo__nom">${esc(e.nom)}</h4>
-          <p class="exo__dose">${esc(e.dose)}</p>
-          <p class="exo__role">${esc(e.role)}</p>
-          <p class="exo__controle"><b>Point de contrôle</b>${esc(e.controle)}</p>
-          <p class="exo__erreur"><b>Erreur fréquente</b>${esc(e.erreur)}</p>
-        </article>`).join('')}</div>
-    </div>`).join('');
+// exercices d'un bloc de renforcement, pour la carte de séance correspondante
+function blocRenfo(id) {
+  return R && R.blocs.find((b) => b.id === id);
 }
 
 /* ---------- Séances ---------- */
@@ -310,7 +319,13 @@ function bandeFC(s) {
   return `<div class="bande"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fréquence cardiaque moyenne ${s.fc_moy}, maximale ${s.fc_max}, sur l'échelle des zones">${g}</svg></div>`;
 }
 
+// une carte par séance du journal — le rendu dépend du statut et du type
 function carteSeance(s) {
+  if (s.type === 'renfo') return carteRenfo(s);
+  return s.statut === 'realise' ? carteRealisee(s) : cartePrevue(s);
+}
+
+function carteRealisee(s) {
   const cc = coutCardiaque(s.fc_moy, s.temps_s, s.distance_km);
   const splits = (s.splits || []).map((k) => {
     if (k.libelle) {
@@ -353,6 +368,69 @@ function carteSeance(s) {
       <p class="analyse__corps">${esc(s.analyse.corps)}</p>
       <div class="analyse__retenir"><b>À retenir</b>${esc(s.analyse.a_retenir)}</div>
     </div>
+  </article>`;
+}
+
+// n'affiche que les clés de `cible` réellement présentes — elles varient selon le type de séance
+function formaterCible(c) {
+  if (!c) return { puces: [], structure: '' };
+  const puces = [];
+  if (c.duree_min) puces.push(`${c.duree_min} min`);
+  if (c.distance_km) puces.push(`≈ ${String(c.distance_km).replace('.', ',')} km`);
+  if (c.allure) puces.push(`${c.allure}/km`);
+  if (c.fc_min && c.fc_max) puces.push(`FC ${c.fc_min}–${c.fc_max}`);
+  else if (c.fc_max) puces.push(`FC ≤ ${c.fc_max}`);
+  else if (c.fc_min) puces.push(`FC ≥ ${c.fc_min}`);
+  if (c.temps_au_seuil_min) puces.push(`${c.temps_au_seuil_min} min au seuil`);
+  if (c.distance_test_m) puces.push(String(c.distance_test_m));
+  return { puces, structure: c.structure || '' };
+}
+
+// une séance de course encore à venir : pas de mesures, juste la cible et la consigne
+function cartePrevue(s) {
+  const { puces, structure } = formaterCible(s.cible);
+  return `<article class="seance seance--prevue">
+    <div class="seance__tete">
+      <div>
+        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <h3 class="seance__titre">${esc(s.titre)}</h3>
+      </div>
+      ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
+    </div>
+    ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
+    ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
+    ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+    ${s.consigne ? `<p class="seance__consigne">${esc(s.consigne)}</p>` : ''}
+  </article>`;
+}
+
+// une séance de renforcement : les exercices du bloc correspondant, contrôle/erreur repliés
+function carteRenfo(s) {
+  const bloc = blocRenfo(s.bloc_renfo);
+  const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
+  const droite = [s.creneau, duree].filter(Boolean).join(' · ');
+
+  return `<article class="seance seance--renfo${s.statut === 'prevu' ? ' seance--prevue' : ''}">
+    <div class="seance__tete">
+      <div>
+        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <h3 class="seance__titre">${esc(s.titre)}</h3>
+      </div>
+      ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
+    </div>
+    ${s.consigne ? `<p class="seance__consigne">${esc(s.consigne)}</p>` : ''}
+    ${bloc ? `<div class="exos">${bloc.exercices.map((e) => `
+      <article class="exo">
+        <h4 class="exo__nom">${esc(e.nom)}</h4>
+        <p class="exo__dose">${esc(e.dose)}</p>
+        ${e.video ? `<a class="exo__video" href="${esc(e.video)}" target="_blank" rel="noopener">▶ ${esc(e.video_titre || 'Vidéo de l’exercice')}</a>` : ''}
+        <details class="exo__repli">
+          <summary>Point de contrôle &amp; erreur fréquente</summary>
+          <p class="exo__role">${esc(e.role)}</p>
+          <p class="exo__controle"><b>Point de contrôle</b>${esc(e.controle)}</p>
+          <p class="exo__erreur"><b>Erreur fréquente</b>${esc(e.erreur)}</p>
+        </details>
+      </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`}
   </article>`;
 }
 
@@ -408,8 +486,6 @@ function activerNavSemaines() {
 function rendreSeances(idx) {
   semaineIdx = Math.max(0, Math.min(idx, SEM_LISTE.length - 1));
   const sem = SEM_LISTE[semaineIdx];
-  const liste = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin);
-
   const planSemaine = sem.programme ? P.semaines.find((w) => w.num === sem.num) : null;
 
   $('#sem-tete').hidden = !sem.programme;
@@ -422,21 +498,13 @@ function rendreSeances(idx) {
     $('#sem-bilan-texte').textContent = planSemaine.bilan || '';
   }
 
-  let html = liste.map(carteSeance).join('');
-  if (planSemaine) {
-    html += `<div class="seances-avenir">
-      <h4 class="seances-avenir__titre">Programme de la semaine</h4>
-      ${planSemaine.seances.map((x) => `
-        <div class="seance-plan${x.fait ? ' seance-plan--fait' : ''}" data-categorie="${categorieType(x.type)}">
-          <div class="seance-plan__jour">${esc(x.jour)}</div>
-          <div>
-            <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${x.fait ? '<span class="coche">✓</span>' : ''}${esc(x.libelle)}</p>
-            ${x.detail ? `<p class="seance-plan__det">${esc(x.detail)}</p>` : ''}
-          </div>
-        </div>`).join('')}
-    </div>`;
-  }
-  $('#seances').innerHTML = html || '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
+  // journal unifié : réalisées et prévues de la semaine, dans l'ordre chronologique
+  const liste = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  $('#seances').innerHTML = liste.length
+    ? liste.map(carteSeance).join('')
+    : '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
   $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;
@@ -449,11 +517,11 @@ function rendreSeances(idx) {
 /* ---------- Statistiques ---------- */
 
 function rendreStats() {
-  const depuisReprise = S.filter((s) => s.date >= '2026-08-01');
+  const depuisReprise = S_REALISE.filter((s) => s.date >= '2026-08-01');
   const kmTot = depuisReprise.reduce((a, s) => a + s.distance_km, 0);
   const tempsTot = depuisReprise.reduce((a, s) => a + s.temps_s, 0);
   const z2 = depuisReprise.filter((s) => s.fc_max <= A.physio.plafond_z2_pratique);
-  const meilleurCC = Math.min(...S.map((s) => coutCardiaque(s.fc_moy, s.temps_s, s.distance_km)));
+  const meilleurCC = Math.min(...S_REALISE.map((s) => coutCardiaque(s.fc_moy, s.temps_s, s.distance_km)));
 
   const stats = [
     { v: kmTot.toFixed(1).replace('.', ','), u: 'km', l: 'Depuis la reprise' },
@@ -473,7 +541,7 @@ function rendreStats() {
 
 function grapheVolume() {
   const parSem = {};
-  S.filter((s) => s.date >= '2026-08-01').forEach((s) => {
+  S_REALISE.filter((s) => s.date >= '2026-08-01').forEach((s) => {
     const n = numSemaine(s.date);
     parSem[n] = (parSem[n] || 0) + s.distance_km;
   });
@@ -509,7 +577,7 @@ function grapheVolume() {
 }
 
 function grapheCout() {
-  const pts = [...S].reverse().map((s) => ({ d: s.date, v: coutCardiaque(s.fc_moy, s.temps_s, s.distance_km), t: s.type }));
+  const pts = S_REALISE.map((s) => ({ d: s.date, v: coutCardiaque(s.fc_moy, s.temps_s, s.distance_km), t: s.type }));
   const W = 1000, H = 230, bas = H - 34, g0 = 46;
   const vmin = 850, vmax = Math.max(...pts.map((p) => p.v)) * 1.03;
   const x = (i) => g0 + (i / (pts.length - 1)) * (W - g0 - 20);
@@ -534,7 +602,7 @@ function grapheCout() {
 }
 
 function grapheNuage() {
-  const pts = S.map((s) => ({ x: allureSec(s.temps_s, s.distance_km), y: s.fc_moy, d: s.date, t: s.type }));
+  const pts = S_REALISE.map((s) => ({ x: allureSec(s.temps_s, s.distance_km), y: s.fc_moy, d: s.date, t: s.type }));
   const W = 1000, H = 300, bas = H - 34, g0 = 46;
   const xmin = 280, xmax = 460, ymin = 130, ymax = 185;
   const px = (v) => g0 + ((v - xmin) / (xmax - xmin)) * (W - g0 - 24);

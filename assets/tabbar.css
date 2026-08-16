@@ -101,18 +101,6 @@ main#app {
   color: var(--brume-2); font-size: 0.9rem; padding: 2.4rem 0; text-align: center;
 }
 
-.seances-avenir {
-  background: var(--fond-2);
-  border: 1px solid var(--bord-fin);
-  border-radius: var(--r);
-  padding: 1rem 1.1rem 0.3rem;
-}
-.seances-avenir__titre {
-  font-family: var(--mo); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--brume-2); margin: 0;
-}
-.seances-avenir .seance-plan:first-of-type { border-top: 0; }
-
 .semnav {
   position: fixed;
   left: 0;

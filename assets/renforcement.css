@@ -23,15 +23,9 @@
 .ress:hover .ress__titre { color: var(--accent); }
 .ress__note { display: block; font-size: 0.79rem; color: var(--brume); line-height: 1.45; }
 
-.renfo-bloc { margin-top: 2.6rem; }
-.renfo-duree {
-  font-family: var(--mo); font-size: 0.62rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--brume-2); margin-left: 0.5rem;
-  font-variation-settings: normal; font-weight: 400;
-}
 .exos {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: 0.8rem; margin-top: 1rem;
+  gap: 0.8rem;
 }
 .exo {
   background: var(--fond-2); border: 1px solid var(--bord-fin);
@@ -43,9 +37,23 @@
 }
 .exo__dose {
   font-family: var(--mo); font-size: 0.72rem; color: var(--accent);
-  margin: 0 0 0.7rem; letter-spacing: 0.02em;
+  margin: 0 0 0.6rem; letter-spacing: 0.02em;
 }
-.exo__role { font-size: 0.83rem; color: var(--brume); margin: 0 0 0.9rem; }
+.exo__video {
+  display: inline-block; font-family: var(--mo); font-size: 0.72rem;
+  color: var(--craie); text-decoration: none; margin: 0 0 0.8rem;
+  border-bottom: 1px solid var(--bord-fin);
+}
+.exo__video:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.exo__video:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.exo__repli summary {
+  font-family: var(--mo); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--brume-2); cursor: pointer; user-select: none;
+}
+.exo__repli summary:hover { color: var(--brume); }
+.exo__repli summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.exo__repli[open] summary { margin-bottom: 0.7rem; }
+.exo__role { font-size: 0.83rem; color: var(--brume); margin: 0.7rem 0 0.9rem; }
 .exo__controle, .exo__erreur {
   font-size: 0.82rem; margin: 0 0 0.5rem; padding-left: 0.8rem;
   border-left: 2px solid var(--bord); color: var(--craie);
