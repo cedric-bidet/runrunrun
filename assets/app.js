@@ -252,6 +252,9 @@ function rendreRegleCalendrier() {
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
 const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifique', sortie_longue: 'Longue', renfo: 'Renfo', course: 'Course', reprise: 'Reprise', repos: 'Repos' };
+// différencie visuellement les sorties course à pied du renforcement (et neutralise le repos)
+const CATEGORIE_TYPE = { renfo: 'renfo', repos: 'repos' };
+const categorieType = (t) => CATEGORIE_TYPE[t] || 'run';
 
 function rendreSemaines(filtre = 'tout') {
   const liste = P.semaines.filter((s) => filtre === 'tout' || s.bloc === filtre);
@@ -270,7 +273,7 @@ function rendreSemaines(filtre = 'tout') {
       <div class="semaine__corps" id="sem-${s.num}" ${ouvert ? '' : 'hidden'}>
         <p class="semaine__objectif">${esc(s.objectif)}</p>
         ${s.seances.map((x) => `
-          <div class="seance-plan${x.fait ? ' seance-plan--fait' : ''}">
+          <div class="seance-plan${x.fait ? ' seance-plan--fait' : ''}" data-categorie="${categorieType(x.type)}">
             <div class="seance-plan__jour">${esc(x.jour)}</div>
             <div>
               <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${x.fait ? '<span class="coche">✓</span>' : ''}${esc(x.libelle)}</p>
@@ -379,7 +382,7 @@ function carteSeance(s) {
   return `<article class="seance seance--${s.analyse.note}">
     <div class="seance__tete">
       <div>
-        <div class="seance__date">${dateFr(s.date)} · semaine ${numSemaine(s.date)}</div>
+        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       <div class="seance__date">${esc(s.conditions || '')}</div>
@@ -478,7 +481,7 @@ function rendreSeances(idx) {
     html += `<div class="seances-avenir">
       <h4 class="seances-avenir__titre">${liste.length ? 'Reste à courir cette semaine' : 'Prévu cette semaine — cibles théoriques'}</h4>
       ${aVenir.map((x) => `
-        <div class="seance-plan">
+        <div class="seance-plan" data-categorie="${categorieType(x.type)}">
           <div class="seance-plan__jour">${esc(x.jour)}</div>
           <div>
             <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${esc(x.libelle)}</p>
