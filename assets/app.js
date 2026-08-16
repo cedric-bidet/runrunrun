@@ -131,7 +131,7 @@ function rendreTete() {
   const cible = A.chronos_10km.find((c) => c.type === 'cible');
   const j = joursDepuis(cible.date);
   $('#compteur-10k').innerHTML =
-    `<b>${j > 0 ? j : '—'}</b> jours avant la course <span style="color:var(--brume-2)">· ${esc(o10.fenetre)}</span>`;
+    `<b>${j > 0 ? j : '—'}</b> jours avant la course <span class="compteur__date">${esc(o10.fenetre)}</span>`;
   $('#compteur-semi').innerHTML =
     `<b>${Math.round(joursDepuis('2027-06-13') / 7)}</b> semaines avant le semi Pégasus`;
 
@@ -154,18 +154,32 @@ function rendreRegle() {
   g += `<line class="regle-axe" x1="45" y1="${base}" x2="${W - 45}" y2="${base}"/>`;
 
   const cible = A.chronos_10km.find((c) => c.type === 'cible');
-  g += `<rect x="${x(MIN)}" y="${base - 4}" width="${x(cible.temps_s) - x(MIN)}" height="4" fill="var(--accent)" opacity="0.18"/>`;
+  g += `<rect x="${x(cible.temps_s)}" y="${base - 4}" width="${x(MIN) - x(cible.temps_s)}" height="4" fill="var(--accent)" opacity="0.18"/>`;
   g += `<line x1="${x(cible.temps_s)}" y1="${base - 96}" x2="${x(cible.temps_s)}" y2="${base + 14}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3"/>`;
 
   const pts = [...A.chronos_10km].sort((a, b) => a.date.localeCompare(b.date));
   const niveaux = [88, 46, 88, 46];
+
+  // écarte les étiquettes de deux chronos trop proches sur l'axe (sinon elles se chevauchent)
+  const seuilProche = 90;
+  const parX = pts.map((p, i) => ({ i, x: x(p.temps_s) })).sort((a, b) => a.x - b.x);
+  const niveauDe = {}, ancreDe = {};
+  parX.forEach((o, k) => {
+    niveauDe[o.i] = niveaux[k % niveaux.length];
+    const voisin = parX[k - 1];
+    if (voisin && o.x - voisin.x < seuilProche) {
+      ancreDe[voisin.i] = 'end';
+      ancreDe[o.i] = 'start';
+    }
+  });
+
   pts.forEach((p, i) => {
     const px = x(p.temps_s);
     const cibleP = p.type === 'cible';
     const col = cibleP ? 'var(--accent)' : p.type === 'course' ? 'var(--or)' : 'var(--craie)';
-    const h = cibleP ? 118 : niveaux[i % niveaux.length];
+    const h = cibleP ? 118 : niveauDe[i];
     const y = base - h;
-    const anc = px > W - 220 ? 'end' : px < 160 ? 'start' : 'middle';
+    const anc = ancreDe[i] || (px > W - 220 ? 'end' : px < 160 ? 'start' : 'middle');
     g += `<line x1="${px}" y1="${y + 6}" x2="${px}" y2="${base - 2}" stroke="${col}" stroke-width="1" opacity="0.5"/>`;
     g += `<circle cx="${px}" cy="${base}" r="4.5" fill="${col}"/>`;
     g += `<text class="regle-pt-chrono" x="${px}" y="${y}" text-anchor="${anc}" fill="${col}">${chrono(p.temps_s)}</text>`;
