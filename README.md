@@ -1,13 +1,13 @@
 # Objectif sub-50 — carnet d'entraînement
 
-Web app mobile qui affiche le programme semaine par semaine, le journal des séances avec analyse, et les statistiques. Aucune dépendance, aucun build : du HTML, du CSS et un fichier JavaScript qui lit quatre fichiers JSON.
+Web app mobile qui affiche le programme, le journal des séances (réalisées et à venir, course et renforcement) et les statistiques. Aucune dépendance, aucun build : du HTML, du CSS et un fichier JavaScript qui lit quatre fichiers JSON.
 
 La page est organisée en 4 onglets, avec une barre de navigation fixée en bas (comme une app mobile) :
 
 - **Accueil** — règle chronos + diagnostic et zones cardiaques
-- **Programme** — périodisation, renforcement
-- **Séances** — journal des séances, semaine par semaine (programme du jour, bilan, séances réalisées)
-- **Stats** — statistiques clés et graphes
+- **Programme** — périodisation, jalons, renforcement (ressources générales)
+- **Séances** — journal semaine par semaine : cartes détaillées pour les séances réalisées, cartes cible + consigne pour les séances de course à venir, cartes d'exercices pour le renforcement
+- **Stats** — statistiques clés et graphes (séances réalisées uniquement)
 
 Elle est installable sur l'écran d'accueil (iOS/Android) via `manifest.json` — ouverture en plein écran, sans barre d'adresse.
 
@@ -16,12 +16,13 @@ index.html
 manifest.json
 assets/style.css
 assets/tabbar.css
+assets/renforcement.css
 assets/app.js
 assets/icones/         icônes de l'app (192, 180, 512 px)
 data/athlete.json      profil, zones cardiaques, objectifs, chronos de référence
-data/programme.json    blocs de périodisation + semaines détaillées
-data/seances.json      séances réalisées + analyse de chacune
-data/renforcement.json exercices de renforcement
+data/programme.json    vue macro : blocs de périodisation, jalons, cadence hebdomadaire (pas de détail de séance)
+data/seances.json      journal unifié : réalisées et prévues, course et renforcement
+data/renforcement.json référentiel d'exercices (consommé par les cartes de séance renfo)
 ```
 
 ## Publier sur GitHub Pages
@@ -41,55 +42,55 @@ python3 -m http.server 8000
 
 puis `http://localhost:8000`.
 
-## Ajouter une séance
+## Le journal unifié (`data/seances.json`)
 
-Insérer un objet dans le tableau `seances` de `data/seances.json`. L'ordre n'a pas d'importance, la page trie par date. Mettre à jour le champ `maj` du fichier.
+Un seul tableau `seances`, trié par date, mélangeant passé et futur, course et renforcement. Le champ `statut` (`realise` ou `prevu`) fait toute la différence de rendu — **toute statistique doit filtrer sur `statut === 'realise'`**, sinon une séance à venir fausse silencieusement les agrégats.
+
+**Séance réalisée** — porte ses métriques à plat et une analyse :
 
 ```json
 {
-  "id": "19747910470",
-  "date": "2026-08-17",
-  "titre": "Z2, 40 minutes",
-  "type": "z2",
-  "lieu": "La Prairie, Caen",
-  "distance_km": 6.5,
-  "temps_s": 2400,
-  "fc_moy": 141,
-  "fc_max": 150,
-  "denivele": 11,
-  "effort_relatif": 55,
-  "cadence_spm": 172,
-  "conditions": "8h30, frais",
+  "id": "19747910470", "date": "2026-08-17", "statut": "realise", "type": "z2",
+  "titre": "Z2, 40 minutes", "lieu": "La Prairie, Caen",
+  "distance_km": 6.5, "temps_s": 2400, "fc_moy": 141, "fc_max": 150,
+  "denivele": 11, "effort_relatif": 55, "cadence_spm": 172, "conditions": "8h30, frais",
   "commentaire_athlete": "facultatif",
   "splits": [
     { "km": 1, "temps_s": 380, "fc_moy": 130 },
     { "km": 7, "dist_km": 0.4, "temps_s": 150, "fc_moy": 148 }
   ],
-  "analyse": {
-    "verdict": "une phrase",
-    "corps": "le raisonnement",
-    "a_retenir": "la consigne pour la suite",
-    "note": "excellent"
-  }
+  "analyse": { "verdict": "une phrase", "corps": "le raisonnement", "a_retenir": "la consigne pour la suite", "note": "excellent" }
 }
 ```
-
-Détails utiles :
 
 - `cadence_spm` est la cadence en pas par minute, soit **le double** de la valeur affichée par l'API Strava (qui compte un seul pied).
 - `splits` accepte deux formes : par kilomètre (`km` + `temps_s`), ou par section libre (`libelle` + `temps_s`). Ajouter `dist_km` pour un kilomètre incomplet, l'allure est alors calculée correctement.
 - `note` pilote la couleur de la bordure gauche : `excellent`, `bon`, `attention`, `reference`.
 - Le **coût cardiaque** (battements par kilomètre) est calculé automatiquement, rien à saisir.
 
-## Faire évoluer le programme
+**Séance de course à venir** — jamais de métriques, une `cible` (clés variables selon le type : `duree_min`, `distance_km`, `allure`, `fc_min`/`fc_max`, `structure`, `temps_au_seuil_min`, `distance_test_m` — le formateur n'affiche que ce qui est présent) et une `consigne` :
 
-Dans `data/programme.json` :
+```json
+{
+  "id": "p-2026-08-17", "date": "2026-08-17", "statut": "prevu", "type": "z2",
+  "titre": "Z2, 40 min", "lieu": "La Prairie", "creneau": "Fin de matinée",
+  "cible": { "duree_min": 40, "distance_km": 6.2, "allure": "6:20–6:35", "fc_min": 138, "fc_max": 148 },
+  "consigne": "Premier kilomètre à 6:35 ou plus lent, sans exception."
+}
+```
+
+**Séance de renforcement** (réalisée ou prévue) — `type: "renfo"` et `bloc_renfo` (`"A"` ou `"B"`), qui renvoie à `blocs[]` dans `data/renforcement.json`. La carte de séance affiche automatiquement les exercices du bloc.
+
+## Programme (`data/programme.json`) — vue macro uniquement
+
+Aucun détail de séance ici : le détail vit dans `seances.json`.
 
 - `blocs` : la périodisation macro. La couleur du bloc en cours devient la couleur d'accent de toute la page — quand le bloc seuil démarrera en septembre, la page passera à l'orange.
-- `semaines` : le détail. `statut` vaut `termine`, `en_cours` ou `a_venir`. Passer `fait: true` sur une séance planifiée la coche. Le champ `bilan` n'apparaît que s'il est rempli.
+- `jalons` : les repères de la trajectoire (`date`, `libelle`, `detail`) — affichés dans l'onglet Programme, distincts visuellement une fois passés.
+- `semaines` : `num`, `debut`, `fin`, `titre`, `statut` (`termine` / `en_cours` / `a_venir`), `volume_cible_km`, `objectif`, `bilan`. Le `bilan` n'apparaît dans l'onglet Séances que s'il est rempli.
 
-Le graphe de volume compare les kilomètres réellement courus (agrégés par numéro de semaine ISO depuis `seances.json`) à `volume_cible_km`. Rien à saisir en double.
+Le graphe de volume compare les kilomètres réellement courus (agrégés par numéro de semaine ISO depuis `seances.json`, séances réalisées uniquement) à `volume_cible_km`. Rien à saisir en double.
 
 ## Mise à jour assistée
 
-Le plus simple : coller le lien Strava ou les chiffres de la séance dans une conversation avec Claude, dans ce projet. Les trois JSON sont régénérés, il n'y a plus qu'à les commiter.
+Le plus simple : coller le lien Strava ou les chiffres de la séance dans une conversation avec Claude, dans ce projet. Les JSON de `data/` sont régénérés, il n'y a plus qu'à les commiter.
