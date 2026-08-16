@@ -27,18 +27,30 @@ function dateFr(iso, court) {
 function joursDepuis(iso) {
   return Math.round((new Date(iso) - new Date(new Date().toDateString())) / 86400000);
 }
-function numSemaine(iso) {
+function numSemaine(iso) { return infosSemaineISO(iso).num; }
+
+// numéro, année et bornes lundi–dimanche de la semaine ISO contenant `iso`
+function infosSemaineISO(iso) {
   const d = new Date(iso + 'T12:00:00');
-  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
-  const an = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
-  return Math.ceil(((t - an) / 86400000 + 1) / 7);
+  const jeudi = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  jeudi.setUTCDate(jeudi.getUTCDate() + 4 - (jeudi.getUTCDay() || 7));
+  const an = new Date(Date.UTC(jeudi.getUTCFullYear(), 0, 1));
+  const num = Math.ceil(((jeudi - an) / 86400000 + 1) / 7);
+  const lundi = new Date(jeudi); lundi.setUTCDate(jeudi.getUTCDate() - 3);
+  const dimanche = new Date(jeudi); dimanche.setUTCDate(jeudi.getUTCDate() + 3);
+  return {
+    annee: jeudi.getUTCFullYear(),
+    num,
+    debut: lundi.toISOString().slice(0, 10),
+    fin: dimanche.toISOString().slice(0, 10)
+  };
 }
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 /* ---------- État ---------- */
 
 let A, P, S, R, ZONES;
+let SEM_LISTE = [], semaineIdx = 0;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
 /* ---------- Chargement ---------- */
@@ -69,7 +81,7 @@ function demarrer() {
   rendreRegleCalendrier();
   rendreSemaines();
   rendreRenfo();
-  rendreSeances();
+  activerNavSemaines();
   rendreStats();
 
   $('#app').hidden = false;
@@ -336,52 +348,124 @@ function bandeFC(s) {
   return `<div class="bande"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fréquence cardiaque moyenne ${s.fc_moy}, maximale ${s.fc_max}, sur l'échelle des zones">${g}</svg></div>`;
 }
 
-function rendreSeances() {
-  $('#seances').innerHTML = S.map((s) => {
-    const cc = coutCardiaque(s.fc_moy, s.temps_s, s.distance_km);
-    const splits = (s.splits || []).map((k) => {
-      if (k.libelle) {
-        return `<div class="split"><div class="split__k">${esc(k.libelle)}</div>
-          <div class="split__a">${chrono(k.temps_s)}</div>
-          <div class="split__f" style="color:${zoneDe(k.fc_moy).couleur}">${k.fc_moy}</div></div>`;
-      }
-      const d = k.dist_km || 1;
-      return `<div class="split${k.dist_km ? ' split--partiel' : ''}"><div class="split__k">KM ${k.km}${k.dist_km ? ` · ${Math.round(d * 1000)} m` : ''}</div>
-        <div class="split__a">${allureStr(k.temps_s, d)}</div>
+function carteSeance(s) {
+  const cc = coutCardiaque(s.fc_moy, s.temps_s, s.distance_km);
+  const splits = (s.splits || []).map((k) => {
+    if (k.libelle) {
+      return `<div class="split"><div class="split__k">${esc(k.libelle)}</div>
+        <div class="split__a">${chrono(k.temps_s)}</div>
         <div class="split__f" style="color:${zoneDe(k.fc_moy).couleur}">${k.fc_moy}</div></div>`;
-    }).join('');
-
-    return `<article class="seance seance--${s.analyse.note}">
-      <div class="seance__tete">
-        <div>
-          <div class="seance__date">${dateFr(s.date)} · semaine ${numSemaine(s.date)}</div>
-          <h3 class="seance__titre">${esc(s.titre)}</h3>
-        </div>
-        <div class="seance__date">${esc(s.conditions || '')}</div>
-      </div>
-      <p class="seance__lieu">${esc(s.lieu)}</p>
-
-      <div class="chiffres">
-        <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
-        <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
-        <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
-        <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
-      </div>
-
-      ${bandeFC(s)}
-      <div class="splits">${splits}</div>
-      ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
-
-      <div class="analyse">
-        <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
-        <p class="analyse__corps">${esc(s.analyse.corps)}</p>
-        <div class="analyse__retenir"><b>À retenir</b>${esc(s.analyse.a_retenir)}</div>
-      </div>
-    </article>`;
+    }
+    const d = k.dist_km || 1;
+    return `<div class="split${k.dist_km ? ' split--partiel' : ''}"><div class="split__k">KM ${k.km}${k.dist_km ? ` · ${Math.round(d * 1000)} m` : ''}</div>
+      <div class="split__a">${allureStr(k.temps_s, d)}</div>
+      <div class="split__f" style="color:${zoneDe(k.fc_moy).couleur}">${k.fc_moy}</div></div>`;
   }).join('');
+
+  return `<article class="seance seance--${s.analyse.note}">
+    <div class="seance__tete">
+      <div>
+        <div class="seance__date">${dateFr(s.date)} · semaine ${numSemaine(s.date)}</div>
+        <h3 class="seance__titre">${esc(s.titre)}</h3>
+      </div>
+      <div class="seance__date">${esc(s.conditions || '')}</div>
+    </div>
+    <p class="seance__lieu">${esc(s.lieu)}</p>
+
+    <div class="chiffres">
+      <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
+      <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
+      <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
+      <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
+    </div>
+
+    ${bandeFC(s)}
+    <div class="splits">${splits}</div>
+    ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
+
+    <div class="analyse">
+      <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
+      <p class="analyse__corps">${esc(s.analyse.corps)}</p>
+      <div class="analyse__retenir"><b>À retenir</b>${esc(s.analyse.a_retenir)}</div>
+    </div>
+  </article>`;
+}
+
+/* ---------- Séances — navigation semaine par semaine ---------- */
+
+// fusionne les semaines du programme avec les semaines "hors programme"
+// (séances réelles antérieures au début du plan, ex. courses de référence)
+function construireSemaines() {
+  const map = new Map();
+
+  P.semaines.forEach((w) => map.set('p' + w.num, {
+    num: w.num, debut: w.debut, fin: w.fin,
+    titre: w.titre, objectif: w.objectif, statut: w.statut, programme: true
+  }));
+
+  S.forEach((s) => {
+    if (P.semaines.some((w) => s.date >= w.debut && s.date <= w.fin)) return;
+    const info = infosSemaineISO(s.date);
+    const cle = 'h' + info.annee + '-' + info.num;
+    if (!map.has(cle)) map.set(cle, {
+      num: info.num, debut: info.debut, fin: info.fin,
+      titre: '', objectif: '', statut: null, programme: false
+    });
+  });
+
+  SEM_LISTE = [...map.values()].sort((a, b) => a.debut.localeCompare(b.debut));
+}
+
+function semaineParDefaut() {
+  let i = SEM_LISTE.findIndex((w) => w.statut === 'en_cours');
+  if (i !== -1) return i;
+
+  const auj = new Date().toISOString().slice(0, 10);
+  i = SEM_LISTE.findIndex((w) => auj >= w.debut && auj <= w.fin);
+  if (i !== -1) return i;
+
+  for (let k = SEM_LISTE.length - 1; k >= 0; k--) {
+    if (S.some((s) => s.date >= SEM_LISTE[k].debut && s.date <= SEM_LISTE[k].fin)) return k;
+  }
+  return SEM_LISTE.length - 1;
+}
+
+function activerNavSemaines() {
+  construireSemaines();
+  semaineIdx = semaineParDefaut();
+
+  $('#semnav-prev').addEventListener('click', () => rendreSeances(semaineIdx - 1));
+  $('#semnav-next').addEventListener('click', () => rendreSeances(semaineIdx + 1));
+
+  rendreSeances(semaineIdx);
+}
+
+function rendreSeances(idx) {
+  semaineIdx = Math.max(0, Math.min(idx, SEM_LISTE.length - 1));
+  const sem = SEM_LISTE[semaineIdx];
+  const liste = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin);
+
+  $('#sem-tete').hidden = !sem.programme;
+  if (sem.programme) {
+    $('#sem-badge').textContent = ETAT[sem.statut];
+    $('#sem-badge').className = 'sem-tete__badge sem-tete__badge--' + sem.statut;
+    $('#sem-titre').textContent = sem.titre;
+    $('#sem-objectif').textContent = sem.objectif;
+  }
+
+  $('#seances').innerHTML = liste.length
+    ? liste.map(carteSeance).join('')
+    : `<p class="seances-vide">${sem.statut === 'a_venir' ? 'Pas encore courue.' : 'Aucune séance enregistrée pour cette semaine.'}</p>`;
+
+  $('#semnav-num').textContent = 'Semaine ' + sem.num;
+  $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;
+  $('#semnav-prev').disabled = semaineIdx === 0;
+  $('#semnav-next').disabled = semaineIdx === SEM_LISTE.length - 1;
+
+  if (!$('#onglet-seances').hidden) window.scrollTo(0, 0);
 }
 
 /* ---------- Statistiques ---------- */

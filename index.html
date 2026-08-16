@@ -101,8 +101,28 @@
     <section class="section" id="s-seances">
       <div class="etiquette"><span class="etiquette__num">01</span> Séances &amp; analyses</div>
       <p class="section__intro">Chaque séance est mesurée sur la même échelle cardiaque. Le trait blanc, c'est ton plafond de 155&nbsp;bpm.</p>
+
+      <div class="sem-tete" id="sem-tete" hidden>
+        <span class="sem-tete__badge" id="sem-badge"></span>
+        <h3 class="sem-tete__titre" id="sem-titre"></h3>
+        <p class="sem-tete__objectif" id="sem-objectif"></p>
+      </div>
+
       <div id="seances" class="seances"></div>
     </section>
+
+    <nav class="semnav" id="semnav" aria-label="Navigation entre semaines">
+      <button class="semnav__fleche" id="semnav-prev" type="button" aria-label="Semaine précédente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="semnav__info">
+        <span class="semnav__num" id="semnav-num"></span>
+        <span class="semnav__dates" id="semnav-dates"></span>
+      </div>
+      <button class="semnav__fleche" id="semnav-next" type="button" aria-label="Semaine suivante">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </nav>
 
   </div>
 
