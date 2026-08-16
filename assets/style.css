@@ -352,9 +352,15 @@ pre {
 .semaine__objectif { color: var(--brume); font-size: 0.88rem; margin: 1rem 0 1.1rem; max-width: 62ch; }
 .seance-plan {
   display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.9rem;
-  padding: 0.6rem 0; border-top: 1px dotted var(--bord-fin); font-size: 0.87rem;
+  padding: 0.6rem 0 0.6rem 0.7rem; margin-left: -0.7rem;
+  border-top: 1px dotted var(--bord-fin);
+  border-left: 2px solid transparent;
+  font-size: 0.87rem;
 }
-.seance-plan__jour { font-family: var(--mo); font-size: 0.72rem; color: var(--brume-2); padding-top: 0.15rem; }
+/* différencie d'un coup d'œil une sortie course à pied d'une séance de renforcement */
+.seance-plan[data-categorie="run"] { border-left-color: var(--accent); }
+.seance-plan[data-categorie="renfo"] { border-left-color: var(--or); }
+.seance-plan__jour { font-family: var(--mo); font-size: 0.75rem; font-weight: 600; color: var(--craie); padding-top: 0.15rem; }
 .seance-plan__lib { margin: 0; }
 .seance-plan__lib::before {
   content: attr(data-type);
@@ -362,8 +368,11 @@ pre {
   padding: 0.08rem 0.35rem; border-radius: 2px; margin-right: 0.55rem;
   background: var(--carte-2); color: var(--brume);
 }
+.seance-plan[data-categorie="run"] .seance-plan__lib::before { color: var(--accent); }
+.seance-plan[data-categorie="renfo"] .seance-plan__lib::before { color: var(--or); }
 .seance-plan__det { color: var(--brume-2); font-size: 0.8rem; margin: 0.25rem 0 0; max-width: 60ch; }
 .seance-plan--fait .seance-plan__lib { color: var(--brume-2); }
+.seance-plan--fait.seance-plan[data-categorie] { border-left-color: var(--bord); }
 .coche { color: var(--accent); font-family: var(--mo); margin-right: 0.35rem; }
 .semaine__bilan {
   margin-top: 1.2rem; padding: 0.85rem 1rem; border-left: 2px solid var(--accent);
@@ -393,6 +402,16 @@ pre {
 
 .seance__tete { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
 .seance__date { font-family: var(--mo); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--brume-2); text-transform: uppercase; }
+.seance__jour {
+  font-family: var(--dp); font-variation-settings: "wdth" 85; font-weight: 800;
+  font-size: 1rem; letter-spacing: -0.01em; color: var(--craie); font-feature-settings: "tnum";
+  text-transform: uppercase;
+}
+.seance__semaine {
+  font-family: var(--mo); font-variation-settings: normal; font-weight: 500;
+  font-size: 0.62rem; letter-spacing: 0.08em; color: var(--brume-2);
+  margin-left: 0.55rem; vertical-align: 0.12em;
+}
 .seance__titre {
   font-family: var(--dp); font-variation-settings: "wdth" 95; font-weight: 700;
   font-size: 1.18rem; letter-spacing: -0.015em; margin: 0.25rem 0 0.15rem;
