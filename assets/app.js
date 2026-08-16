@@ -134,8 +134,6 @@ function rendreTete() {
     `<b>${j > 0 ? j : '—'}</b> jours avant la course <span class="compteur__date">${esc(o10.fenetre)}</span>`;
   $('#compteur-semi').innerHTML =
     `<b>${Math.round(joursDepuis('2027-06-13') / 7)}</b> semaines avant le semi Pégasus`;
-
-  $('#pied-materiel').textContent = A.materiel.map((m) => `${m.nom} — ${m.detail}`).join(' · ');
 }
 
 /* ---------- Règle chrono ---------- */
