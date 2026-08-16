@@ -105,7 +105,6 @@ pre {
   color: var(--brume);
   border-top: 1px solid var(--bord-fin);
   padding: 0.55rem 0;
-  white-space: nowrap;
 }
 .compteur b {
   font-family: var(--dp);
@@ -116,6 +115,21 @@ pre {
   display: inline-block;
   margin-right: 0.35rem;
   font-feature-settings: "tnum";
+}
+.compteur__date {
+  display: block;
+  margin-top: 0.3rem;
+  padding-left: 0.05em;
+  color: var(--brume-2);
+}
+.compteur__date::before {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1px;
+  margin-right: 0.5em;
+  background: var(--brume-2);
+  vertical-align: 0.3em;
 }
 .maj { font-family: var(--mo); font-size: 0.66rem; color: var(--brume-2); margin: 1rem 0 0; }
 
@@ -211,7 +225,26 @@ pre {
 .zone-label { font-family: var(--mo); font-size: 9px; fill: var(--fond); font-weight: 600; }
 .zone-borne { font-family: var(--mo); font-size: 8.5px; fill: var(--brume-2); }
 
-.tableau { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+/* les deux graphiques SVG de l'accueil sont dessinés dans un viewBox fixe de
+   1000 unités : sur un écran étroit, ce viewBox est mis à l'échelle vers le
+   bas et le texte devient illisible. On compense en agrandissant les polices
+   internes (en unités du viewBox) à mesure que le conteneur rétrécit. */
+@media (max-width: 560px) {
+  .regle-label, .regle-pt-date { font-size: 15px; }
+  .regle-pt-libelle { font-size: 16px; }
+  .regle-pt-chrono { font-size: 23px; }
+  .zone-label { font-size: 15px; }
+  .zone-borne { font-size: 14px; }
+}
+@media (max-width: 400px) {
+  .regle-label, .regle-pt-date { font-size: 18px; }
+  .regle-pt-libelle { font-size: 18px; }
+  .regle-pt-chrono { font-size: 27px; }
+  .zone-label { font-size: 18px; }
+  .zone-borne { font-size: 16px; }
+}
+
+.tableau { width: 100%; border-collapse: collapse; font-size: 0.86rem; table-layout: fixed; }
 .tableau td { padding: 0.55rem 0.6rem 0.55rem 0; border-bottom: 1px solid var(--bord-fin); vertical-align: baseline; }
 .tableau td:first-child { width: 2.4rem; }
 .tableau .z-pastille {
