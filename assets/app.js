@@ -456,9 +456,24 @@ function rendreSeances(idx) {
     $('#sem-objectif').textContent = sem.objectif;
   }
 
-  $('#seances').innerHTML = liste.length
-    ? liste.map(carteSeance).join('')
-    : `<p class="seances-vide">${sem.statut === 'a_venir' ? 'Pas encore courue.' : 'Aucune séance enregistrée pour cette semaine.'}</p>`;
+  const planSemaine = sem.programme ? P.semaines.find((w) => w.num === sem.num) : null;
+  const aVenir = planSemaine ? planSemaine.seances.filter((x) => !x.fait) : [];
+
+  let html = liste.map(carteSeance).join('');
+  if (aVenir.length) {
+    html += `<div class="seances-avenir">
+      <h4 class="seances-avenir__titre">${liste.length ? 'Reste à courir cette semaine' : 'Prévu cette semaine — cibles théoriques'}</h4>
+      ${aVenir.map((x) => `
+        <div class="seance-plan">
+          <div class="seance-plan__jour">${esc(x.jour)}</div>
+          <div>
+            <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${esc(x.libelle)}</p>
+            ${x.detail ? `<p class="seance-plan__det">${esc(x.detail)}</p>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }
+  $('#seances').innerHTML = html || '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
   $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;
