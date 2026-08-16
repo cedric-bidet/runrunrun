@@ -314,38 +314,39 @@ pre {
 .regle-cal-repli summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .regle-cal-repli .regle-cal { margin-top: 1rem; }
 
-.seance-plan {
-  display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.9rem;
-  padding: 0.6rem 0 0.6rem 0.7rem; margin-left: -0.7rem;
-  border-top: 1px dotted var(--bord-fin);
-  border-left: 2px solid transparent;
-  font-size: 0.87rem;
-}
-/* différencie d'un coup d'œil une sortie course à pied d'une séance de renforcement */
-.seance-plan[data-categorie="run"] { border-left-color: var(--accent); }
-.seance-plan[data-categorie="renfo"] { border-left-color: var(--or); }
-.seance-plan__jour { font-family: var(--mo); font-size: 0.75rem; font-weight: 600; color: var(--craie); padding-top: 0.15rem; }
-.seance-plan__lib { margin: 0; }
-.seance-plan__lib::before {
-  content: attr(data-type);
-  font-family: var(--mo); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 0.08rem 0.35rem; border-radius: 2px; margin-right: 0.55rem;
-  background: var(--carte-2); color: var(--brume);
-}
-.seance-plan[data-categorie="run"] .seance-plan__lib::before { color: var(--accent); }
-.seance-plan[data-categorie="renfo"] .seance-plan__lib::before { color: var(--or); }
-.seance-plan__det { color: var(--brume-2); font-size: 0.8rem; margin: 0.25rem 0 0; max-width: 60ch; }
-.seance-plan--fait .seance-plan__lib { color: var(--brume-2); }
-.seance-plan--fait.seance-plan[data-categorie] { border-left-color: var(--bord); }
-.coche { color: var(--accent); font-family: var(--mo); margin-right: 0.35rem; }
 .semaine__bilan {
   margin-top: 1.2rem; padding: 0.85rem 1rem; border-left: 2px solid var(--accent);
   background: rgba(63,179,155,0.06); font-size: 0.87rem; color: var(--craie);
 }
 .semaine__bilan b { font-family: var(--mo); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.25rem; }
-@media (max-width: 560px) {
-  .seance-plan { grid-template-columns: 1fr; gap: 0.2rem; }
+
+/* ---------- Jalons ---------- */
+
+.jalons { position: relative; padding-left: 1.4rem; }
+.jalons::before {
+  content: ""; position: absolute; left: 4px; top: 0.4rem; bottom: 0.4rem;
+  width: 1px; background: var(--bord-fin);
 }
+.jalon { position: relative; padding-bottom: 1.7rem; }
+.jalon:last-child { padding-bottom: 0; }
+.jalon__marque {
+  position: absolute; left: -1.4rem; top: 0.3rem;
+  width: 9px; height: 9px; border-radius: 50%; box-sizing: border-box;
+}
+.jalon--passe .jalon__marque { background: var(--brume-2); }
+.jalon--avenir .jalon__marque { background: var(--fond); border: 2px solid var(--accent); }
+.jalon__date {
+  font-family: var(--mo); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--brume-2);
+}
+.jalon__compte { margin-left: 0.6rem; color: var(--accent); font-weight: 700; }
+.jalon__libelle {
+  font-family: var(--dp); font-variation-settings: "wdth" 92; font-weight: 700;
+  font-size: 1.02rem; letter-spacing: -0.01em; margin: 0.25rem 0 0.3rem; color: var(--craie);
+}
+.jalon__detail { color: var(--brume); font-size: 0.87rem; margin: 0; max-width: 60ch; }
+.jalon--passe .jalon__libelle { color: var(--brume); }
+.jalon--passe .jalon__detail { color: var(--brume-2); }
 
 /* ---------- Séances ---------- */
 
@@ -361,6 +362,23 @@ pre {
 .seance--bon { border-left-color: #4E8BA8; }
 .seance--attention { border-left-color: var(--alerte); }
 .seance--reference { border-left-color: var(--or); }
+
+/* séance à venir : creuse, en pointillés — jamais confondue avec une séance réalisée */
+.seance--prevue {
+  background: transparent;
+  border-style: dashed;
+  border-left-style: dashed;
+  border-left-color: var(--bord);
+}
+
+.cible-puces { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.7rem 0; }
+.cible-puce {
+  font-family: var(--mo); font-size: 0.74rem; color: var(--brume);
+  border: 1px solid var(--bord-fin); border-radius: var(--r); padding: 0.18rem 0.55rem;
+}
+.seance__structure { color: var(--brume); font-size: 0.85rem; margin: 0 0 0.8rem; }
+.seance__consigne { color: var(--craie); font-size: 0.88rem; font-style: italic; margin: 0 0 0.8rem; }
+.seance--renfo .exos { margin-top: 1rem; }
 
 .seance__tete { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
 .seance__date { font-family: var(--mo); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--brume-2); text-transform: uppercase; }
