@@ -1,21 +1,13 @@
 {
-  "version": "1.0",
-  "maj": "2026-08-15",
+  "version": "3.0",
+  "maj": "2026-08-16",
+  "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.",
   "seances": [
     {
-      "id": "18819129254",
-      "date": "2026-06-07",
-      "titre": "10 km de la Liberté",
-      "type": "course",
-      "lieu": "Caen",
-      "distance_km": 10.0,
-      "temps_s": 3273,
-      "fc_moy": 171,
-      "fc_max": 187,
-      "denivele": 44,
-      "effort_relatif": 211,
-      "cadence_spm": 178,
-      "conditions": "Départ 8h40, bouchon sur le premier kilomètre",
+      "id": "18819129254", "date": "2026-06-07", "statut": "realise", "type": "course",
+      "titre": "10 km de la Liberté", "lieu": "Caen",
+      "distance_km": 10.0, "temps_s": 3273, "fc_moy": 171, "fc_max": 187, "denivele": 44,
+      "effort_relatif": 211, "cadence_spm": 178, "conditions": "Départ 8h40, bouchon sur le premier kilomètre",
       "splits": [
         { "libelle": "1er 5 km", "temps_s": 1712, "fc_moy": 165 },
         { "libelle": "2e 5 km", "temps_s": 1575, "fc_moy": 177 }
@@ -28,59 +20,33 @@
       }
     },
     {
-      "id": "19179702740",
-      "date": "2026-07-04",
-      "titre": "10 km solo, en soirée",
-      "type": "course",
-      "lieu": "Bords de l'Orne, Caen",
-      "distance_km": 10.0,
-      "temps_s": 3168,
-      "fc_moy": 175,
-      "fc_max": 187,
-      "denivele": 11,
-      "effort_relatif": 217,
-      "cadence_spm": 179,
-      "conditions": "18h40, fin de journée chaude",
+      "id": "19179702740", "date": "2026-07-04", "statut": "realise", "type": "course",
+      "titre": "10 km solo, en soirée", "lieu": "Bords de l'Orne, Caen",
+      "distance_km": 10.0, "temps_s": 3168, "fc_moy": 175, "fc_max": 187, "denivele": 11,
+      "effort_relatif": 217, "cadence_spm": 179, "conditions": "18h40, fin de journée chaude",
       "splits": [
-        { "km": 1, "temps_s": 299, "fc_moy": 150 },
-        { "km": 2, "temps_s": 301, "fc_moy": 166 },
-        { "km": 3, "temps_s": 304, "fc_moy": 171 },
-        { "km": 4, "temps_s": 302, "fc_moy": 174 },
-        { "km": 5, "temps_s": 302, "fc_moy": 179 },
-        { "km": 6, "temps_s": 309, "fc_moy": 181 },
-        { "km": 7, "temps_s": 315, "fc_moy": 183 },
-        { "km": 8, "temps_s": 330, "fc_moy": 184 },
-        { "km": 9, "temps_s": 355, "fc_moy": 181 },
-        { "km": 10, "temps_s": 346, "fc_moy": 181 }
+        { "km": 1, "temps_s": 299, "fc_moy": 150 }, { "km": 2, "temps_s": 301, "fc_moy": 166 },
+        { "km": 3, "temps_s": 304, "fc_moy": 171 }, { "km": 4, "temps_s": 302, "fc_moy": 174 },
+        { "km": 5, "temps_s": 302, "fc_moy": 179 }, { "km": 6, "temps_s": 309, "fc_moy": 181 },
+        { "km": 7, "temps_s": 315, "fc_moy": 183 }, { "km": 8, "temps_s": 330, "fc_moy": 184 },
+        { "km": 9, "temps_s": 355, "fc_moy": 181 }, { "km": 10, "temps_s": 346, "fc_moy": 181 }
       ],
       "analyse": {
         "verdict": "52:48 — meilleur chrono, mais l'exact contraire du 7 juin.",
         "corps": "Tu es parti à 4:59/km, c'est-à-dire à l'allure du sub-50, et tu as tenu cinq kilomètres. Puis la facture est tombée : 5:09, 5:15, 5:30, 5:55, 5:46. Regarde la fréquence cardiaque : dès le km 5 tu es à 179, et à partir du km 7 tu plafonnes entre 181 et 184 — tu n'as plus de réserve, le cœur ne peut plus compenser, donc c'est l'allure qui cède. Les cinq derniers kilomètres t'ont coûté 1 minute 20 de plus que les cinq premiers.",
-        "a_retenir": "Le sub-50 ne s'obtiendra pas en partant à 4:59. Il s'obtiendra en partant à 5:03 et en ayant un seuil assez haut pour accélérer ensuite. C'est exactement ce que le bloc de septembre va construire.",
+        "a_retenir": "Le sub-50 ne s'obtiendra pas en partant à 4:59. Il s'obtiendra en partant à 5:03 et en ayant un seuil assez haut pour accélérer ensuite.",
         "note": "reference"
       }
     },
     {
-      "id": "19622858248",
-      "date": "2026-08-06",
-      "titre": "Reprise sur les hauteurs de Tournus",
-      "type": "reprise",
-      "lieu": "Tournus, Bourgogne",
-      "distance_km": 6.63,
-      "temps_s": 2430,
-      "fc_moy": 155,
-      "fc_max": 181,
-      "denivele": 51,
-      "effort_relatif": 92,
-      "cadence_spm": 172,
-      "conditions": "8h30, terrain vallonné",
+      "id": "19622858248", "date": "2026-08-06", "statut": "realise", "type": "reprise",
+      "titre": "Reprise sur les hauteurs de Tournus", "lieu": "Tournus, Bourgogne",
+      "distance_km": 6.63, "temps_s": 2430, "fc_moy": 155, "fc_max": 181, "denivele": 51,
+      "effort_relatif": 92, "cadence_spm": 172, "conditions": "8h30, terrain vallonné",
       "splits": [
-        { "km": 1, "temps_s": 361, "fc_moy": 122 },
-        { "km": 2, "temps_s": 366, "fc_moy": 151 },
-        { "km": 3, "temps_s": 367, "fc_moy": 155 },
-        { "km": 4, "temps_s": 364, "fc_moy": 158 },
-        { "km": 5, "temps_s": 341, "fc_moy": 166 },
-        { "km": 6, "temps_s": 379, "fc_moy": 173 },
+        { "km": 1, "temps_s": 361, "fc_moy": 122 }, { "km": 2, "temps_s": 366, "fc_moy": 151 },
+        { "km": 3, "temps_s": 367, "fc_moy": 155 }, { "km": 4, "temps_s": 364, "fc_moy": 158 },
+        { "km": 5, "temps_s": 341, "fc_moy": 166 }, { "km": 6, "temps_s": 379, "fc_moy": 173 },
         { "km": 7, "temps_s": 255, "fc_moy": 163, "dist_km": 0.703 }
       ],
       "analyse": {
@@ -91,25 +57,14 @@
       }
     },
     {
-      "id": "19649260862",
-      "date": "2026-08-08",
-      "titre": "Premier Z2 sous contrôle",
-      "type": "z2",
-      "lieu": "Tournus, Bourgogne",
-      "distance_km": 4.43,
-      "temps_s": 1805,
-      "fc_moy": 140,
-      "fc_max": 151,
-      "denivele": 25,
-      "effort_relatif": 38,
-      "cadence_spm": 167,
-      "conditions": "7h48, à la fraîche",
+      "id": "19649260862", "date": "2026-08-08", "statut": "realise", "type": "z2",
+      "titre": "Premier Z2 sous contrôle", "lieu": "Tournus, Bourgogne",
+      "distance_km": 4.43, "temps_s": 1805, "fc_moy": 140, "fc_max": 151, "denivele": 25,
+      "effort_relatif": 38, "cadence_spm": 167, "conditions": "7h48, à la fraîche",
       "commentaire_athlete": "Difficile de rester lent sous les 155 bpm.",
       "splits": [
-        { "km": 1, "temps_s": 426, "fc_moy": 135 },
-        { "km": 2, "temps_s": 397, "fc_moy": 141 },
-        { "km": 3, "temps_s": 403, "fc_moy": 142 },
-        { "km": 4, "temps_s": 405, "fc_moy": 142 },
+        { "km": 1, "temps_s": 426, "fc_moy": 135 }, { "km": 2, "temps_s": 397, "fc_moy": 141 },
+        { "km": 3, "temps_s": 403, "fc_moy": 142 }, { "km": 4, "temps_s": 405, "fc_moy": 142 },
         { "km": 5, "temps_s": 173, "fc_moy": 145, "dist_km": 0.43 }
       ],
       "analyse": {
@@ -120,52 +75,30 @@
       }
     },
     {
-      "id": "19679611564",
-      "date": "2026-08-10",
-      "titre": "Sortie du midi — le contre-exemple",
-      "type": "z2",
-      "lieu": "Caen",
-      "distance_km": 4.86,
-      "temps_s": 2110,
-      "fc_moy": 152,
-      "fc_max": 163,
-      "denivele": 7,
-      "effort_relatif": 69,
-      "cadence_spm": 165,
-      "conditions": "12h35, plein cagnard",
+      "id": "19679611564", "date": "2026-08-10", "statut": "realise", "type": "z2",
+      "titre": "Sortie du midi — le contre-exemple", "lieu": "Caen",
+      "distance_km": 4.86, "temps_s": 2110, "fc_moy": 152, "fc_max": 163, "denivele": 7,
+      "effort_relatif": 69, "cadence_spm": 165, "conditions": "12h35, plein cagnard",
       "splits": [
-        { "km": 1, "temps_s": 377, "fc_moy": 146 },
-        { "km": 2, "temps_s": 420, "fc_moy": 153 },
-        { "km": 3, "temps_s": 446, "fc_moy": 153 },
-        { "km": 4, "temps_s": 454, "fc_moy": 155 },
+        { "km": 1, "temps_s": 377, "fc_moy": 146 }, { "km": 2, "temps_s": 420, "fc_moy": 153 },
+        { "km": 3, "temps_s": 446, "fc_moy": 153 }, { "km": 4, "temps_s": 454, "fc_moy": 155 },
         { "km": 5, "temps_s": 411, "fc_moy": 154, "dist_km": 0.855 }
       ],
       "analyse": {
         "verdict": "Deux erreurs empilées : le créneau horaire et le premier kilomètre.",
-        "corps": "Le km 1 à 6:17 est parti 40 secondes trop vite, à 146 bpm — soit déjà au sommet de la Z2 avant même d'être échauffé. Ensuite tout se dégrade en même temps : l'allure s'effondre (7:00, puis 7:26, puis 7:34, puis 8:01) alors que la fréquence cardiaque, elle, continue de monter vers 155. Tu ralentis de 1 min 44 au kilomètre et ton cœur ne redescend pas. C'est la signature d'une séance où la chaleur et un départ trop vif se combinent. L'effort relatif de 69 pour 35 minutes de course le confirme : presque le double du 8 août pour une séance censée être identique.",
+        "corps": "Le km 1 à 6:17 est parti 40 secondes trop vite, à 146 bpm — soit déjà au sommet de la Z2 avant même d'être échauffé. Ensuite tout se dégrade en même temps : l'allure s'effondre (7:00, puis 7:26, puis 7:34, puis 8:01) alors que la fréquence cardiaque, elle, continue de monter vers 155. Tu ralentis de 1 min 44 au kilomètre et ton cœur ne redescend pas. L'effort relatif de 69 pour 35 minutes le confirme : presque le double du 8 août pour une séance censée être identique.",
         "a_retenir": "La chaleur n'a pas créé cette dette, elle l'a accélérée. Le départ trop rapide l'avait déjà contractée.",
         "note": "attention"
       }
     },
     {
-      "id": "19707198028",
-      "date": "2026-08-12",
-      "titre": "Z2 propre, dérive nulle",
-      "type": "z2",
-      "lieu": "Caen",
-      "distance_km": 4.33,
-      "temps_s": 1808,
-      "fc_moy": 140,
-      "fc_max": 151,
-      "denivele": 12,
-      "effort_relatif": 38,
-      "cadence_spm": 164,
-      "conditions": "9h23, matinée fraîche",
+      "id": "19707198028", "date": "2026-08-12", "statut": "realise", "type": "z2",
+      "titre": "Z2 propre, dérive nulle", "lieu": "Caen",
+      "distance_km": 4.33, "temps_s": 1808, "fc_moy": 140, "fc_max": 151, "denivele": 12,
+      "effort_relatif": 38, "cadence_spm": 164, "conditions": "9h23, matinée fraîche",
       "splits": [
-        { "km": 1, "temps_s": 412, "fc_moy": 132 },
-        { "km": 2, "temps_s": 417, "fc_moy": 141 },
-        { "km": 3, "temps_s": 423, "fc_moy": 141 },
-        { "km": 4, "temps_s": 416, "fc_moy": 143 },
+        { "km": 1, "temps_s": 412, "fc_moy": 132 }, { "km": 2, "temps_s": 417, "fc_moy": 141 },
+        { "km": 3, "temps_s": 423, "fc_moy": 141 }, { "km": 4, "temps_s": 416, "fc_moy": 143 },
         { "km": 5, "temps_s": 137, "fc_moy": 147, "dist_km": 0.333 }
       ],
       "analyse": {
@@ -176,34 +109,199 @@
       }
     },
     {
-      "id": "19747910470",
-      "date": "2026-08-15",
-      "titre": "Passage à 40 minutes — et une rupture",
-      "type": "z2",
-      "lieu": "La Prairie & hippodrome, Caen",
-      "distance_km": 6.4,
-      "temps_s": 2401,
-      "fc_moy": 142,
-      "fc_max": 151,
-      "denivele": 11,
-      "effort_relatif": 55,
-      "cadence_spm": 172,
-      "conditions": "8h52, plat, frais",
+      "id": "19747910470", "date": "2026-08-15", "statut": "realise", "type": "z2",
+      "titre": "Passage à 40 minutes — et une rupture", "lieu": "La Prairie & hippodrome, Caen",
+      "distance_km": 6.4, "temps_s": 2401, "fc_moy": 142, "fc_max": 151, "denivele": 11,
+      "effort_relatif": 55, "cadence_spm": 172, "conditions": "8h52, plat, frais",
       "splits": [
-        { "km": 1, "temps_s": 382, "fc_moy": 128 },
-        { "km": 2, "temps_s": 368, "fc_moy": 143 },
-        { "km": 3, "temps_s": 376, "fc_moy": 142 },
-        { "km": 4, "temps_s": 370, "fc_moy": 145 },
-        { "km": 5, "temps_s": 375, "fc_moy": 144 },
-        { "km": 6, "temps_s": 378, "fc_moy": 147 },
+        { "km": 1, "temps_s": 382, "fc_moy": 128 }, { "km": 2, "temps_s": 368, "fc_moy": 143 },
+        { "km": 3, "temps_s": 376, "fc_moy": 142 }, { "km": 4, "temps_s": 370, "fc_moy": 145 },
+        { "km": 5, "temps_s": 375, "fc_moy": 144 }, { "km": 6, "temps_s": 378, "fc_moy": 147 },
         { "km": 7, "temps_s": 150, "fc_moy": 148, "dist_km": 0.398 }
       ],
       "analyse": {
         "verdict": "Meilleure séance depuis la reprise, et de loin. Avec une réserve à poser.",
-        "corps": "6,4 km en 40 minutes à 142 bpm de moyenne. Trois jours plus tôt, tu courais à 6:57/km pour 140 bpm ; aujourd'hui c'est 6:15/km pour 142 bpm. Soit 42 secondes au kilomètre gagnées pour deux battements de plus. Ton coût cardiaque tombe à 888 battements par kilomètre — le meilleur chiffre du carnet, meilleur même que tes deux 10 km de juin et juillet. Les splits sont serrés (6:08 à 6:22), la dérive est contenue à moins de 20 battements sur 40 minutes malgré l'allongement de la séance, et la cadence remonte à 172 pas/min, son meilleur niveau depuis la reprise.\n\nLa réserve : une partie de ce gain vient du terrain. La Prairie et l'hippodrome sont parfaitement plats, tu étais au frais à 8h52, alors que les séances du 8 et du 12 comportaient du relief et de la chaleur. Ne mets donc pas les 42 secondes entièrement au crédit de la forme. Mais le coût cardiaque, lui, intègre déjà la fréquence cardiaque : même en retirant l'effet terrain, il reste une progression réelle.",
-        "a_retenir": "Refais exactement ce parcours dans dix jours. Même heure, même profil. Ce sera ton test de référence, et la comparaison sera propre.",
+        "corps": "6,4 km en 40 minutes à 142 bpm de moyenne. Trois jours plus tôt, tu courais à 6:57/km pour 140 bpm ; aujourd'hui c'est 6:15/km pour 142 bpm. Soit 42 secondes au kilomètre gagnées pour deux battements de plus. Ton coût cardiaque tombe à 888 battements par kilomètre — le meilleur chiffre du carnet, meilleur même que tes deux 10 km de juin et juillet.\n\nLa réserve : une partie de ce gain vient du terrain. La Prairie et l'hippodrome sont parfaitement plats, tu étais au frais à 8h52, alors que les séances du 8 et du 12 comportaient du relief et de la chaleur. Mais le coût cardiaque intègre déjà la fréquence cardiaque : même en retirant l'effet terrain, il reste une progression réelle.",
+        "a_retenir": "Refais exactement ce parcours dans dix jours. Même heure, même profil. Ce sera ton test de référence.",
         "note": "excellent"
       }
+    },
+
+    {
+      "id": "p-2026-08-17", "date": "2026-08-17", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min", "lieu": "La Prairie ou bords de l'Orne", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 40, "distance_km": 6.2, "allure": "6:20–6:35", "fc_min": 138, "fc_max": 148 },
+      "consigne": "Plat. Premier kilomètre à 6:35 ou plus lent, sans exception."
+    },
+    {
+      "id": "p-2026-08-18", "date": "2026-08-18", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
+      "cible": { "duree_min": 25 },
+      "consigne": "Première séance : fais-la à vide une fois en regardant les vidéos, avant de compter les séries."
+    },
+    {
+      "id": "p-2026-08-19", "date": "2026-08-19", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min", "lieu": "La Prairie ou bords de l'Orne", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 40, "distance_km": 6.2, "allure": "6:20–6:35", "fc_min": 138, "fc_max": 148 },
+      "consigne": "Jambes possiblement lourdes après le renfo de la veille. C'est normal : ne compense pas en ralentissant sous 6:45, la FC te dira si ça va."
+    },
+    {
+      "id": "p-2026-08-20", "date": "2026-08-20", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 },
+      "consigne": "Placé le jeudi et non le vendredi, pour ne pas charger les jambes la veille de la sortie longue."
+    },
+    {
+      "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 50 min", "lieu": "Plat, bords de l'Orne", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 50, "distance_km": 7.8, "allure": "6:20–6:40", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Première fois au-delà de 45 min. La dérive cardiaque sur les 15 dernières minutes est le vrai indicateur. Flasque si > 20 °C."
+    },
+
+    {
+      "id": "p-2026-08-24", "date": "2026-08-24", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 45 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 45, "distance_km": 7.0, "allure": "6:20–6:35", "fc_min": 138, "fc_max": 148 },
+      "consigne": ""
+    },
+    {
+      "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
+      "cible": { "duree_min": 25 }, "consigne": ""
+    },
+    {
+      "id": "p-2026-08-26", "date": "2026-08-26", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min + 6 lignes droites", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 40, "distance_km": 6.2, "allure": "6:20–6:35", "fc_min": 138, "fc_max": 148, "structure": "40 min Z2 + 6 × 20 s en accélération progressive, récupération marchée complète" },
+      "consigne": "Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée."
+    },
+    {
+      "id": "p-2026-08-28", "date": "2026-08-28", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 }, "consigne": ""
+    },
+    {
+      "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h50, comme le 15 août",
+      "cible": { "duree_min": 55, "distance_km": 8.6, "allure": "6:20–6:40", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Même parcours et même heure que le 15 août : la comparaison sera propre. Coût cardiaque à battre : 888 b/km."
+    },
+
+    {
+      "id": "p-2026-08-31", "date": "2026-08-31", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 40, "distance_km": 6.3, "allure": "6:15–6:30", "fc_min": 138, "fc_max": 148 },
+      "consigne": "Sortie facile. Ne pas arriver fatigué au test de mercredi."
+    },
+    {
+      "id": "p-2026-09-01", "date": "2026-09-01", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement A, allégé", "bloc_renfo": "A", "creneau": "Libre",
+      "cible": { "duree_min": 20 },
+      "consigne": "Deux séries au lieu de trois. Le test de mercredi prime."
+    },
+    {
+      "id": "p-2026-09-02", "date": "2026-09-02", "statut": "prevu", "type": "vma",
+      "titre": "Test demi-Cooper", "lieu": "Piste ou boucle plate mesurée", "creneau": "Fin de matinée — premier mercredi soir pris",
+      "cible": { "duree_min": 36, "distance_km": 5.8, "structure": "Échauffement 20 min Z1-Z2 + 3 lignes droites · 6 min à fond · retour au calme 10 min", "distance_test_m": "1 200–1 300 m attendus", "fc_max": 185 },
+      "consigne": "Distance en mètres ÷ 100 = VMA en km/h. Pars sur une allure que tu penses tenir 6 min, pas 3. Toutes les allures du bloc seuil découlent de ce chiffre."
+    },
+    {
+      "id": "p-2026-09-04", "date": "2026-09-04", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 50 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 50, "distance_km": 7.9, "allure": "6:20–6:40", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Récupération active après le test."
+    },
+
+    {
+      "id": "p-2026-09-07", "date": "2026-09-07", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 },
+      "consigne": "Une seule séance de renfo par semaine à partir d'ici : le seuil prend la priorité."
+    },
+    {
+      "id": "p-2026-09-08", "date": "2026-09-08", "statut": "prevu", "type": "seuil",
+      "titre": "2 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 45, "distance_km": 7.2, "allure": "5:30–5:40", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min Z2 + 3 lignes droites · 2 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 16 },
+      "consigne": "Première séance de seuil depuis très longtemps. L'objectif est la sensation, pas le chrono. Allure à confirmer après le test VMA. Au-delà de 175 bpm, ralentis en cours de fraction."
+    },
+    {
+      "id": "p-2026-09-10", "date": "2026-09-10", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min", "lieu": "Plat", "creneau": "Fin de matinée — jeudi soir pris",
+      "cible": { "duree_min": 40, "distance_km": 6.4, "allure": "6:15–6:30", "fc_min": 135, "fc_max": 145 },
+      "consigne": "Récupération. Vraiment lent : le lendemain d'un seuil, la tentation est de courir trop vite parce qu'on se sent bien."
+    },
+    {
+      "id": "p-2026-09-12", "date": "2026-09-12", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 60, "distance_km": 9.6, "allure": "6:15–6:35", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Première heure de course depuis la reprise. Week-end libre."
+    },
+
+    {
+      "id": "p-2026-09-14", "date": "2026-09-14", "statut": "prevu", "type": "seuil",
+      "titre": "3 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 55, "distance_km": 9.0, "allure": "5:30–5:40", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min · 3 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 24 },
+      "consigne": "Le troisième bloc doit être au même chrono que le premier. S'il est plus lent, tu es parti trop vite."
+    },
+    {
+      "id": "p-2026-09-15", "date": "2026-09-15", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
+      "cible": { "duree_min": 25 }, "consigne": ""
+    },
+    {
+      "id": "p-2026-09-16", "date": "2026-09-16", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 40 min", "lieu": "Plat", "creneau": "Fin de matinée — mercredi soir pris",
+      "cible": { "duree_min": 40, "distance_km": 6.4, "allure": "6:15–6:30", "fc_min": 135, "fc_max": 145 },
+      "consigne": ""
+    },
+    {
+      "id": "p-2026-09-18", "date": "2026-09-18", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 60, "distance_km": 9.6, "allure": "6:15–6:35", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Décalée au vendredi : semaine de garde."
+    },
+
+    {
+      "id": "p-2026-09-21", "date": "2026-09-21", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 }, "consigne": ""
+    },
+    {
+      "id": "p-2026-09-22", "date": "2026-09-22", "statut": "prevu", "type": "seuil",
+      "titre": "2 × 12 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 55, "distance_km": 8.7, "allure": "5:30–5:40", "fc_min": 165, "fc_max": 173, "structure": "Échauffement 15 min · 2 × 12 min · récup 4 min trot · retour au calme 10 min", "temps_au_seuil_min": 24 },
+      "consigne": "Même volume qu'en semaine 38, mais en deux fractions : la difficulté monte d'un cran sans que l'allure change."
+    },
+    {
+      "id": "p-2026-09-24", "date": "2026-09-24", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 45 min + 6 lignes droites", "lieu": "Plat", "creneau": "Fin de matinée — jeudi soir pris",
+      "cible": { "duree_min": 45, "distance_km": 7.3, "allure": "6:10–6:25", "fc_min": 135, "fc_max": 145 },
+      "consigne": ""
+    },
+    {
+      "id": "p-2026-09-26", "date": "2026-09-26", "statut": "prevu", "type": "sortie_longue",
+      "titre": "Sortie longue, 70 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 70, "distance_km": 11.4, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 152 },
+      "consigne": "La plus longue du bloc jusqu'ici. Prends une flasque."
+    },
+
+    {
+      "id": "p-2026-09-28", "date": "2026-09-28", "statut": "prevu", "type": "seuil",
+      "titre": "20 min de tempo continu", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 45, "distance_km": 7.3, "allure": "5:40–5:50", "fc_min": 158, "fc_max": 168, "structure": "Échauffement 15 min · 20 min continues · retour au calme 10 min", "temps_au_seuil_min": 20 },
+      "consigne": "Un seul bloc, légèrement plus lent que le seuil. Test de tenue mentale, pas de performance. Semaine allégée : ne cherche pas à en faire plus."
+    },
+    {
+      "id": "p-2026-09-30", "date": "2026-09-30", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 35 min", "lieu": "Plat", "creneau": "Fin de matinée — mercredi soir pris",
+      "cible": { "duree_min": 35, "distance_km": 5.7, "allure": "6:10–6:25", "fc_min": 135, "fc_max": 145 },
+      "consigne": ""
+    },
+    {
+      "id": "p-2026-10-02", "date": "2026-10-02", "statut": "prevu", "type": "z2",
+      "titre": "Z2, 50 min", "lieu": "Plat", "creneau": "Fin de matinée",
+      "cible": { "duree_min": 50, "distance_km": 8.1, "allure": "6:10–6:30", "fc_min": 138, "fc_max": 148 },
+      "consigne": "Dernière séance avant le pic du bloc seuil. Arrive frais lundi."
     }
   ]
 }
