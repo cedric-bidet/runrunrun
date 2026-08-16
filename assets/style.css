@@ -296,7 +296,6 @@ pre {
 .regle-cal {
   border-left: 2px solid var(--accent);
   padding: 0.2rem 0 0.2rem 1.1rem;
-  margin-bottom: 2rem;
   max-width: 68ch;
 }
 .regle-cal ul { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; gap: 0.45rem; }
@@ -306,50 +305,15 @@ pre {
   width: 5px; height: 5px; border-radius: 50%; background: var(--brume-2);
 }
 
-/* ---------- Filtres ---------- */
+.regle-cal-repli { margin-bottom: 1.6rem; }
+.regle-cal-repli summary {
+  font-family: var(--mo); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--brume-2); cursor: pointer; user-select: none;
+}
+.regle-cal-repli summary:hover { color: var(--brume); }
+.regle-cal-repli summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.regle-cal-repli .regle-cal { margin-top: 1rem; }
 
-.filtres { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
-.filtre {
-  font-family: var(--mo); font-size: 0.72rem; letter-spacing: 0.06em;
-  background: transparent; color: var(--brume);
-  border: 1px solid var(--bord-fin); border-radius: var(--r);
-  padding: 0.32rem 0.7rem; cursor: pointer; transition: all 0.15s;
-}
-.filtre:hover { border-color: var(--bord); color: var(--craie); }
-.filtre[aria-pressed="true"] { background: var(--accent); color: var(--fond); border-color: var(--accent); font-weight: 600; }
-.filtre:focus-visible, .semaine__tete:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-/* ---------- Semaines ---------- */
-
-.semaines { display: grid; gap: 0.7rem; }
-.semaine {
-  background: var(--fond-2);
-  border: 1px solid var(--bord-fin);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.semaine--en_cours { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(63,179,155,0.25); }
-.semaine__tete {
-  width: 100%; text-align: left; background: none; border: 0; color: inherit;
-  display: grid; grid-template-columns: 3.4rem 1fr auto; gap: 1rem; align-items: center;
-  padding: 1rem 1.2rem; cursor: pointer; font: inherit;
-}
-.semaine__tete:hover { background: rgba(255,255,255,0.02); }
-.semaine__num {
-  font-family: var(--dp); font-variation-settings: "wdth" 62; font-weight: 900;
-  font-size: 1.7rem; line-height: 1; color: var(--bord); font-feature-settings: "tnum";
-}
-.semaine--en_cours .semaine__num, .semaine--termine .semaine__num { color: var(--accent); }
-.semaine__titre { font-family: var(--dp); font-variation-settings: "wdth" 95; font-weight: 600; font-size: 1rem; margin: 0; }
-.semaine__dates { font-family: var(--mo); font-size: 0.7rem; color: var(--brume-2); }
-.semaine__etat {
-  font-family: var(--mo); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--brume-2); white-space: nowrap;
-}
-.semaine--en_cours .semaine__etat { color: var(--accent); }
-.semaine__corps { padding: 0 1.2rem 1.3rem; border-top: 1px solid var(--bord-fin); }
-.semaine__corps[hidden] { display: none; }
-.semaine__objectif { color: var(--brume); font-size: 0.88rem; margin: 1rem 0 1.1rem; max-width: 62ch; }
 .seance-plan {
   display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.9rem;
   padding: 0.6rem 0 0.6rem 0.7rem; margin-left: -0.7rem;
@@ -380,8 +344,6 @@ pre {
 }
 .semaine__bilan b { font-family: var(--mo); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.25rem; }
 @media (max-width: 560px) {
-  .semaine__tete { grid-template-columns: 2.8rem 1fr; }
-  .semaine__etat { grid-column: 2; }
   .seance-plan { grid-template-columns: 1fr; gap: 0.2rem; }
 }
 

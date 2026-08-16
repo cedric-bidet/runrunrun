@@ -78,9 +78,8 @@ function demarrer() {
   rendreDiagnostic();
   rendreZones();
   rendreBlocs(blocActif);
-  rendreRegleCalendrier();
-  rendreSemaines();
   rendreRenfo();
+  rendreRegleCalendrier();
   activerNavSemaines();
   rendreStats();
 
@@ -94,7 +93,7 @@ function aujourdhuiDans(d, f) {
 
 /* ---------- Barre d'onglets basse ---------- */
 
-const ONGLETS = ['accueil', 'objectifs', 'seances', 'stats'];
+const ONGLETS = ['accueil', 'programme', 'seances', 'stats'];
 
 function activerOnglets() {
   const boutons = [...document.querySelectorAll('.tabbar__item')];
@@ -254,58 +253,6 @@ const TYPE_LIB = { z2: 'Z2', seuil: 'Seuil', vma: 'Test', specifique: 'Spécifiq
 const CATEGORIE_TYPE = { renfo: 'renfo', repos: 'repos' };
 const categorieType = (t) => CATEGORIE_TYPE[t] || 'run';
 
-function rendreSemaines(filtre = 'tout') {
-  const liste = P.semaines.filter((s) => filtre === 'tout' || s.bloc === filtre);
-
-  $('#semaines').innerHTML = liste.map((s) => {
-    const ouvert = s.statut === 'en_cours' || s.statut === 'a_venir' && liste.filter((x) => x.statut === 'a_venir')[0] === s;
-    return `<article class="semaine semaine--${s.statut}">
-      <button class="semaine__tete" aria-expanded="${ouvert}" data-num="${s.num}">
-        <span class="semaine__num">${s.num}</span>
-        <span>
-          <span class="semaine__titre">${esc(s.titre)}</span><br>
-          <span class="semaine__dates">${dateFr(s.debut, true)} – ${dateFr(s.fin, true)} · cible ${s.volume_cible_km} km</span>
-        </span>
-        <span class="semaine__etat">${ETAT[s.statut]}</span>
-      </button>
-      <div class="semaine__corps" id="sem-${s.num}" ${ouvert ? '' : 'hidden'}>
-        <p class="semaine__objectif">${esc(s.objectif)}</p>
-        ${s.seances.map((x) => `
-          <div class="seance-plan${x.fait ? ' seance-plan--fait' : ''}" data-categorie="${categorieType(x.type)}">
-            <div class="seance-plan__jour">${esc(x.jour)}</div>
-            <div>
-              <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${x.fait ? '<span class="coche">✓</span>' : ''}${esc(x.libelle)}</p>
-              ${x.detail ? `<p class="seance-plan__det">${esc(x.detail)}</p>` : ''}
-            </div>
-          </div>`).join('')}
-        ${s.bilan ? `<div class="semaine__bilan"><b>Bilan</b>${esc(s.bilan)}</div>` : ''}
-      </div>
-    </article>`;
-  }).join('');
-
-  document.querySelectorAll('.semaine__tete').forEach((b) => {
-    b.addEventListener('click', () => {
-      const corps = $('#sem-' + b.dataset.num);
-      const ouvert = corps.hidden;
-      corps.hidden = !ouvert;
-      b.setAttribute('aria-expanded', ouvert);
-    });
-  });
-
-  if (!$('#filtres-semaines').dataset.pret) {
-    const btns = [{ id: 'tout', nom: 'Tous les blocs' }, ...P.blocs.map((b) => ({ id: b.id, nom: b.nom }))];
-    $('#filtres-semaines').innerHTML = btns.map((b) =>
-      `<button class="filtre" data-f="${b.id}" aria-pressed="${b.id === 'tout'}">${esc(b.nom)}</button>`).join('');
-    $('#filtres-semaines').dataset.pret = '1';
-    document.querySelectorAll('.filtre').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filtre').forEach((o) => o.setAttribute('aria-pressed', o === btn));
-        rendreSemaines(btn.dataset.f);
-      });
-    });
-  }
-}
-
 /* ---------- Renforcement ---------- */
 
 function rendreRenfo() {
@@ -463,26 +410,27 @@ function rendreSeances(idx) {
   const sem = SEM_LISTE[semaineIdx];
   const liste = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin);
 
+  const planSemaine = sem.programme ? P.semaines.find((w) => w.num === sem.num) : null;
+
   $('#sem-tete').hidden = !sem.programme;
   if (sem.programme) {
     $('#sem-badge').textContent = ETAT[sem.statut];
     $('#sem-badge').className = 'sem-tete__badge sem-tete__badge--' + sem.statut;
     $('#sem-titre').textContent = sem.titre;
     $('#sem-objectif').textContent = sem.objectif;
+    $('#sem-bilan').hidden = !planSemaine.bilan;
+    $('#sem-bilan-texte').textContent = planSemaine.bilan || '';
   }
 
-  const planSemaine = sem.programme ? P.semaines.find((w) => w.num === sem.num) : null;
-  const aVenir = planSemaine ? planSemaine.seances.filter((x) => !x.fait) : [];
-
   let html = liste.map(carteSeance).join('');
-  if (aVenir.length) {
+  if (planSemaine) {
     html += `<div class="seances-avenir">
-      <h4 class="seances-avenir__titre">${liste.length ? 'Reste à courir cette semaine' : 'Prévu cette semaine — cibles théoriques'}</h4>
-      ${aVenir.map((x) => `
-        <div class="seance-plan" data-categorie="${categorieType(x.type)}">
+      <h4 class="seances-avenir__titre">Programme de la semaine</h4>
+      ${planSemaine.seances.map((x) => `
+        <div class="seance-plan${x.fait ? ' seance-plan--fait' : ''}" data-categorie="${categorieType(x.type)}">
           <div class="seance-plan__jour">${esc(x.jour)}</div>
           <div>
-            <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${esc(x.libelle)}</p>
+            <p class="seance-plan__lib" data-type="${TYPE_LIB[x.type] || x.type}">${x.fait ? '<span class="coche">✓</span>' : ''}${esc(x.libelle)}</p>
             ${x.detail ? `<p class="seance-plan__det">${esc(x.detail)}</p>` : ''}
           </div>
         </div>`).join('')}
