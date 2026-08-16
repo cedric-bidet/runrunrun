@@ -141,57 +141,47 @@ function rendreTete() {
 
 /* ---------- Règle chrono ---------- */
 
-function rendreRegle() {
-  const MIN = 2880, MAX = 3360, W = 1000, H = 230;
-  const x = (t) => ((MAX - t) / (MAX - MIN)) * (W - 90) + 45;
-  const base = 140;
-  let g = '';
+const TYPE_CHRONO = { reference: 'Référence', course: 'Course', test: 'Test' };
 
-  for (let t = MIN; t <= MAX; t += 15) {
-    const fort = t % 120 === 0;
-    g += `<line class="regle-tick${fort ? ' regle-tick--fort' : ''}" x1="${x(t)}" y1="${base}" x2="${x(t)}" y2="${base + (fort ? 12 : 5)}"/>`;
-    if (fort) g += `<text class="regle-label" x="${x(t)}" y="${base + 26}" text-anchor="middle">${chrono(t)}</text>`;
-  }
-  g += `<line class="regle-axe" x1="45" y1="${base}" x2="${W - 45}" y2="${base}"/>`;
+// une mini-jauge par chrono plutôt qu'un seul axe partagé : sur mobile, du vrai
+// texte HTML (jamais rétréci par un viewBox SVG) et aucune étiquette qui se chevauche,
+// même quand deux chronos sont très proches en valeur.
+function rendreRegle() {
+  const MIN = 2880, MAX = 3360; // 48:00 (rapide) → 56:00 (lent)
+  const pos = (t) => ((MAX - t) / (MAX - MIN)) * 100;
 
   const cible = A.chronos_10km.find((c) => c.type === 'cible');
-  g += `<rect x="${x(cible.temps_s)}" y="${base - 4}" width="${x(MIN) - x(cible.temps_s)}" height="4" fill="var(--accent)" opacity="0.18"/>`;
-  g += `<line x1="${x(cible.temps_s)}" y1="${base - 96}" x2="${x(cible.temps_s)}" y2="${base + 14}" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+  const posCible = pos(cible.temps_s);
 
-  const pts = [...A.chronos_10km].sort((a, b) => a.date.localeCompare(b.date));
-  const niveaux = [88, 46, 88, 46];
+  const lignes = A.chronos_10km
+    .filter((c) => c.type !== 'cible')
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map((c) => {
+      const couleur = c.type === 'course' ? 'var(--or)' : 'var(--craie)';
+      return `<div class="regle-ligne">
+        <div class="regle-ligne__tete">
+          <span class="regle-ligne__date">${dateFr(c.date).toUpperCase()} · ${esc(TYPE_CHRONO[c.type] || c.type)}</span>
+          <span class="regle-ligne__chrono">${chrono(c.temps_s)}<small class="regle-ligne__allure">${esc(c.allure)}</small></span>
+        </div>
+        <h4 class="regle-ligne__titre">${esc(c.libelle)}</h4>
+        <div class="regle-ligne__jauge">
+          <div class="regle-ligne__zone" style="width:${100 - posCible}%"></div>
+          <div class="regle-ligne__cible" style="left:${posCible}%"></div>
+          <div class="regle-ligne__point" style="left:${pos(c.temps_s)}%; --point-couleur:${couleur}"></div>
+        </div>
+        <p class="regle-ligne__note">${esc(c.note)}</p>
+      </div>`;
+    }).join('');
 
-  // écarte les étiquettes de deux chronos trop proches sur l'axe (sinon elles se chevauchent)
-  const seuilProche = 90;
-  const parX = pts.map((p, i) => ({ i, x: x(p.temps_s) })).sort((a, b) => a.x - b.x);
-  const niveauDe = {}, ancreDe = {};
-  parX.forEach((o, k) => {
-    niveauDe[o.i] = niveaux[k % niveaux.length];
-    const voisin = parX[k - 1];
-    if (voisin && o.x - voisin.x < seuilProche) {
-      ancreDe[voisin.i] = 'end';
-      ancreDe[o.i] = 'start';
-    }
-  });
-
-  pts.forEach((p, i) => {
-    const px = x(p.temps_s);
-    const cibleP = p.type === 'cible';
-    const col = cibleP ? 'var(--accent)' : p.type === 'course' ? 'var(--or)' : 'var(--craie)';
-    const h = cibleP ? 118 : niveauDe[i];
-    const y = base - h;
-    const anc = ancreDe[i] || (px > W - 220 ? 'end' : px < 160 ? 'start' : 'middle');
-    g += `<line x1="${px}" y1="${y + 6}" x2="${px}" y2="${base - 2}" stroke="${col}" stroke-width="1" opacity="0.5"/>`;
-    g += `<circle cx="${px}" cy="${base}" r="4.5" fill="${col}"/>`;
-    g += `<text class="regle-pt-chrono" x="${px}" y="${y}" text-anchor="${anc}" fill="${col}">${chrono(p.temps_s)}</text>`;
-    g += `<text class="regle-pt-libelle" x="${px}" y="${y + 14}" text-anchor="${anc}">${esc(p.libelle)}</text>`;
-    g += `<text class="regle-pt-date" x="${px}" y="${y + 26}" text-anchor="${anc}">${cibleP ? 'CIBLE · ' + esc(A.objectifs[0].fenetre) : dateFr(p.date).toUpperCase()}</text>`;
-  });
-
-  g += `<text class="regle-label" x="45" y="${base + 42}" text-anchor="start">plus lent</text>`;
-  g += `<text class="regle-label" x="${W - 45}" y="${base + 42}" text-anchor="end">plus rapide</text>`;
-
-  $('#regle-chrono').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Chronos sur 10 km placés sur une règle graduée de 48 à 56 minutes">${g}</svg>`;
+  $('#regle-chrono').innerHTML = `
+    <div class="regle-objectif">
+      <span class="regle-objectif__label">Objectif</span>
+      <span class="regle-objectif__chrono">${chrono(cible.temps_s)}</span>
+      <span class="regle-objectif__date">${dateFr(cible.date)}</span>
+    </div>
+    <div class="regle-lignes">${lignes}</div>
+    <div class="regle-legende"><span>plus lent · 56:00</span><span>plus rapide · 48:00</span></div>
+  `;
 }
 
 /* ---------- Diagnostic & zones ---------- */

@@ -183,15 +183,67 @@ pre {
 
 /* ---------- Règle chrono ---------- */
 
-.regle { margin-top: 1rem; }
-.regle svg { width: 100%; height: auto; display: block; overflow: visible; }
-.regle-tick { stroke: var(--bord); stroke-width: 1; }
-.regle-tick--fort { stroke: var(--brume-2); }
-.regle-label { font-family: var(--mo); font-size: 9px; fill: var(--brume-2); }
-.regle-axe { stroke: var(--bord); stroke-width: 1; }
-.regle-pt-libelle { font-family: var(--tx); font-size: 10.5px; fill: var(--brume); }
-.regle-pt-chrono { font-family: var(--dp); font-size: 16px; font-weight: 800; font-variation-settings: "wdth" 70; fill: var(--craie); }
-.regle-pt-date { font-family: var(--mo); font-size: 8.5px; fill: var(--brume-2); }
+.regle { margin-top: 1.4rem; }
+
+.regle-objectif {
+  display: flex; align-items: baseline; gap: 0.6rem 1rem; flex-wrap: wrap;
+  padding: 0.9rem 1.1rem; margin-bottom: 0.2rem;
+  background: color-mix(in srgb, var(--accent) 10%, var(--fond-2));
+  border: 1px solid var(--accent); border-radius: var(--r);
+}
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .regle-objectif { background: var(--fond-2); }
+}
+.regle-objectif__label {
+  font-family: var(--mo); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+}
+.regle-objectif__chrono {
+  font-family: var(--dp); font-variation-settings: "wdth" 70; font-weight: 900;
+  font-size: 1.7rem; color: var(--craie); font-feature-settings: "tnum";
+}
+.regle-objectif__date { font-family: var(--mo); font-size: 0.72rem; color: var(--brume); }
+
+.regle-ligne { padding: 1.1rem 0; border-top: 1px solid var(--bord-fin); }
+.regle-ligne:first-child { border-top: 0; }
+.regle-ligne__tete { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.regle-ligne__date {
+  font-family: var(--mo); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brume-2);
+}
+.regle-ligne__chrono {
+  font-family: var(--dp); font-variation-settings: "wdth" 70; font-weight: 800;
+  font-size: 1.25rem; color: var(--craie); font-feature-settings: "tnum"; text-align: right; white-space: nowrap;
+}
+.regle-ligne__allure {
+  display: block; font-family: var(--mo); font-variation-settings: normal; font-weight: 500;
+  font-size: 0.62rem; color: var(--brume-2);
+}
+.regle-ligne__titre {
+  font-family: var(--dp); font-variation-settings: "wdth" 95; font-weight: 600;
+  font-size: 0.98rem; margin: 0.3rem 0 0; letter-spacing: -0.005em;
+}
+.regle-ligne__jauge {
+  position: relative; height: 5px; background: var(--carte-2); border-radius: 3px;
+  margin: 0.9rem 0 0.7rem;
+}
+.regle-ligne__zone {
+  position: absolute; top: 0; right: 0; height: 100%;
+  background: var(--accent); opacity: 0.25; border-radius: 0 3px 3px 0;
+}
+.regle-ligne__cible {
+  position: absolute; top: -4px; bottom: -4px; border-left: 1.5px dashed var(--accent);
+}
+.regle-ligne__point {
+  position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%;
+  background: var(--point-couleur, var(--craie)); border: 2px solid var(--fond-2);
+  transform: translate(-50%, -50%); box-shadow: 0 0 0 1px var(--bord-fin);
+}
+.regle-ligne__note { color: var(--brume); font-size: 0.86rem; margin: 0; max-width: 60ch; }
+
+.regle-legende {
+  display: flex; justify-content: space-between;
+  font-family: var(--mo); font-size: 0.64rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--brume-2); margin-top: 0.9rem;
+}
 
 /* ---------- Diagnostic ---------- */
 
@@ -225,21 +277,15 @@ pre {
 .zone-label { font-family: var(--mo); font-size: 9px; fill: var(--fond); font-weight: 600; }
 .zone-borne { font-family: var(--mo); font-size: 8.5px; fill: var(--brume-2); }
 
-/* les deux graphiques SVG de l'accueil sont dessinés dans un viewBox fixe de
+/* le graphique SVG des zones cardiaques est dessiné dans un viewBox fixe de
    1000 unités : sur un écran étroit, ce viewBox est mis à l'échelle vers le
    bas et le texte devient illisible. On compense en agrandissant les polices
    internes (en unités du viewBox) à mesure que le conteneur rétrécit. */
 @media (max-width: 560px) {
-  .regle-label, .regle-pt-date { font-size: 15px; }
-  .regle-pt-libelle { font-size: 16px; }
-  .regle-pt-chrono { font-size: 23px; }
   .zone-label { font-size: 15px; }
   .zone-borne { font-size: 14px; }
 }
 @media (max-width: 400px) {
-  .regle-label, .regle-pt-date { font-size: 18px; }
-  .regle-pt-libelle { font-size: 18px; }
-  .regle-pt-chrono { font-size: 27px; }
   .zone-label { font-size: 18px; }
   .zone-borne { font-size: 16px; }
 }
