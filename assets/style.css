@@ -482,8 +482,3 @@ pre {
 .g-ligne { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
 .g-barre { fill: var(--carte-2); }
 .g-barre--fait { fill: var(--accent); }
-
-/* ---------- Pied ---------- */
-
-.pied { padding: 2.5rem var(--marge) 4rem; }
-.pied__note { font-family: var(--mo); font-size: 0.7rem; color: var(--brume-2); margin: 0 0 0.5rem; }
