@@ -424,6 +424,14 @@ pre {
 }
 .seance__structure { color: var(--brume); font-size: 0.85rem; margin: 0 0 0.8rem; }
 .seance__consigne { color: var(--craie); font-size: 0.88rem; font-style: italic; margin: 0 0 0.8rem; }
+.seance__montre {
+  display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.4rem;
+  font-family: var(--mo); font-size: 0.72rem; letter-spacing: 0.04em;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: var(--r);
+  padding: 0.28rem 0.6rem; text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.seance__montre:hover { background: var(--accent); color: var(--fond); }
+.seance__montre[hidden] { display: none; }
 .seance--renfo .exos { margin-top: 1rem; }
 
 .seance__tete { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: baseline; }
