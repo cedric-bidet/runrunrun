@@ -391,7 +391,28 @@ function cartePrevue(s) {
     ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
     ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
     ${s.consigne ? `<p class="seance__consigne">${esc(s.consigne)}</p>` : ''}
+    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>↓ Envoyer sur la montre</a>
   </article>`;
+}
+
+// les .fit sont stockés en base64 dans /workouts (AAAA-MM-JJ-<type>.fit.b64,
+// voir workouts/README.md — le MCP GitHub ne transporte pas de binaire).
+// on ne montre le bouton que si le fichier correspondant existe, et on
+// décode le .fit à la volée pour proposer un vrai téléchargement binaire.
+function verifierWorkoutsMontre() {
+  document.querySelectorAll('.seance__montre[data-date]').forEach((a) => {
+    const chemin = `workouts/${a.dataset.date}-${a.dataset.type}.fit.b64`;
+    fetch(chemin)
+      .then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((b64) => {
+        const bin = atob(b64.replace(/\s+/g, ''));
+        const octets = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+        a.href = URL.createObjectURL(new Blob([octets], { type: 'application/octet-stream' }));
+        a.download = `${a.dataset.date}-${a.dataset.type}.fit`;
+        a.hidden = false;
+      })
+      .catch(() => {});
+  });
 }
 
 // une séance de renforcement : les exercices du bloc correspondant, contrôle/erreur repliés
@@ -495,6 +516,7 @@ function rendreSeances(idx) {
   $('#seances').innerHTML = liste.length
     ? liste.map(carteSeance).join('')
     : '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
+  verifierWorkoutsMontre();
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
   $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;
