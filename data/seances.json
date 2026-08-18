@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "maj": "2026-08-17",
+  "maj": "2026-08-18",
   "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.",
   "seances": [
     {
@@ -145,24 +145,31 @@
         "note": "excellent"
       }
     },
-
     {
-      "id": "p-2026-08-18", "date": "2026-08-18", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
-      "cible": { "duree_min": 25 },
-      "consigne": "Première séance : fais-la à vide une fois en regardant les vidéos, avant de compter les séries."
+      "id": "r-2026-08-18", "date": "2026-08-18", "statut": "realise", "type": "renfo",
+      "titre": "Renforcement A — séance complète d'emblée", "bloc_renfo": "A", "creneau": "Matin",
+      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, dose complète",
+      "point_limitant": "Gainage latéral",
+      "commentaire_athlete": "Gainage latéral le plus difficile. Rien à signaler côté chevilles.",
+      "analyse": {
+        "verdict": "Dose complète dès la première séance, alors que la consigne était de faire un passage à vide.",
+        "corps": "Rien de dangereux au poids du corps, mais la montée progressive n'existait pas pour la sécurité du mouvement : elle existait pour protéger les jours suivants. Les courbatures d'une première séance de renfo culminent à 24–48 h, donc jeudi — c'est-à-dire le jour du bloc B, la veille de la première sortie longue de 50 minutes.\n\nLe point limitant est instructif. Le gainage latéral travaille la stabilité frontale du bassin, et c'est exactement la même chaîne que ton instabilité de cheville : le bassin qui s'affaisse en planche latérale est le bassin qui ne contrôle pas le pied à la réception. Que ce soit l'exercice le plus dur confirme que le maillon faible est bien là où on l'attendait.\n\nÀ l'inverse, aucune gêne sur les fentes marchées ni les montées de banc — deux exercices en appui unipodal chargé. C'est un bon signal : la cheville tient sous contrainte contrôlée.",
+        "a_retenir": "Sur le gainage latéral, 20 secondes en ligne valent mieux que 30 secondes affaissées. La durée n'est pas la mesure de l'exercice, l'alignement l'est.",
+        "note": "bon"
+      }
     },
+
     {
       "id": "p-2026-08-19", "date": "2026-08-19", "statut": "prevu", "type": "z2",
       "titre": "Z2, 40 min", "lieu": "La Prairie ou bords de l'Orne", "creneau": "Fin de matinée",
       "cible": { "duree_min": 40, "distance_km": 6.5, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148 },
-      "consigne": "Allures recalées sur le 17 août. Jambes possiblement lourdes après le renfo de la veille : ne compense pas en ralentissant sous 6:40, la FC te dira si ça va. Le dépassement sur la rampe du pont ne compte pas."
+      "consigne": "Allures recalées sur le 17 août. Courbatures probables après la dose complète de renfo A : ne compense pas en ralentissant sous 6:40, la FC seule décide. Si elle est plus haute que d'habitude à allure identique, c'est la fatigue musculaire, pas une régression — écourte à 30 min plutôt que de forcer. Le dépassement sur la rampe du pont ne compte pas."
     },
     {
       "id": "p-2026-08-20", "date": "2026-08-20", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
-      "cible": { "duree_min": 25 },
-      "consigne": "Placé le jeudi et non le vendredi, pour ne pas charger les jambes la veille de la sortie longue."
+      "titre": "Renforcement B, allégé", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 20 },
+      "consigne": "Deux séries au lieu de trois. Le pic de courbatures du bloc A tombe aujourd'hui, et la sortie longue de demain est la vraie séance de la semaine — elle prime. Garde la dose pleine sur l'équilibre unipodal, qui ne coûte rien musculairement."
     },
     {
       "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
@@ -180,7 +187,8 @@
     {
       "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
-      "cible": { "duree_min": 25 }, "consigne": ""
+      "cible": { "duree_min": 25 },
+      "consigne": "Dose pleine cette fois : le corps a vu le stimulus une fois, les courbatures seront nettement moindres."
     },
     {
       "id": "p-2026-08-26", "date": "2026-08-26", "statut": "prevu", "type": "z2",
