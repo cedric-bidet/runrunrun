@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "maj": "2026-08-18",
+  "maj": "2026-08-19",
   "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.",
   "seances": [
     {
@@ -158,24 +158,37 @@
         "note": "bon"
       }
     },
-
     {
-      "id": "p-2026-08-19", "date": "2026-08-19", "statut": "prevu", "type": "z2",
-      "titre": "Z2, 40 min", "lieu": "La Prairie ou bords de l'Orne", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 40, "distance_km": 6.5, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148 },
-      "consigne": "Allures recalées sur le 17 août. Courbatures probables après la dose complète de renfo A : ne compense pas en ralentissant sous 6:40, la FC seule décide. Si elle est plus haute que d'habitude à allure identique, c'est la fatigue musculaire, pas une régression — écourte à 30 min plutôt que de forcer. Le dépassement sur la rampe du pont ne compte pas."
+      "id": "19804532277", "date": "2026-08-19", "statut": "realise", "type": "z2",
+      "titre": "Le coût invisible du renfo — 909 b/km", "lieu": "La Prairie & hippodrome, Caen",
+      "distance_km": 6.45, "temps_s": 2411, "fc_moy": 146, "fc_max": 158, "denivele": 8,
+      "effort_relatif": 64, "cadence_spm": 174, "conditions": "8h00, frais. Même boucle et même sens que les 15 et 17 août, rampe sous le pont en fin de parcours.",
+      "commentaire_athlete": "Pas de courbatures, je me sens bien. FC observée entre 138 et 148 pendant la séance.",
+      "splits": [
+        { "km": 1, "temps_s": 383, "fc_moy": 133 }, { "km": 2, "temps_s": 370, "fc_moy": 146 },
+        { "km": 3, "temps_s": 380, "fc_moy": 143 }, { "km": 4, "temps_s": 363, "fc_moy": 150 },
+        { "km": 5, "temps_s": 372, "fc_moy": 148 }, { "km": 6, "temps_s": 370, "fc_moy": 152 },
+        { "km": 7, "temps_s": 171, "fc_moy": 155, "dist_km": 0.453 }
+      ],
+      "analyse": {
+        "verdict": "Exécution irréprochable, coût physiologique en hausse. Les deux sont vrais en même temps.",
+        "corps": "6,45 km en 40:11 à 146 bpm, soit 6:14/km. Comparé au 17 août sur le parcours identique : 7 secondes au kilomètre plus lent, pour 3 battements de plus. Le coût cardiaque remonte à 909 battements par kilomètre, contre 873 deux jours plus tôt — une dégradation de 4 %. L'effort relatif suit la même pente : 64 contre 58.\n\nL'explication n'est pas une régression aérobie, elle est datée du 18 août. Une première séance de renforcement à dose pleine laisse un coût métabolique et neuromusculaire mesurable à J+1, même en l'absence totale de courbatures. C'est précisément le point : l'absence de douleur n'est pas un indicateur de récupération. Le coût cardiaque, lui, voit ce que la sensation ne voit pas.\n\nCe qui n'a pas bougé est plus important que ce qui a bougé. La dérive réelle — km 2 à 4 contre km 5 à 6, en excluant le km 1 et la rampe du pont — est de 2,8 %, exactement la même valeur que le 17 août. Une dérive reproductible à deux séances d'intervalle, c'est une base aérobie qui tient. Les splits du km 2 au km 6 s'inscrivent dans une fourchette de 17 secondes (6:03 à 6:20), et le km 1 à 133 bpm reste un départ contrôlé modèle. La cadence monte à 174 spm, légèrement au-dessus de la base des trois séances précédentes.\n\nLe pic à 158 bpm sur les 453 derniers mètres est la rampe sous le pont, comme prévu — pas un dépassement de plafond.",
+        "a_retenir": "Ne compare jamais deux coûts cardiaques sans comparer l'état de fraîcheur qui les précède. Le 909 d'aujourd'hui, à J+1 d'un renfo complet, ne contredit pas le 873 du 17 : il le contextualise. Corollaire opérationnel : le bloc B de jeudi reste à 2 séries, et la sortie longue de vendredi garde la priorité.",
+        "note": "bon"
+      }
     },
+
     {
       "id": "p-2026-08-20", "date": "2026-08-20", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement B, allégé", "bloc_renfo": "B", "creneau": "Libre",
       "cible": { "duree_min": 20 },
-      "consigne": "Deux séries au lieu de trois. Le pic de courbatures du bloc A tombe aujourd'hui, et la sortie longue de demain est la vraie séance de la semaine — elle prime. Garde la dose pleine sur l'équilibre unipodal, qui ne coûte rien musculairement."
+      "consigne": "Deux séries au lieu de trois — confirmé par la séance du 19 août, dont le coût cardiaque a monté de 4 % à J+1 du bloc A sans la moindre courbature. Le pic de courbatures tombe aujourd'hui, et la sortie longue de demain est la vraie séance de la semaine : elle prime. Garde la dose pleine sur l'équilibre unipodal, qui ne coûte rien musculairement."
     },
     {
       "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 50 min", "lieu": "Plat, bords de l'Orne", "creneau": "Fin de matinée",
       "cible": { "duree_min": 50, "distance_km": 8.0, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première fois au-delà de 45 min, et c'est là qu'est le vrai stimulus maintenant — plus dans l'allure. La dérive cardiaque sur les 15 dernières minutes est le seul indicateur qui compte. Flasque si > 20 °C."
+      "consigne": "Première fois au-delà de 45 min, et c'est là qu'est le vrai stimulus maintenant — plus dans l'allure. La dérive cardiaque sur les 15 dernières minutes est le seul indicateur qui compte. Attends-toi à un coût cardiaque encore légèrement dégradé : troisième jour d'affilée avec charge. Flasque si > 20 °C."
     },
 
     {
@@ -205,7 +218,7 @@
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10, comme le 17 août",
       "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km."
+      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité apprise le 19 août : arriver frais. Un renfo la veille déplace le coût cardiaque de 4 %, ce qui rendrait la comparaison sans valeur."
     },
 
     {
