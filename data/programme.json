@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "maj": "2026-08-16",
+  "maj": "2026-08-19",
   "note_schema": "Vue macro uniquement : blocs de périodisation, jalons, et cadence hebdomadaire (intention + volume cible). Le détail des séances vit dans data/seances.json. Aucun tableau `seances` ici.",
   "regle_calendrier": {
     "titre": "La contrainte structure le plan",
@@ -13,7 +13,7 @@
     ]
   },
   "jalons": [
-    { "date": "2026-08-29", "libelle": "Test de référence", "detail": "Même parcours et même heure que le 15 août. Coût cardiaque à battre : 888 b/km." },
+    { "date": "2026-08-29", "libelle": "Test de référence", "detail": "Même parcours, même sens et même heure que le 17 août. Coût cardiaque à battre : 873 b/km. Condition de validité : arriver frais, sans renfo la veille." },
     { "date": "2026-09-02", "libelle": "Test VMA demi-Cooper", "detail": "Recalibrage de toutes les allures du bloc seuil. Rien n'est figé avant ce jour." },
     { "date": "2026-10-06", "libelle": "Séance décisive : 2 × 15 min au seuil", "detail": "Si tu la boucles au chrono prévu sans saturer, le sub-50 est jouable en novembre." },
     { "date": "2026-11-22", "libelle": "10 km — objectif sub-50", "detail": "Km 1–3 à 5:03, km 4–7 à 4:58, km 8–10 à tout ce qui reste." },
