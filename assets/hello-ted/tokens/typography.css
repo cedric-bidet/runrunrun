@@ -29,6 +29,9 @@
   --type-body-sm: var(--weight-regular) var(--text-sm) / var(--leading-normal) var(--font-body);
   --type-label: var(--weight-bold) var(--text-2xs) / 1 var(--font-mono);
   --type-metric: var(--weight-bold) var(--text-3xl) / 1 var(--font-display);
-  --type-dialogue: var(--weight-medium) var(--text-md) / var(--leading-normal) var(--font-dialogue);
+  /* Silkscreen n'existe qu'en 400 et 700 : demander 500 déclenche un gras
+     synthétique qui empâte une police dessinée au pixel. Son corps doit rester
+     un multiple de sa grille — 16px, jamais 14 — sinon elle floute. */
+  --type-dialogue: var(--weight-regular) var(--text-md) / var(--leading-normal) var(--font-dialogue);
   --type-fun: 800 var(--text-2xl) / var(--leading-snug) var(--font-fun);
 }

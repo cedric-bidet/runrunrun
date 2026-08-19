@@ -36,7 +36,7 @@ dossier.
 ```
 assets/hello-ted/styles.css     point d'entrée : n'importe que les fichiers de tokens
 assets/hello-ted/tokens/        couleurs, typo, espacement, formes, mouvement, polices
-assets/hello-ted/polices/       Megapixel et Gliker, auto-hébergées en WOFF2
+assets/hello-ted/polices/       Gliker, auto-hébergée en WOFF2
 assets/hello-ted/icones/        pixelarticons (MIT), 24 × 24, un glyphe par fichier
 assets/hello-ted/ted/           les 7 humeurs de Ted
 assets/hello-ted/marque/        logo, picto « T »
@@ -70,7 +70,7 @@ séance (`excellent` → fier, `bon` → content, `attention` → compatissant,
 noms pour les libellés, des verbes à l'impératif pour les actions.
 
 La charte cadre le dialogue à une ou deux phrases, alors que les analyses du
-carnet font plusieurs paragraphes. La bulle n'affiche donc que les **trois
+carnet font plusieurs paragraphes. La bulle n'affiche donc que les **quatre
 premières lignes** : au-delà, elle devient cliquable (« Lire la suite ») et le
 texte complet s'ouvre dans une superposition. Le repli est décidé en mesurant le
 débordement réel, pas en comptant les caractères — il suit donc la largeur
@@ -80,28 +80,29 @@ d'encre à 55 %, sans flou.
 
 ### Polices
 
-| Rôle | Police | État |
+| Rôle | Police | Source |
 | --- | --- | --- |
 | Titres, chiffres, étiquettes | Space Mono | Google Fonts |
 | Corps de texte | DM Sans | Google Fonts |
-| Titres « fun » (`--font-fun`) | **Gliker** | auto-hébergée, couverture complète |
-| Voix de Ted (`--font-dialogue`) | Megapixel | **substituée par Quicksand** |
+| Voix de Ted (`--font-dialogue`) | **Silkscreen** | Google Fonts |
+| Titres « fun » (`--font-fun`) | **Gliker** | auto-hébergée (`polices/`) |
 
-Gliker et Megapixel sont dans `assets/hello-ted/polices/` en WOFF2 (le TTF de
-Megapixel a été converti : 19,6 ko → 4,2 ko, dessin identique).
+Plus aucun substitut : les quatre polices sont les bonnes. Seule Gliker est
+auto-hébergée, Google ne la distribuant pas.
 
-**Megapixel n'est pas active.** Le fichier fourni ne compte que 78 glyphes :
-espace, `! " # ' , .`, les chiffres, A-Z, a-z, `[ ] _` et un `Ê` isolé. Il lui
-manque tous les accents minuscules, les majuscules accentuées, et
-`? : ; - ( ) / + % &`. Ted parlant français, une phrase comme « Pas grave, ça
-arrive. On décale à demain matin ? » perd quatre caractères et bascule sur la
-police de secours au milieu des mots — plus laid qu'une substitution franche.
-Le `@font-face` est déclaré et prêt (non référencé, donc jamais téléchargé) :
-dès qu'un jeu accentué arrive, remplacer le fichier et basculer
-`--font-dialogue` sur `"Megapixel"` dans `tokens/fonts.css`.
+**Silkscreen** porte le dialogue de Ted. Elle remplace Megapixel, dont le
+fichier fourni ne comptait que 78 glyphes et aucun accent minuscule —
+inutilisable en français. Silkscreen couvre les 215 glyphes du sous-ensemble
+latin ; seul `Ÿ` manque, absent du français courant.
 
-Sur ce qu'elle couvre — majuscules, minuscules sans accent, chiffres — Megapixel
-est parfaitement nette.
+Deux contraintes propres à une police pixel, inscrites dans les tokens :
+
+- **Corps en multiple de sa grille** — 16px, jamais 14, sinon elle floute.
+- **Graisse 400 ou 700 uniquement.** Demander 500 déclenche un gras synthétique
+  qui empâte le dessin ; `--type-dialogue` est donc en 400.
+
+Silkscreen dessine ses minuscules en petites capitales : le dialogue de Ted se
+lit donc tout en capitales. C'est le caractère de la police, pas un réglage.
 
 ## Publier sur GitHub Pages
 

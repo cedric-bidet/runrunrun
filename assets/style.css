@@ -226,10 +226,11 @@ pre {
 }
 .ted--large .ted__avatar { width: 64px; height: 64px; }
 
-/* Ted tient en 1 à 2 phrases : au-delà de trois lignes, la bulle ne montre que
-   le début et le reste s'ouvre en superposition. */
+/* Ted tient en 1 à 2 phrases : au-delà de quatre lignes, la bulle ne montre que
+   le début et le reste s'ouvre en superposition. Quatre et non trois : Silkscreen
+   est large, il n'y tient que trois ou quatre mots par ligne. */
 .ted__texte {
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;
   overflow: hidden;
 }
 .ted__bulle--repliable { cursor: pointer; }

@@ -1,36 +1,19 @@
 /* Webfonts.
 
-   Space Mono + DM Sans sont les vraies polices de marque (Google Fonts).
+   Space Mono, DM Sans et Silkscreen viennent de Google Fonts ; Gliker est
+   auto-hébergée en WOFF2 (elle n'est pas distribuée par Google).
 
-   Megapixel et Gliker sont désormais auto-hébergées à partir des fichiers
-   fournis, en WOFF2 (le TTF de Megapixel a été converti : 19,6 ko → 4,2 ko,
-   même dessin).
+   Silkscreen porte la voix de Ted. Elle remplace Megapixel, dont le fichier
+   fourni n'avait que 78 glyphes et aucun accent minuscule — inutilisable pour
+   du français. Silkscreen couvre les 215 glyphes du sous-ensemble latin :
+   accents, ponctuation, tout y est (seul Ÿ manque, absent du français courant,
+   et il retomberait sur DM Sans).
 
-   ⚠ Megapixel n'est PAS branchée sur --font-dialogue. Le fichier livré ne
-   contient que 78 glyphes : espace, ! " # ' , . les chiffres, A-Z, a-z, [ ] _
-   et un Ê isolé. Il lui manque TOUS les accents minuscules (à â ä é è ê ë î ï
-   ô ö ù û ü ÿ ç), les majuscules accentuées, et ? : ; - ( ) / + % &. Or Ted
-   parle français : « Pas grave, ça arrive. On décale à demain matin ? » perd
-   quatre caractères. Le rendu bascule sur la police de secours au milieu des
-   mots, ce qui est pire qu'une substitution franche.
+   C'est une police pixel dessinée sur une petite grille : elle a besoin de plus
+   de corps et d'interlignage que les autres pour rester lisible sur plusieurs
+   phrases — voir --type-dialogue dans typography.css. */
 
-   La déclaration @font-face ci-dessous est donc prête mais inutilisée — un
-   @font-face non référencé n'est jamais téléchargé, elle ne coûte rien. Le jour
-   où un jeu complet arrive, il suffit de remplacer le fichier et de basculer
-   --font-dialogue sur "Megapixel". En attendant, Quicksand reste le substitut.
-
-   Megapixel reste en revanche parfaitement nette sur ce qu'elle couvre :
-   majuscules, minuscules sans accent et chiffres. */
-
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,400..700&family=Quicksand:wght@400..700&display=swap");
-
-@font-face {
-  font-family: "Megapixel";
-  src: url("../polices/megapixel.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,400..700&family=Silkscreen:wght@400;700&display=swap");
 
 @font-face {
   font-family: "Gliker";
@@ -44,8 +27,8 @@
   --font-display: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  /* La voix de Ted. Substitut en attendant un Megapixel accentué — voir plus haut. */
-  --font-dialogue: "Quicksand", "DM Sans", sans-serif;
-  /* Titres « fun » : Gliker, la vraie police, couverture française complète. */
+  /* La voix de Ted. */
+  --font-dialogue: "Silkscreen", "DM Sans", sans-serif;
+  /* Titres « fun » : Gliker, couverture française complète. */
   --font-fun: "Gliker", "DM Sans", sans-serif;
 }
