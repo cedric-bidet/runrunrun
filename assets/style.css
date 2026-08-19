@@ -220,11 +220,62 @@ pre {
   content: ""; position: absolute; left: 16px; bottom: -16px;
   width: 16px; height: 4px; background: var(--trait);
 }
-.ted__bulle b {
+.ted__titre {
   display: block; font: var(--type-label); letter-spacing: var(--tracking-label);
   text-transform: uppercase; color: var(--encre-douce); margin-bottom: var(--space-2);
 }
 .ted--large .ted__avatar { width: 64px; height: 64px; }
+
+/* Ted tient en 1 à 2 phrases : au-delà de trois lignes, la bulle ne montre que
+   le début et le reste s'ouvre en superposition. */
+.ted__texte {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.ted__bulle--repliable { cursor: pointer; }
+.ted__plus {
+  display: inline-flex; align-items: center; margin-top: var(--space-2);
+  padding: 0; background: none; border: 0;
+  border-bottom: var(--border-1) solid var(--trait);
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre); cursor: pointer;
+}
+.ted__plus:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.ted__plus:focus-visible { outline: var(--outline-focus); outline-offset: var(--outline-focus-offset); }
+
+/* La modale est le seul endroit du système qui utilise la transparence :
+   un voile d'encre à 55 %. Jamais de flou. */
+.ted-modale {
+  width: min(420px, calc(100% - var(--space-10)));
+  max-height: 80vh; overflow-y: auto;
+  padding: 0; margin: auto;
+  background: var(--carte); color: var(--encre);
+  border: var(--border-3) solid var(--trait);
+  box-shadow: var(--shadow-pixel-lg);
+}
+.ted-modale::backdrop { background: color-mix(in srgb, #252525 55%, transparent); }
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .ted-modale::backdrop { background: rgba(37, 37, 37, 0.55); }
+}
+.ted-modale__tete {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-1) solid var(--trait);
+}
+.ted-modale__titre {
+  flex: 1; min-width: 0;
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre-douce);
+}
+.ted-modale__fermer {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  width: var(--control-h-sm); height: var(--control-h-sm); padding: 0;
+  background: none; border: 0; color: var(--encre); cursor: pointer;
+}
+.ted-modale__fermer svg { width: 24px; height: 24px; }
+.ted-modale__fermer:hover { background: var(--creux); }
+.ted-modale__fermer:focus-visible { outline: var(--outline-focus); outline-offset: calc(var(--outline-focus-offset) * -1); }
+.ted-modale__texte { padding: var(--space-4); font: var(--type-dialogue); }
 
 /* ---------- Règle chrono ---------- */
 

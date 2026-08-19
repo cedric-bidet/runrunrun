@@ -59,10 +59,56 @@ const TED_NOTE = { excellent: 'fier', bon: 'content', attention: 'compatissant',
 function ted(texte, humeur, titre) {
   if (!texte) return '';
   const h = TED_HUMEURS.includes(humeur) ? humeur : 'coach';
-  return `<div class="ted">
+  return `<div class="ted" data-humeur="${h}">
     <span class="ted__avatar"><img src="assets/hello-ted/ted/ted-${h}.png" alt="Ted, humeur ${h}"></span>
-    <p class="ted__bulle">${titre ? `<b>${esc(titre)}</b>` : ''}${esc(texte)}</p>
+    <p class="ted__bulle">${titre ? `<b class="ted__titre">${esc(titre)}</b>` : ''}<span class="ted__texte">${esc(texte)}</span></p>
   </div>`;
+}
+
+// Ted parle court — 1 à 2 phrases. Les analyses du carnet sont bien plus
+// longues : la bulle n'en montre que le début (trois lignes) et le reste
+// s'ouvre en superposition. On mesure le débordement réel plutôt que de
+// compter les caractères, pour que le repli suive la largeur disponible.
+function replierBulles(racine) {
+  (racine || document).querySelectorAll('.ted__texte').forEach((t) => {
+    const deborde = t.scrollHeight - t.clientHeight > 2;
+    const bulle = t.closest('.ted__bulle');
+    bulle.classList.toggle('ted__bulle--repliable', deborde);
+    const existant = bulle.querySelector('.ted__plus');
+    if (deborde && !existant) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ted__plus';
+      b.textContent = 'Lire la suite';
+      bulle.appendChild(b);
+    } else if (!deborde && existant) {
+      existant.remove();
+    }
+  });
+}
+
+function ouvrirTed(bulle) {
+  const bloc = bulle.closest('.ted');
+  const titre = bulle.querySelector('.ted__titre');
+  $('#ted-modale-titre').textContent = titre ? titre.textContent : 'Ted';
+  $('#ted-modale-texte').textContent = bulle.querySelector('.ted__texte').textContent;
+  const humeur = (bloc && bloc.dataset.humeur) || 'coach';
+  $('#ted-modale-avatar').src = `assets/hello-ted/ted/ted-${humeur}.png`;
+  $('#ted-modale-avatar').alt = `Ted, humeur ${humeur}`;
+  $('#ted-modale').showModal();
+}
+
+function activerTed() {
+  const modale = $('#ted-modale');
+  document.addEventListener('click', (e) => {
+    const bulle = e.target.closest('.ted__bulle--repliable');
+    if (bulle) { ouvrirTed(bulle); return; }
+    // clic sur le fond de la modale (le <dialog> occupe toute la fenêtre)
+    if (e.target === modale) modale.close();
+  });
+  $('#ted-modale-fermer').addEventListener('click', () => modale.close());
+  // la largeur change, le nombre de lignes aussi
+  window.addEventListener('resize', () => replierBulles());
 }
 
 // glyphes pixelarticons repris tels quels du design system (MIT) —
@@ -126,6 +172,7 @@ function demarrer() {
   rendreStats();
 
   $('#app').hidden = false;
+  activerTed();
   activerOnglets();
 }
 function aujourdhuiDans(d, f) {
@@ -149,6 +196,8 @@ function activerOnglets() {
     });
     boutons.forEach((b) => b.setAttribute('aria-selected', b.dataset.onglet === id));
     localStorage.setItem('onglet', id);
+    // un onglet masqué mesure 0 : on ne peut replier ses bulles qu'une fois visible
+    replierBulles();
   };
 
   boutons.forEach((b) => {
@@ -557,6 +606,7 @@ function rendreSeances(idx) {
     ? liste.map(carteSeance).join('')
     : '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
   verifierWorkoutsMontre();
+  replierBulles();
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
   $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;

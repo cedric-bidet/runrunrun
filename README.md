@@ -68,6 +68,15 @@ séance (`excellent` → fier, `bon` → content, `attention` → compatissant,
 `reference` → coach). La voix de l'interface reste, elle, impersonnelle : des
 noms pour les libellés, des verbes à l'impératif pour les actions.
 
+La charte cadre le dialogue à une ou deux phrases, alors que les analyses du
+carnet font plusieurs paragraphes. La bulle n'affiche donc que les **trois
+premières lignes** : au-delà, elle devient cliquable (« Lire la suite ») et le
+texte complet s'ouvre dans une superposition. Le repli est décidé en mesurant le
+débordement réel, pas en comptant les caractères — il suit donc la largeur
+disponible, et se recalcule au changement d'onglet, de semaine et de taille de
+fenêtre. C'est le seul endroit du système qui utilise la transparence : un voile
+d'encre à 55 %, sans flou.
+
 Deux polices sont des **substituts** en attendant les fichiers réels : Quicksand
 remplace Megapixel (la voix de Ted) et Baloo 2 remplace Gliker. Les remplacer
 dans `assets/hello-ted/tokens/fonts.css` le jour où les `.woff2` arrivent.
