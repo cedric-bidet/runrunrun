@@ -1,0 +1,16 @@
+/* Webfonts.
+   Space Mono + DM Sans are the real brand fonts (Google Fonts).
+   Quicksand stands in for MEGAPIXEL (Ted's dialogue font) and Baloo 2 stands in
+   for GLIKER (the "fun" display font) — both are substitutions pending the real
+   font files. See readme.md › Typography. */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,400..700&family=Quicksand:wght@400..700&family=Baloo+2:wght@400..800&display=swap");
+
+:root {
+  --font-display: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Ted's speech. Substitute for MEGAPIXEL. */
+  --font-dialogue: "Quicksand", "DM Sans", sans-serif;
+  /* Loud, playful headlines on social + celebration moments. Substitute for GLIKER. */
+  --font-fun: "Baloo 2", "DM Sans", sans-serif;
+}

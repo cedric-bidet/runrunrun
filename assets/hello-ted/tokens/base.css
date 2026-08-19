@@ -1,0 +1,18 @@
+/* Minimal element defaults. Consumers get these from styles.css. */
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--surface-page); color: var(--text-body); font: var(--type-body); text-wrap: pretty; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: var(--weight-bold); letter-spacing: var(--tracking-display); line-height: var(--leading-tight); margin: 0; }
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+p { margin: 0; }
+a { color: var(--text-link); text-decoration: none; border-bottom: var(--border-1) solid currentColor; }
+a:hover { color: var(--text-link-hover); }
+a:active { color: var(--text-link-hover); }
+:focus-visible { outline: var(--outline-focus); outline-offset: var(--outline-focus-offset); }
+img { image-rendering: pixelated; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--yellow-400); color: var(--ink-900); }
+.ht-label { font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase; }
+.ht-pixelated { image-rendering: pixelated; }

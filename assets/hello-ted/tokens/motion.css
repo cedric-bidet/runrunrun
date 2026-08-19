@@ -1,0 +1,14 @@
+:root {
+  /* Motion is stepped, not smooth — it should read as animation frames. */
+  --ease-step-2: steps(2, end); /* @kind other */
+  --ease-step-4: steps(4, end); /* @kind other */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.1, 1); /* @kind other */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1); /* @kind other */
+
+  --dur-instant: 80ms; /* @kind other */
+  --dur-fast: 140ms; /* @kind other */
+  --dur-base: 220ms; /* @kind other */
+  --dur-slow: 420ms; /* @kind other */
+
+  --press-translate: 2px; /* buttons move down-right into their shadow */
+}

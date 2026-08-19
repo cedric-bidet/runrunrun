@@ -13,11 +13,11 @@
     "note_plafond": "Plafond Z2 relevé de 150 à 155 bpm après validation du test de la parole à 155–158 bpm. Le calcul théorique sous-estimait ta zone réelle."
   },
   "zones": [
-    { "id": "Z1", "nom": "Endurance très légère", "min": 125, "max": 137, "couleur": "#4E8BA8", "role": "Récupération, décrassage" },
-    { "id": "Z2", "nom": "Endurance fondamentale", "min": 137, "max": 150, "couleur": "#3FB39B", "role": "Base aérobie, mitochondries, capillarisation" },
-    { "id": "Z3", "nom": "Tempo", "min": 150, "max": 162, "couleur": "#E0B84C", "role": "Zone grise — utile en bloc, coûteuse en base" },
-    { "id": "Z4", "nom": "Seuil lactique", "min": 162, "max": 175, "couleur": "#E07C3E", "role": "Le levier n°1 pour passer sous 50 min" },
-    { "id": "Z5", "nom": "VMA / VO2max", "min": 175, "max": 187, "couleur": "#D4514B", "role": "Outil final, après le seuil" }
+    { "id": "Z1", "nom": "Endurance très légère", "min": 125, "max": 137, "couleur": "#18c647", "role": "Récupération, décrassage" },
+    { "id": "Z2", "nom": "Endurance fondamentale", "min": 137, "max": 150, "couleur": "#9fde05", "role": "Base aérobie, mitochondries, capillarisation" },
+    { "id": "Z3", "nom": "Tempo", "min": 150, "max": 162, "couleur": "#faca03", "role": "Zone grise — utile en bloc, coûteuse en base" },
+    { "id": "Z4", "nom": "Seuil lactique", "min": 162, "max": 175, "couleur": "#fa8c01", "role": "Le levier n°1 pour passer sous 50 min" },
+    { "id": "Z5", "nom": "VMA / VO2max", "min": 175, "max": 187, "couleur": "#e94e1c", "role": "Outil final, après le seuil" }
   ],
   "objectifs": [
     {

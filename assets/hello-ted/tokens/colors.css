@@ -1,0 +1,65 @@
+:root {
+  /* --- Brand palette (primaries) --- */
+  --orange-500: #e94e1c; /* signature: CTAs, effort, the brand's loudest colour */
+  --green-500: #18c647;  /* progress, done, "go" */
+  --ink-900: #252525;    /* near-black: all outlines, all body text */
+  --cream-50: #fefce8;   /* the default page colour — never pure white */
+
+  /* --- Brand palette (secondaries) --- */
+  --yellow-400: #faca03;
+  --lime-400: #9fde05;
+  --amber-500: #fa8c01;
+
+  /* --- Extended ramps, derived for states & fills --- */
+  --orange-600: oklch(from var(--orange-500) calc(l - 0.08) c h);
+  --orange-400: oklch(from var(--orange-500) calc(l + 0.09) calc(c - 0.02) h);
+  --orange-100: #fde3d8;
+  --green-600: oklch(from var(--green-500) calc(l - 0.08) c h);
+  --green-100: #d8f6e0;
+  --yellow-100: #fef3c8;
+  --lime-100: #eaf8cd;
+
+  /* --- Neutrals: warm, pulled toward the cream --- */
+  --ink-700: #4a4a48;
+  --ink-500: #6f6f6b;
+  --ink-300: #b3b1a4;
+  --ink-200: #ddd9c5;
+  --ink-100: #efecd9;
+  --white: #ffffff;
+
+  /* --- Ted's world (character + dialogue) --- */
+  --ted-navy: #0c3073;    /* Ted's hoodie */
+  --ted-sky: #51acec;     /* avatar disc behind Ted */
+  --dialogue-shadow: #dee1ff; /* lavender pixel shadow under speech bubbles */
+  --indigo-900: #201351;  /* social-post highlight band */
+
+  /* --- Semantic aliases --- */
+  --surface-page: var(--cream-50);
+  --surface-card: var(--white);
+  --surface-sunken: var(--ink-100);
+  --surface-inverse: var(--ink-900);
+  --surface-accent: var(--orange-500);
+  --surface-success: var(--green-500);
+
+  --text-body: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-300);
+  --text-on-accent: var(--cream-50);
+  --text-on-inverse: var(--cream-50);
+  --text-link: var(--orange-500);
+  --text-link-hover: var(--orange-600);
+
+  --border-strong: var(--ink-900);
+  --border-subtle: var(--ink-200);
+
+  --effort-easy: var(--green-500);
+  --effort-steady: var(--lime-400);
+  --effort-tempo: var(--yellow-400);
+  --effort-hard: var(--amber-500);
+  --effort-max: var(--orange-500);
+
+  --state-success: var(--green-500);
+  --state-warning: var(--yellow-400);
+  --state-danger: var(--orange-500);
+  --state-info: var(--ted-sky);
+}
