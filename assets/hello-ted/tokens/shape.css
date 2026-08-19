@@ -1,0 +1,22 @@
+:root {
+  /* Pixel art has no curves: radii are 0 by default. The only rounding allowed
+     is a 2px "stair" on pills and the circular Ted avatar disc. */
+  --radius-none: 0;
+  --radius-pixel: 2px;
+  --radius-pill: 999px;
+
+  --border-1: 2px;   /* default outline on cards, inputs, chips */
+  --border-2: 3px;   /* buttons, emphasised cards */
+  --border-3: 4px;   /* modal / bubble outlines */
+
+  /* Hard offset shadows only — never blurred. */
+  --shadow-pixel-sm: 2px 2px 0 var(--ink-900);
+  --shadow-pixel: 4px 4px 0 var(--ink-900);
+  --shadow-pixel-lg: 6px 6px 0 var(--ink-900);
+  --shadow-pixel-accent: 4px 4px 0 var(--orange-500);
+  --shadow-dialogue: 4px 4px 0 var(--dialogue-shadow);
+  --shadow-pressed: 0 0 0 var(--ink-900);
+
+  --outline-focus: 3px dashed var(--orange-500);
+  --outline-focus-offset: 3px;
+}

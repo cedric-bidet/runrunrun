@@ -6,16 +6,18 @@
 <title>Objectif sub-50 — carnet d'entraînement</title>
 <meta name="description" content="Programme, séances et statistiques — objectif 10 km sous 50 minutes, puis semi-marathon Pégasus.">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#08202A">
+<meta name="theme-color" content="#fefce8">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Sub-50">
 <link rel="apple-touch-icon" href="assets/icones/icone-180.png">
 <link rel="icon" href="assets/icones/icone-192.png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Spline+Sans+Mono:wght@300..600&family=Spline+Sans:wght@300..600&display=swap" rel="stylesheet">
+<!-- Design system Hello Ted : tokens + @font-face. Doit précéder les feuilles
+     de l'app, qui ne font qu'aliaser ces variables. -->
+<link rel="stylesheet" href="assets/hello-ted/styles.css">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/renforcement.css">
 <link rel="stylesheet" href="assets/tabbar.css">
@@ -36,6 +38,7 @@
 
     <header class="tete">
       <div class="tete__gauche">
+        <img class="marque" src="assets/hello-ted/marque/picto.svg" alt="Hello Ted" width="32" height="32">
         <p class="oeil">Carnet d'entraînement · <span id="tete-ville"></span></p>
         <h1 class="tete__titre">Sous&nbsp;les<br><span class="tete__chrono">50:00</span></h1>
         <p class="tete__sous" id="tete-sous"></p>
@@ -56,7 +59,11 @@
     <section class="section" id="s-diagnostic">
       <div class="etiquette"><span class="etiquette__num">02</span> Diagnostic</div>
       <div class="diag">
-        <h2 class="diag__titre" id="diag-titre"></h2>
+        <!-- le verdict du diagnostic est une consigne de coach : c'est Ted qui le dit -->
+        <div class="ted ted--large" data-humeur="coach">
+          <span class="ted__avatar"><img src="assets/hello-ted/ted/ted-coach.png" alt="Ted, en mode coach"></span>
+          <h2 class="ted__bulle"><span class="ted__texte" id="diag-titre"></span></h2>
+        </div>
         <p class="diag__corps" id="diag-corps"></p>
         <ul class="leviers" id="diag-leviers"></ul>
       </div>
@@ -108,7 +115,9 @@
         <span class="sem-tete__badge" id="sem-badge"></span>
         <h3 class="sem-tete__titre" id="sem-titre"></h3>
         <p class="sem-tete__objectif" id="sem-objectif"></p>
-        <div class="semaine__bilan" id="sem-bilan" hidden><b>Bilan</b><span id="sem-bilan-texte"></span></div>
+        <!-- le bilan de la semaine est une parole de coach : rempli par app.js
+             avec une bulle Ted -->
+        <div id="sem-bilan" hidden></div>
       </div>
 
       <div id="seances" class="seances"></div>
@@ -116,14 +125,14 @@
 
     <nav class="semnav" id="semnav" aria-label="Navigation entre semaines">
       <button class="semnav__fleche" id="semnav-prev" type="button" aria-label="Semaine précédente">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        <svg class="semnav__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 13v-2h2v2H8Zm2-2V9h2v2h-2Zm0 4v-2h2v2h-2Zm2-6V7h2v2h-2Zm0 8v-2h2v2h-2Zm2-10V5h2v2h-2Zm0 12v-2h2v2h-2Z"/></svg>
       </button>
       <div class="semnav__info">
         <span class="semnav__num" id="semnav-num"></span>
         <span class="semnav__dates" id="semnav-dates"></span>
       </div>
       <button class="semnav__fleche" id="semnav-next" type="button" aria-label="Semaine suivante">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        <svg class="semnav__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 13v-2h-2v2h2Zm-2-2V9h-2v2h2Zm0 4v-2h-2v2h2Zm-2-6V7h-2v2h2Zm0 8v-2h-2v2h2ZM10 7V5H8v2h2Zm0 12v-2H8v2h2Z"/></svg>
       </button>
     </nav>
 
@@ -157,31 +166,47 @@
   </div>
 
   <nav class="tabbar" id="tabbar" aria-label="Navigation principale" role="tablist">
+    <!-- Icônes pixelarticons (MIT), reprises telles quelles du design system :
+         assets/hello-ted/icones/{home,target,calendar,chart}.svg, avec
+         fill="currentColor" pour suivre la couleur de l'onglet actif. -->
     <button class="tabbar__item" type="button" role="tab" data-onglet="accueil" aria-selected="true" aria-controls="onglet-accueil">
-      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-9"/><path d="M9.5 20v-6h5v6"/>
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4 20h16v2H4zm16-10h2v10h-2zM2 10h2v10H2zm2-2h2v2H4zm2-2h2v2H6zm2-2h2v2H8zm2-2h4v2h-4zm4 2h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zM8 14h2v6H8zm2-2h4v2h-4zm4 2h2v6h-2z"/>
       </svg>
       <span>Accueil</span>
     </button>
     <button class="tabbar__item" type="button" role="tab" data-onglet="programme" aria-selected="false" aria-controls="onglet-programme">
-      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M5 1h14v2H5zM3 3h2v2H3zm0 16h2v2H3zm16 0h2v2h-2zm0-16h2v2h-2zm2 2h2v14h-2zM5 21h14v2H5zM1 5h2v14H1zm8 0h6v2H9zM5 9h2v6H5zm4 8h6v2H9zm8-8h2v6h-2zm-6 0h2v2h-2zM7 7h2v2H7zm0 8h2v2H7zm8 0h2v2h-2zm0-8h2v2h-2zm-6 4h2v2H9zm2 2h2v2h-2zm2-2h2v2h-2z"/>
       </svg>
       <span>Programme</span>
     </button>
     <button class="tabbar__item" type="button" role="tab" data-onglet="seances" aria-selected="false" aria-controls="onglet-seances">
-      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3 13h3.2l2-5 3 10 2.2-7.5 1.6 3.5H21"/>
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M5 4h14v2H5zm0 16h14v2H5zM3 10h2v10H3zm0-4h2v2H3zm16 0h2v2h-2zm0 4h2v10h-2zM3 8h18v2H3zm12-6h2v2h-2zM7 2h2v2H7z"/>
       </svg>
       <span>Séances</span>
     </button>
     <button class="tabbar__item" type="button" role="tab" data-onglet="stats" aria-selected="false" aria-controls="onglet-stats">
-      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M4 20V10.5"/><path d="M12 20V4"/><path d="M20 20v-7"/>
+      <svg class="tabbar__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zM7 11h2v6H7zm4-4h2v10h-2zm4 6h2v4h-2z"/>
       </svg>
       <span>Stats</span>
     </button>
   </nav>
+
+  <!-- Ted parle court : quand son texte dépasse trois lignes, la bulle n'en
+       montre que le début et le reste s'ouvre ici. -->
+  <dialog class="ted-modale" id="ted-modale" aria-labelledby="ted-modale-titre">
+    <div class="ted-modale__tete">
+      <span class="ted__avatar"><img id="ted-modale-avatar" src="" alt=""></span>
+      <b class="ted-modale__titre" id="ted-modale-titre"></b>
+      <button class="ted-modale__fermer" id="ted-modale-fermer" type="button" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 19H5V17H7V19ZM19 19H17V17H19V19ZM9 15V17H7V15H9ZM17 17H15V15H17V17ZM11 15H9V13H11V15ZM15 15H13V13H15V15ZM13 13H11V11H13V13ZM11 11H9V9H11V11ZM15 11H13V9H15V11ZM9 9H7V7H9V9ZM17 9H15V7H17V9ZM7 7H5V5H7V7ZM19 7H17V5H19V7Z"/></svg>
+      </button>
+    </div>
+    <p class="ted-modale__texte" id="ted-modale-texte"></p>
+  </dialog>
 
 </main>
 

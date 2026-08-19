@@ -1,0 +1,34 @@
+/* Webfonts.
+
+   Space Mono, DM Sans et Silkscreen viennent de Google Fonts ; Gliker est
+   auto-hébergée en WOFF2 (elle n'est pas distribuée par Google).
+
+   Silkscreen porte la voix de Ted. Elle remplace Megapixel, dont le fichier
+   fourni n'avait que 78 glyphes et aucun accent minuscule — inutilisable pour
+   du français. Silkscreen couvre les 215 glyphes du sous-ensemble latin :
+   accents, ponctuation, tout y est (seul Ÿ manque, absent du français courant,
+   et il retomberait sur DM Sans).
+
+   C'est une police pixel dessinée sur une petite grille : elle a besoin de plus
+   de corps et d'interlignage que les autres pour rester lisible sur plusieurs
+   phrases — voir --type-dialogue dans typography.css. */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,400..700&family=Silkscreen:wght@400;700&display=swap");
+
+@font-face {
+  font-family: "Gliker";
+  src: url("../polices/gliker.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* La voix de Ted. */
+  --font-dialogue: "Silkscreen", "DM Sans", sans-serif;
+  /* Titres « fun » : Gliker, couverture française complète. */
+  --font-fun: "Gliker", "DM Sans", sans-serif;
+}

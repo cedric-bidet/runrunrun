@@ -14,6 +14,7 @@ Elle est installable sur l'écran d'accueil (iOS/Android) via `manifest.json` �
 ```
 index.html
 manifest.json
+assets/hello-ted/       design system Hello Ted, copié tel quel (voir plus bas)
 assets/style.css
 assets/tabbar.css
 assets/renforcement.css
@@ -24,6 +25,84 @@ data/programme.json    vue macro : blocs de périodisation, jalons, cadence hebd
 data/seances.json      journal unifié : réalisées et prévues, course et renforcement
 data/renforcement.json référentiel d'exercices (consommé par les cartes de séance renfo)
 ```
+
+## Le design system « Hello Ted »
+
+L'habillage vient du design system **Hello Ted** (pixel art, orange et vert sur
+crème). `assets/hello-ted/` en est une **copie conforme** : ne rien y modifier à
+la main — pour mettre à jour, ré-exporter depuis Claude Design et remplacer le
+dossier.
+
+```
+assets/hello-ted/styles.css     point d'entrée : n'importe que les fichiers de tokens
+assets/hello-ted/tokens/        couleurs, typo, espacement, formes, mouvement, polices
+assets/hello-ted/polices/       Gliker, auto-hébergée en WOFF2
+assets/hello-ted/icones/        pixelarticons (MIT), 24 × 24, un glyphe par fichier
+assets/hello-ted/ted/           les 7 humeurs de Ted
+assets/hello-ted/marque/        logo, picto « T »
+```
+
+`index.html` charge `assets/hello-ted/styles.css` **avant** les feuilles de
+l'app ; celles-ci n'écrivent aucune valeur brute, elles ne font qu'aliaser les
+tokens (`--page`, `--encre`, `--accent`…). Une couleur en dur dans
+`assets/*.css` est un bug.
+
+Les règles à ne pas casser :
+
+- **Angles droits partout.** Le seul rond du système est le disque de l'avatar de Ted.
+- **Tout est cerné d'encre** `#252525` : 2px sur les cartes, 3px sur les boutons, 4px sur les bulles et la barre d'onglets.
+- **Ombres dures**, décalées, sans flou : 2 / 4 / 6px. L'ombre lavande est réservée aux bulles de Ted.
+- **Pas de dégradé, pas de flou, pas de transparence.** Les teintes des graphes passent par `color-mix`, pas par `opacity`.
+- **Les chiffres sont toujours en Space Mono.** Un nombre en DM Sans est un bug.
+- **Capitales réservées aux étiquettes mono** (+0.08em). Les titres restent en casse de phrase.
+- **Pas de rouge** : les états d'alerte et de danger utilisent l'orange. La rampe d'effort est vert → lime → jaune → ambre → orange, et elle sert aussi bien aux zones cardiaques (Z1→Z5) qu'aux blocs de périodisation.
+- **Ne jamais poser le logo sur fond orange** — le picto contient de l'orange et y perd ses contours.
+- **Aucune icône dessinée à la main** : prendre le glyphe dans `assets/hello-ted/icones/`, ou dans le dépôt pixelarticons s'il manque.
+
+### Ted
+
+Ted est le coach : tout ce qui relève de la consigne passe par sa bulle, jamais
+en corps de texte. Dans l'app il parle à quatre endroits — le verdict du
+diagnostic (Accueil), le `a_retenir` d'une séance réalisée, la `consigne` d'une
+séance à venir, et le `bilan` d'une semaine. Son humeur suit la note de la
+séance (`excellent` → fier, `bon` → content, `attention` → compatissant,
+`reference` → coach). La voix de l'interface reste, elle, impersonnelle : des
+noms pour les libellés, des verbes à l'impératif pour les actions.
+
+La charte cadre le dialogue à une ou deux phrases, alors que les analyses du
+carnet font plusieurs paragraphes. La bulle n'affiche donc que les **quatre
+premières lignes** : au-delà, elle devient cliquable (« Lire la suite ») et le
+texte complet s'ouvre dans une superposition. Le repli est décidé en mesurant le
+débordement réel, pas en comptant les caractères — il suit donc la largeur
+disponible, et se recalcule au changement d'onglet, de semaine et de taille de
+fenêtre. C'est le seul endroit du système qui utilise la transparence : un voile
+d'encre à 55 %, sans flou.
+
+### Polices
+
+| Rôle | Police | Source |
+| --- | --- | --- |
+| Titres, chiffres, étiquettes | Space Mono | Google Fonts |
+| Corps de texte | DM Sans | Google Fonts |
+| Voix de Ted (`--font-dialogue`) | **Silkscreen** | Google Fonts |
+| Titres « fun » (`--font-fun`) | **Gliker** | auto-hébergée (`polices/`) |
+
+Plus aucun substitut : les quatre polices sont les bonnes. Seule Gliker est
+auto-hébergée, Google ne la distribuant pas.
+
+**Silkscreen** porte le dialogue de Ted. Elle remplace Megapixel, dont le
+fichier fourni ne comptait que 78 glyphes et aucun accent minuscule —
+inutilisable en français. Silkscreen couvre les 215 glyphes du sous-ensemble
+latin ; seul `Ÿ` manque, absent du français courant.
+
+Deux contraintes propres à une police pixel, inscrites dans les tokens :
+
+- **Corps en multiple de sa grille** — 16px, jamais 14, sinon elle floute.
+- **Graisse 400 ou 700 uniquement.** Demander 500 déclenche un gras synthétique
+  qui empâte le dessin ; `--type-dialogue` est donc en 400.
+
+Silkscreen dessine ses minuscules en petites capitales : le dialogue de Ted se
+lit donc tout en capitales. C'est le caractère de la police, pas un réglage.
 
 ## Publier sur GitHub Pages
 

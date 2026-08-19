@@ -47,6 +47,90 @@ function infosSemaineISO(iso) {
 }
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+/* ---------- Ted ---------- */
+
+// Tout ce qui relève de la consigne de coach passe par Ted : jamais en corps
+// de texte. Le reste de l'interface garde sa voix impersonnelle (des noms pour
+// les libellés, des verbes à l'impératif pour les actions).
+const TED_HUMEURS = ['neutre', 'content', 'fier', 'coach', 'compatissant', 'malicieux', 'fatigue'];
+// l'humeur suit la note de la séance
+const TED_NOTE = { excellent: 'fier', bon: 'content', attention: 'compatissant', reference: 'coach' };
+
+function ted(texte, humeur, titre) {
+  if (!texte) return '';
+  const h = TED_HUMEURS.includes(humeur) ? humeur : 'coach';
+  return `<div class="ted" data-humeur="${h}">
+    <span class="ted__avatar"><img src="assets/hello-ted/ted/ted-${h}.png" alt="Ted, humeur ${h}"></span>
+    <p class="ted__bulle">${titre ? `<b class="ted__titre">${esc(titre)}</b>` : ''}<span class="ted__texte">${esc(texte)}</span></p>
+  </div>`;
+}
+
+// Ted parle court — 1 à 2 phrases. Les analyses du carnet sont bien plus
+// longues : la bulle n'en montre que le début (trois lignes) et le reste
+// s'ouvre en superposition. On mesure le débordement réel plutôt que de
+// compter les caractères, pour que le repli suive la largeur disponible.
+function replierBulles(racine) {
+  (racine || document).querySelectorAll('.ted__texte').forEach((t) => {
+    const deborde = t.scrollHeight - t.clientHeight > 2;
+    const bulle = t.closest('.ted__bulle');
+    bulle.classList.toggle('ted__bulle--repliable', deborde);
+    const existant = bulle.querySelector('.ted__plus');
+    if (deborde && !existant) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ted__plus';
+      b.textContent = 'Lire la suite';
+      bulle.appendChild(b);
+    } else if (!deborde && existant) {
+      existant.remove();
+    }
+  });
+}
+
+function ouvrirTed(bulle) {
+  const bloc = bulle.closest('.ted');
+  const titre = bulle.querySelector('.ted__titre');
+  $('#ted-modale-titre').textContent = titre ? titre.textContent : 'Ted';
+  $('#ted-modale-texte').textContent = bulle.querySelector('.ted__texte').textContent;
+  const humeur = (bloc && bloc.dataset.humeur) || 'coach';
+  $('#ted-modale-avatar').src = `assets/hello-ted/ted/ted-${humeur}.png`;
+  $('#ted-modale-avatar').alt = `Ted, humeur ${humeur}`;
+  $('#ted-modale').showModal();
+}
+
+function activerTed() {
+  const modale = $('#ted-modale');
+  document.addEventListener('click', (e) => {
+    const bulle = e.target.closest('.ted__bulle--repliable');
+    if (bulle) { ouvrirTed(bulle); return; }
+    // clic sur le fond de la modale (le <dialog> occupe toute la fenêtre)
+    if (e.target === modale) modale.close();
+  });
+  $('#ted-modale-fermer').addEventListener('click', () => modale.close());
+  // la largeur change, le nombre de lignes aussi
+  window.addEventListener('resize', () => replierBulles());
+}
+
+// glyphes pixelarticons repris tels quels du design system (MIT) —
+// aucune icône n'est redessinée à la main dans ce projet
+const GLYPHE = {
+  'arrow-down': 'M13 12h6v2h-2v2h-2v2h-2v2h-2v-2H9v-2H7v-2H5v-2h6V4h2v8Z',
+  play: 'M15 11h-2V9h2zm0 4h-2v-2h2zm-2 2h-2v-2h2zm0-8h-2V7h2zm-2-2H9V5h2zM9 21H7V3h2zm6-8h2v-2h-2zm-6 4h2v2H9z'
+};
+const glyphe = (nom) => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="${GLYPHE[nom]}"/></svg>`;
+
+// La rampe d'effort va du vert clair à l'orange soutenu : l'encre lit bien sur
+// le bas de la rampe, la crème sur le haut. Règle de la charte — le texte posé
+// sur une couleur de marque est soit encre, soit crème, jamais autre chose.
+function texteSur(fond) {
+  const m = /^#([0-9a-f]{6})$/i.exec(String(fond).trim());
+  if (!m) return 'var(--encre)';
+  const n = parseInt(m[1], 16);
+  const lin = (c) => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+  const L = 0.2126 * lin(n >> 16 & 255) + 0.7152 * lin(n >> 8 & 255) + 0.0722 * lin(n & 255);
+  return L > 0.38 ? 'var(--encre)' : 'var(--cream-50)';
+}
+
 /* ---------- État ---------- */
 
 let A, P, S, R, ZONES;
@@ -88,6 +172,7 @@ function demarrer() {
   rendreStats();
 
   $('#app').hidden = false;
+  activerTed();
   activerOnglets();
 }
 function aujourdhuiDans(d, f) {
@@ -111,6 +196,8 @@ function activerOnglets() {
     });
     boutons.forEach((b) => b.setAttribute('aria-selected', b.dataset.onglet === id));
     localStorage.setItem('onglet', id);
+    // un onglet masqué mesure 0 : on ne peut replier ses bulles qu'une fois visible
+    replierBulles();
   };
 
   boutons.forEach((b) => {
@@ -157,7 +244,7 @@ function rendreRegle() {
     .filter((c) => c.type !== 'cible')
     .sort((a, b) => a.date.localeCompare(b.date))
     .map((c) => {
-      const couleur = c.type === 'course' ? 'var(--or)' : 'var(--craie)';
+      const couleur = c.type === 'course' ? 'var(--or)' : 'var(--encre)';
       return `<div class="regle-ligne">
         <div class="regle-ligne__tete">
           <span class="regle-ligne__date">${dateFr(c.date).toUpperCase()} · ${esc(TYPE_CHRONO[c.type] || c.type)}</span>
@@ -198,18 +285,18 @@ function rendreZones() {
   let g = '';
   ZONES.forEach((z) => {
     const x1 = x(z.min), x2 = x(z.max);
-    g += `<rect x="${x1}" y="14" width="${x2 - x1 - 2}" height="26" fill="${z.couleur}" rx="2"/>`;
-    g += `<text class="zone-label" x="${(x1 + x2) / 2}" y="31" text-anchor="middle">${z.id}</text>`;
+    g += `<rect x="${x1}" y="14" width="${x2 - x1 - 2}" height="26" fill="${z.couleur}" stroke="var(--encre)" stroke-width="2"/>`;
+    g += `<text class="zone-label" x="${(x1 + x2) / 2}" y="31" text-anchor="middle" fill="${texteSur(z.couleur)}">${z.id}</text>`;
     g += `<text class="zone-borne" x="${x1}" y="53" text-anchor="middle">${z.min}</text>`;
   });
   g += `<text class="zone-borne" x="${x(187)}" y="53" text-anchor="middle">187</text>`;
   const xp = x(A.physio.plafond_z2_pratique);
-  g += `<line x1="${xp}" y1="6" x2="${xp}" y2="46" stroke="var(--craie)" stroke-width="2"/>`;
-  g += `<text class="zone-borne" x="${xp}" y="68" text-anchor="middle" fill="var(--craie)">plafond de travail ${A.physio.plafond_z2_pratique} bpm</text>`;
+  g += `<line x1="${xp}" y1="6" x2="${xp}" y2="46" stroke="var(--encre)" stroke-width="2"/>`;
+  g += `<text class="zone-borne" x="${xp}" y="68" text-anchor="middle" fill="var(--encre)">plafond de travail ${A.physio.plafond_z2_pratique} bpm</text>`;
   $('#zones-echelle').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Échelle des zones cardiaques de 120 à 190 battements par minute">${g}</svg>`;
 
   $('#zones-table').innerHTML = ZONES.map((z) => `<tr>
-    <td><span class="z-pastille" style="background:${z.couleur}">${z.id}</span></td>
+    <td><span class="z-pastille" style="background:${z.couleur};color:${texteSur(z.couleur)}">${z.id}</span></td>
     <td class="z-plage">${z.min}–${z.max}</td>
     <td>${esc(z.nom)}</td>
     <td class="z-role">${esc(z.role)}</td></tr>`).join('');
@@ -225,7 +312,7 @@ function rendreBlocs(actif) {
       <div class="bloc__dates">${dateFr(b.debut, true)}<br>→ ${dateFr(b.fin, true)} ${b.fin.slice(0, 4)}</div>
       <div>
         <div class="bloc__barre" style="background:${b.couleur}"></div>
-        <h3 class="bloc__nom">${esc(b.nom)}<span class="bloc__zone" style="background:${b.couleur}">${esc(b.zone_dominante)}</span>${b.id === actif.id ? '<span class="badge-actif">en cours</span>' : ''}</h3>
+        <h3 class="bloc__nom">${esc(b.nom)}<span class="bloc__zone" style="background:${b.couleur};color:${texteSur(b.couleur)}">${esc(b.zone_dominante)}</span>${b.id === actif.id ? '<span class="badge-actif">en cours</span>' : ''}</h3>
         <p class="bloc__intention">${esc(b.intention)}</p>
         <p class="bloc__cle"><span>séance clé</span>${esc(b.sortie_cle)}</p>
       </div>
@@ -259,6 +346,8 @@ function rendreRegleCalendrier() {
 }
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
+// la note de la séance se lit sur un badge, plus sur un liseré de bordure
+const NOTE = { excellent: 'excellent', bon: 'bon', attention: 'attention', reference: 'référence' };
 
 /* ---------- Renforcement — ressources générales (les exercices vivent dans les cartes de séance) ---------- */
 
@@ -288,23 +377,23 @@ function bandeFC(s) {
   const x = (b) => ((b - MIN) / (MAX - MIN)) * (W - 20) + 10;
   let g = '';
   ZONES.forEach((z) => {
-    g += `<rect x="${x(z.min)}" y="20" width="${x(z.max) - x(z.min) - 1.5}" height="14" fill="${z.couleur}" opacity="0.3" rx="2"/>`;
+    g += `<rect x="${x(z.min)}" y="20" width="${x(z.max) - x(z.min) - 1.5}" height="14" fill="color-mix(in srgb, ${z.couleur} 35%, var(--page))"/>`;
     g += `<text class="bande-txt" x="${(x(z.min) + x(z.max)) / 2}" y="47" text-anchor="middle">${z.id}</text>`;
   });
 
   const fcs = (s.splits || []).map((k) => k.fc_moy).filter(Boolean);
   const bas = fcs.length ? Math.min(...fcs) : s.fc_moy;
-  g += `<rect x="${x(bas)}" y="22" width="${Math.max(x(s.fc_max) - x(bas), 2)}" height="10" fill="var(--craie)" opacity="0.22" rx="5"/>`;
+  g += `<rect x="${x(bas)}" y="22" width="${Math.max(x(s.fc_max) - x(bas), 2)}" height="10" fill="var(--ink-200)"/>`;
 
   const xp = x(A.physio.plafond_z2_pratique);
-  g += `<line x1="${xp}" y1="12" x2="${xp}" y2="38" stroke="var(--craie)" stroke-width="1.5" stroke-dasharray="3 2.5"/>`;
-  g += `<text class="bande-txt" x="${xp}" y="9" text-anchor="middle" fill="var(--craie)">155</text>`;
+  g += `<line x1="${xp}" y1="12" x2="${xp}" y2="38" stroke="var(--encre)" stroke-width="1.5" stroke-dasharray="3 2.5"/>`;
+  g += `<text class="bande-txt" x="${xp}" y="9" text-anchor="middle" fill="var(--encre)">155</text>`;
 
   const zm = zoneDe(s.fc_moy);
-  g += `<circle cx="${x(s.fc_moy)}" cy="27" r="7" fill="${zm.couleur}" stroke="var(--fond-2)" stroke-width="2"/>`;
+  g += `<rect x="${x(s.fc_moy) - 7}" y="20" width="14" height="14" fill="${zm.couleur}" stroke="var(--encre)" stroke-width="2"/>`;
   g += `<text class="bande-val" x="${x(s.fc_moy)}" y="12" text-anchor="middle">${s.fc_moy} moy</text>`;
-  g += `<line x1="${x(s.fc_max)}" y1="18" x2="${x(s.fc_max)}" y2="36" stroke="var(--craie)" stroke-width="2"/>`;
-  g += `<text class="bande-txt" x="${x(s.fc_max)}" y="12" text-anchor="middle" fill="var(--brume)">${s.fc_max} max</text>`;
+  g += `<line x1="${x(s.fc_max)}" y1="18" x2="${x(s.fc_max)}" y2="36" stroke="var(--encre)" stroke-width="2"/>`;
+  g += `<text class="bande-txt" x="${x(s.fc_max)}" y="12" text-anchor="middle" fill="var(--encre-douce)">${s.fc_max} max</text>`;
 
   return `<div class="bande"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fréquence cardiaque moyenne ${s.fc_moy}, maximale ${s.fc_max}, sur l'échelle des zones">${g}</svg></div>`;
 }
@@ -321,23 +410,23 @@ function carteRealisee(s) {
     if (k.libelle) {
       return `<div class="split"><div class="split__k">${esc(k.libelle)}</div>
         <div class="split__a">${chrono(k.temps_s)}</div>
-        <div class="split__f" style="color:${zoneDe(k.fc_moy).couleur}">${k.fc_moy}</div></div>`;
+        <div class="split__f" style="background:${zoneDe(k.fc_moy).couleur};color:${texteSur(zoneDe(k.fc_moy).couleur)}">${k.fc_moy}</div></div>`;
     }
     const d = k.dist_km || 1;
     return `<div class="split${k.dist_km ? ' split--partiel' : ''}"><div class="split__k">KM ${k.km}${k.dist_km ? ` · ${Math.round(d * 1000)} m` : ''}</div>
       <div class="split__a">${allureStr(k.temps_s, d)}</div>
-      <div class="split__f" style="color:${zoneDe(k.fc_moy).couleur}">${k.fc_moy}</div></div>`;
+      <div class="split__f" style="background:${zoneDe(k.fc_moy).couleur};color:${texteSur(zoneDe(k.fc_moy).couleur)}">${k.fc_moy}</div></div>`;
   }).join('');
 
-  return `<article class="seance seance--${s.analyse.note}">
+  return `<article class="seance">
     <div class="seance__tete">
-      <div>
+      <div class="seance__ident">
         <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
-      <div class="seance__date">${esc(s.conditions || '')}</div>
+      <span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>
     </div>
-    <p class="seance__lieu">${esc(s.lieu)}</p>
+    <p class="seance__lieu">${esc(s.lieu)}${s.conditions ? ` · ${esc(s.conditions)}` : ''}</p>
 
     <div class="chiffres">
       <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
@@ -356,7 +445,7 @@ function carteRealisee(s) {
     <div class="analyse">
       <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
       <p class="analyse__corps">${esc(s.analyse.corps)}</p>
-      <div class="analyse__retenir"><b>À retenir</b>${esc(s.analyse.a_retenir)}</div>
+      ${ted(s.analyse.a_retenir, TED_NOTE[s.analyse.note], 'À retenir')}
     </div>
   </article>`;
 }
@@ -381,7 +470,7 @@ function cartePrevue(s) {
   const { puces, structure } = formaterCible(s.cible);
   return `<article class="seance seance--prevue">
     <div class="seance__tete">
-      <div>
+      <div class="seance__ident">
         <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
@@ -390,8 +479,8 @@ function cartePrevue(s) {
     ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
     ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
     ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
-    ${s.consigne ? `<p class="seance__consigne">${esc(s.consigne)}</p>` : ''}
-    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>↓ Envoyer sur la montre</a>
+    ${ted(s.consigne, 'coach')}
+    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
   </article>`;
 }
 
@@ -423,18 +512,18 @@ function carteRenfo(s) {
 
   return `<article class="seance seance--renfo${s.statut === 'prevu' ? ' seance--prevue' : ''}">
     <div class="seance__tete">
-      <div>
+      <div class="seance__ident">
         <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
     </div>
-    ${s.consigne ? `<p class="seance__consigne">${esc(s.consigne)}</p>` : ''}
+    ${ted(s.consigne, 'coach')}
     ${bloc ? `<div class="exos">${bloc.exercices.map((e) => `
       <article class="exo">
         <h4 class="exo__nom">${esc(e.nom)}</h4>
         <p class="exo__dose">${esc(e.dose)}</p>
-        ${e.video ? `<a class="exo__video" href="${esc(e.video)}" target="_blank" rel="noopener">▶ ${esc(e.video_titre || 'Vidéo de l’exercice')}</a>` : ''}
+        ${e.video ? `<a class="exo__video" href="${esc(e.video)}" target="_blank" rel="noopener">${glyphe('play')}${esc(e.video_titre || 'Vidéo de l’exercice')}</a>` : ''}
         <details class="exo__repli">
           <summary>Point de contrôle &amp; erreur fréquente</summary>
           <p class="exo__role">${esc(e.role)}</p>
@@ -506,7 +595,7 @@ function rendreSeances(idx) {
     $('#sem-titre').textContent = sem.titre;
     $('#sem-objectif').textContent = sem.objectif;
     $('#sem-bilan').hidden = !planSemaine.bilan;
-    $('#sem-bilan-texte').textContent = planSemaine.bilan || '';
+    $('#sem-bilan').innerHTML = ted(planSemaine.bilan, 'content', 'Bilan');
   }
 
   // journal unifié : réalisées et prévues de la semaine, dans l'ordre chronologique
@@ -517,6 +606,7 @@ function rendreSeances(idx) {
     ? liste.map(carteSeance).join('')
     : '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
   verifierWorkoutsMontre();
+  replierBulles();
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
   $('#semnav-dates').textContent = `${dateFr(sem.debut, true)} – ${dateFr(sem.fin, true)}`;
@@ -572,18 +662,18 @@ function grapheVolume() {
   sems.forEach((s, i) => {
     const x = g0 + i * bw + bw * 0.18, w = bw * 0.64;
     const hc = (s.volume_cible_km / max) * (bas - 12);
-    g += `<rect class="g-barre" x="${x}" y="${bas - hc}" width="${w}" height="${hc}" rx="2"/>`;
+    g += `<rect class="g-barre" x="${x}" y="${bas - hc}" width="${w}" height="${hc}"/>`;
     const fait = parSem[s.num];
     if (fait) {
       const hf = (fait / max) * (bas - 12);
-      g += `<rect class="g-barre--fait" x="${x}" y="${bas - hf}" width="${w}" height="${hf}" rx="2"/>`;
+      g += `<rect class="g-barre--fait" x="${x}" y="${bas - hf}" width="${w}" height="${hf}"/>`;
       g += `<text class="g-val" x="${x + w / 2}" y="${bas - hf - 6}" text-anchor="middle">${fait.toFixed(1).replace('.', ',')}</text>`;
     }
     g += `<text class="g-txt" x="${x + w / 2}" y="${bas + 14}" text-anchor="middle">S${s.num}</text>`;
     g += `<text class="g-txt" x="${x + w / 2}" y="${bas + 25}" text-anchor="middle" opacity="0.7">${dateFr(s.debut, true)}</text>`;
   });
-  g += `<rect class="g-barre--fait" x="${g0}" y="4" width="9" height="9" rx="1.5"/><text class="g-txt" x="${g0 + 14}" y="12">réalisé</text>`;
-  g += `<rect class="g-barre" x="${g0 + 66}" y="4" width="9" height="9" rx="1.5"/><text class="g-txt" x="${g0 + 80}" y="12">cible</text>`;
+  g += `<rect class="g-barre--fait" x="${g0}" y="4" width="9" height="9"/><text class="g-txt" x="${g0 + 14}" y="12">réalisé</text>`;
+  g += `<rect class="g-barre" x="${g0 + 66}" y="4" width="9" height="9"/><text class="g-txt" x="${g0 + 80}" y="12">cible</text>`;
 
   $('#graphe-volume').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Volume hebdomadaire réalisé contre cible, en kilomètres">${g}</svg>`;
 }
@@ -606,7 +696,7 @@ function grapheCout() {
 
   pts.forEach((p, i) => {
     const meilleur = p.v === Math.min(...pts.map((q) => q.v));
-    g += `<circle cx="${x(i)}" cy="${y(p.v)}" r="${meilleur ? 6 : 4}" fill="${meilleur ? 'var(--accent)' : 'var(--fond)'}" stroke="var(--accent)" stroke-width="2"/>`;
+    g += `<rect x="${x(i) - (meilleur ? 6 : 4)}" y="${y(p.v) - (meilleur ? 6 : 4)}" width="${meilleur ? 12 : 8}" height="${meilleur ? 12 : 8}" fill="${meilleur ? 'var(--accent)' : 'var(--page)'}" stroke="var(--encre)" stroke-width="2"/>`;
     g += `<text class="g-val" x="${x(i)}" y="${y(p.v) - 12}" text-anchor="middle">${Math.round(p.v)}</text>`;
     g += `<text class="g-txt" x="${x(i)}" y="${bas + 15}" text-anchor="middle">${dateFr(p.d, true)}</text>`;
   });
@@ -624,12 +714,12 @@ function grapheNuage() {
   ZONES.forEach((z) => {
     if (z.max < ymin || z.min > ymax) return;
     const y1 = py(Math.min(z.max, ymax)), y2 = py(Math.max(z.min, ymin));
-    g += `<rect x="${g0}" y="${y1}" width="${W - g0 - 24}" height="${y2 - y1}" fill="${z.couleur}" opacity="0.09"/>`;
+    g += `<rect x="${g0}" y="${y1}" width="${W - g0 - 24}" height="${y2 - y1}" fill="color-mix(in srgb, ${z.couleur} 14%, var(--page))"/>`;
     g += `<text class="g-txt" x="${W - 28}" y="${(y1 + y2) / 2 + 3}" text-anchor="end" fill="${z.couleur}">${z.id}</text>`;
   });
   const yp = py(A.physio.plafond_z2_pratique);
-  g += `<line x1="${g0}" y1="${yp}" x2="${W - 24}" y2="${yp}" stroke="var(--craie)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-  g += `<text class="g-txt" x="${g0 + 4}" y="${yp - 5}" fill="var(--craie)">plafond 155 bpm</text>`;
+  g += `<line x1="${g0}" y1="${yp}" x2="${W - 24}" y2="${yp}" stroke="var(--encre)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+  g += `<text class="g-txt" x="${g0 + 4}" y="${yp - 5}" fill="var(--encre)">plafond 155 bpm</text>`;
 
   for (let a = 300; a <= 440; a += 20) {
     g += `<line class="g-axe" x1="${px(a)}" y1="16" x2="${px(a)}" y2="${bas}" opacity="0.4"/>`;
@@ -643,8 +733,8 @@ function grapheNuage() {
 
   pts.forEach((p) => {
     const col = p.t === 'course' ? 'var(--or)' : zoneDe(p.y).couleur;
-    g += `<circle cx="${px(p.x)}" cy="${py(p.y)}" r="6" fill="${col}" opacity="0.9"/>`;
-    g += `<text class="g-txt" x="${px(p.x)}" y="${py(p.y) - 11}" text-anchor="middle" fill="var(--brume)">${dateFr(p.d, true)}</text>`;
+    g += `<rect x="${px(p.x) - 6}" y="${py(p.y) - 6}" width="12" height="12" fill="${col}" stroke="var(--encre)" stroke-width="2"/>`;
+    g += `<text class="g-txt" x="${px(p.x)}" y="${py(p.y) - 11}" text-anchor="middle" fill="var(--encre-douce)">${dateFr(p.d, true)}</text>`;
   });
   $('#graphe-nuage').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Nuage de points allure contre fréquence cardiaque moyenne par séance">${g}</svg>`;
 }
