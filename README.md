@@ -36,6 +36,7 @@ dossier.
 ```
 assets/hello-ted/styles.css     point d'entrée : n'importe que les fichiers de tokens
 assets/hello-ted/tokens/        couleurs, typo, espacement, formes, mouvement, polices
+assets/hello-ted/polices/       Megapixel et Gliker, auto-hébergées en WOFF2
 assets/hello-ted/icones/        pixelarticons (MIT), 24 × 24, un glyphe par fichier
 assets/hello-ted/ted/           les 7 humeurs de Ted
 assets/hello-ted/marque/        logo, picto « T »
@@ -77,9 +78,30 @@ disponible, et se recalcule au changement d'onglet, de semaine et de taille de
 fenêtre. C'est le seul endroit du système qui utilise la transparence : un voile
 d'encre à 55 %, sans flou.
 
-Deux polices sont des **substituts** en attendant les fichiers réels : Quicksand
-remplace Megapixel (la voix de Ted) et Baloo 2 remplace Gliker. Les remplacer
-dans `assets/hello-ted/tokens/fonts.css` le jour où les `.woff2` arrivent.
+### Polices
+
+| Rôle | Police | État |
+| --- | --- | --- |
+| Titres, chiffres, étiquettes | Space Mono | Google Fonts |
+| Corps de texte | DM Sans | Google Fonts |
+| Titres « fun » (`--font-fun`) | **Gliker** | auto-hébergée, couverture complète |
+| Voix de Ted (`--font-dialogue`) | Megapixel | **substituée par Quicksand** |
+
+Gliker et Megapixel sont dans `assets/hello-ted/polices/` en WOFF2 (le TTF de
+Megapixel a été converti : 19,6 ko → 4,2 ko, dessin identique).
+
+**Megapixel n'est pas active.** Le fichier fourni ne compte que 78 glyphes :
+espace, `! " # ' , .`, les chiffres, A-Z, a-z, `[ ] _` et un `Ê` isolé. Il lui
+manque tous les accents minuscules, les majuscules accentuées, et
+`? : ; - ( ) / + % &`. Ted parlant français, une phrase comme « Pas grave, ça
+arrive. On décale à demain matin ? » perd quatre caractères et bascule sur la
+police de secours au milieu des mots — plus laid qu'une substitution franche.
+Le `@font-face` est déclaré et prêt (non référencé, donc jamais téléchargé) :
+dès qu'un jeu accentué arrive, remplacer le fichier et basculer
+`--font-dialogue` sur `"Megapixel"` dans `tokens/fonts.css`.
+
+Sur ce qu'elle couvre — majuscules, minuscules sans accent, chiffres — Megapixel
+est parfaitement nette.
 
 ## Publier sur GitHub Pages
 
