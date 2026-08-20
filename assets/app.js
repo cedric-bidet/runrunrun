@@ -483,8 +483,10 @@ function cartePrevue(s) {
   const { puces, structure } = formaterCible(s.cible);
   return `<article class="seance seance--prevue">
     <div class="seance__tete">
-      <div class="seance__ident">
+      <div class="seance__jour-col">
         <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+      </div>
+      <div class="seance__ident">
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
@@ -560,8 +562,10 @@ function carteRenfo(s) {
   // les exercices détaillés derrière un repli
   return `<article class="seance seance--renfo seance--prevue">
     <div class="seance__tete">
-      <div class="seance__ident">
+      <div class="seance__jour-col">
         <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+      </div>
+      <div class="seance__ident">
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
