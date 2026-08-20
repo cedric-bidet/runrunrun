@@ -2,6 +2,7 @@
 
 const $ = (s) => document.querySelector(s);
 const MOIS = ['janv.','févr.','mars','avril','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+const JOURS = ['Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.','Dim.'];
 
 /* ---------- Formatage ---------- */
 
@@ -23,6 +24,13 @@ function coutCardiaque(fc, tempsS, km) { return fc * (tempsS / 60) / km; }
 function dateFr(iso, court) {
   const [a, m, j] = iso.split('-').map(Number);
   return court ? `${j} ${MOIS[m - 1]}` : `${j} ${MOIS[m - 1]} ${a}`;
+}
+// jour de semaine abrégé + quantième, ex. « Jeu. 20 » — pour les lignes
+// compactes où le mois ne change pas le sens (on reste dans la semaine affichée)
+function jourCourt(iso) {
+  const [a, m, j] = iso.split('-').map(Number);
+  const idx = (new Date(Date.UTC(a, m - 1, j)).getUTCDay() + 6) % 7;
+  return `${JOURS[idx]} ${j}`;
 }
 function joursDepuis(iso) {
   return Math.round((new Date(iso) - new Date(new Date().toDateString())) / 86400000);
@@ -115,7 +123,9 @@ function activerTed() {
 // aucune icône n'est redessinée à la main dans ce projet
 const GLYPHE = {
   'arrow-down': 'M13 12h6v2h-2v2h-2v2h-2v2h-2v-2H9v-2H7v-2H5v-2h6V4h2v8Z',
-  play: 'M15 11h-2V9h2zm0 4h-2v-2h2zm-2 2h-2v-2h2zm0-8h-2V7h2zm-2-2H9V5h2zM9 21H7V3h2zm6-8h2v-2h-2zm-6 4h2v2H9z'
+  play: 'M15 11h-2V9h2zm0 4h-2v-2h2zm-2 2h-2v-2h2zm0-8h-2V7h2zm-2-2H9V5h2zM9 21H7V3h2zm6-8h2v-2h-2zm-6 4h2v2H9z',
+  check: 'M10 18H8v-2h2v2Zm-2-2H6v-2h2v2Zm4-2v2h-2v-2h2Zm-6 0H4v-2h2v2Zm8 0h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2V8h2v2Zm2-2h-2V6h2v2Z',
+  'chevron-right': 'M16 13v-2h-2v2h2Zm-2-2V9h-2v2h2Zm0 4v-2h-2v2h2Zm-2-6V7h-2v2h2Zm0 8v-2h-2v2h2ZM10 7V5H8v2h2Zm0 12v-2H8v2h2Z'
 };
 const glyphe = (nom) => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="${GLYPHE[nom]}"/></svg>`;
 
@@ -410,36 +420,38 @@ function carteRealisee(s) {
       <div class="split__f" style="background:${zoneDe(k.fc_moy).couleur};color:${texteSur(zoneDe(k.fc_moy).couleur)}">${k.fc_moy}</div></div>`;
   }).join('');
 
-  return `<article class="seance">
-    <div class="seance__tete">
-      <div class="seance__ident">
-        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
-        <h3 class="seance__titre">${esc(s.titre)}</h3>
-      </div>
+  return `<details class="seance seance--fermee">
+    <summary class="seance__resume">
+      <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
+      <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
+      <span class="seance__resume-titre">${esc(s.titre)}</span>
       <span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>
-    </div>
-    <p class="seance__lieu">${esc(s.lieu)}${s.conditions ? ` · ${esc(s.conditions)}` : ''}</p>
+    </summary>
+    <div class="seance__corps">
+      <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
+      <p class="seance__lieu">${esc(s.lieu)}${s.conditions ? ` · ${esc(s.conditions)}` : ''}</p>
 
-    <div class="chiffres">
-      <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
-      <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
-      <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
-      <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
-      <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
-      <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
-      <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
-    </div>
+      <div class="chiffres">
+        <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
+        <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
+        <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
+        <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
+        <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
+        <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
+        <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
+      </div>
 
-    ${bandeFC(s)}
-    <div class="splits">${splits}</div>
-    ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
+      ${bandeFC(s)}
+      <div class="splits">${splits}</div>
+      ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
 
-    <div class="analyse">
-      <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
-      <p class="analyse__corps">${esc(s.analyse.corps)}</p>
-      ${ted(s.analyse.a_retenir, TED_NOTE[s.analyse.note], 'À retenir')}
+      <div class="analyse">
+        <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
+        <p class="analyse__corps">${esc(s.analyse.corps)}</p>
+        ${ted(s.analyse.a_retenir, TED_NOTE[s.analyse.note], 'À retenir')}
+      </div>
     </div>
-  </article>`;
+  </details>`;
 }
 
 // n'affiche que les clés de `cible` réellement présentes — elles varient selon le type de séance
@@ -457,22 +469,28 @@ function formaterCible(c) {
   return { puces, structure: c.structure || '' };
 }
 
-// une séance de course encore à venir : pas de mesures, juste la cible et la consigne
+// une séance de course encore à venir : l'essentiel toujours visible (jour,
+// titre, consigne de Ted), le reste (cible, structure, lieu, montre) derrière un repli
 function cartePrevue(s) {
   const { puces, structure } = formaterCible(s.cible);
   return `<article class="seance seance--prevue">
     <div class="seance__tete">
       <div class="seance__ident">
-        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
     </div>
-    ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
-    ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
-    ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
     ${ted(s.consigne, 'coach')}
-    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
+    <details class="seance__detail-repli">
+      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
+      <div class="seance__detail-corps">
+        ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
+        ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
+        ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+        <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
+      </div>
+    </details>
   </article>`;
 }
 
@@ -502,16 +520,7 @@ function carteRenfo(s) {
   const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
   const droite = [s.creneau, duree].filter(Boolean).join(' · ');
 
-  return `<article class="seance seance--renfo${s.statut === 'prevu' ? ' seance--prevue' : ''}">
-    <div class="seance__tete">
-      <div class="seance__ident">
-        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
-        <h3 class="seance__titre">${esc(s.titre)}</h3>
-      </div>
-      ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
-    </div>
-    ${ted(s.consigne, 'coach')}
-    ${bloc ? `<div class="exos">${bloc.exercices.map((e) => `
+  const exos = bloc ? `<div class="exos">${bloc.exercices.map((e) => `
       <article class="exo">
         <h4 class="exo__nom">${esc(e.nom)}</h4>
         <p class="exo__dose">${esc(e.dose)}</p>
@@ -522,7 +531,38 @@ function carteRenfo(s) {
           <p class="exo__controle"><b>Point de contrôle</b>${esc(e.controle)}</p>
           <p class="exo__erreur"><b>Erreur fréquente</b>${esc(e.erreur)}</p>
         </details>
-      </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`}
+      </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`;
+
+  if (s.statut === 'realise') {
+    return `<details class="seance seance--renfo seance--fermee">
+      <summary class="seance__resume">
+        <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
+        <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
+        <span class="seance__resume-titre">${esc(s.titre)}</span>
+      </summary>
+      <div class="seance__corps">
+        <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
+        ${ted(s.consigne, 'coach')}
+        ${exos}
+      </div>
+    </details>`;
+  }
+
+  // à faire : l'essentiel toujours visible (jour, titre, consigne de Ted),
+  // les exercices détaillés derrière un repli
+  return `<article class="seance seance--renfo seance--prevue">
+    <div class="seance__tete">
+      <div class="seance__ident">
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <h3 class="seance__titre">${esc(s.titre)}</h3>
+      </div>
+      ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
+    </div>
+    ${ted(s.consigne, 'coach')}
+    <details class="seance__detail-repli">
+      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
+      <div class="seance__detail-corps">${exos}</div>
+    </details>
   </article>`;
 }
 
@@ -591,9 +631,13 @@ function rendreSeances(idx) {
     $('#sem-bilan').innerHTML = ted(planSemaine.bilan, 'content', 'Bilan');
   }
 
-  // journal unifié : réalisées et prévues de la semaine, dans l'ordre chronologique
-  const liste = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin)
-    .sort((a, b) => a.date.localeCompare(b.date));
+  // journal unifié de la semaine : les séances à venir d'abord (la prochaine
+  // en tête), les séances réalisées repliées ensuite — chaque groupe dans
+  // l'ordre chronologique
+  const parStatut = S.filter((s) => s.date >= sem.debut && s.date <= sem.fin)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .reduce((acc, s) => { acc[s.statut === 'realise' ? 1 : 0].push(s); return acc; }, [[], []]);
+  const liste = [...parStatut[0], ...parStatut[1]];
 
   $('#seances').innerHTML = liste.length
     ? liste.map(carteSeance).join('')
