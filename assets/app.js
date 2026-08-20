@@ -375,6 +375,13 @@ function blocRenfo(id) {
   return R && R.blocs.find((b) => b.id === id);
 }
 
+// dose_seance.series écrase le nombre de séries de la dose du bloc — seul ce
+// nombre change, répétitions/durées/côtés (« par jambe », « 45 s par pied »)
+// restent ceux du bloc
+function doseAvecSeries(dose, series) {
+  return dose.replace(/^\d+/, series);
+}
+
 /* ---------- Séances ---------- */
 
 function bandeFC(s) {
@@ -553,11 +560,15 @@ function detailRenfo(s) {
   const bloc = blocRenfo(s.bloc_renfo);
   const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
   const droite = [s.creneau, duree].filter(Boolean).join(' · ');
+  const doseSeance = s.dose_seance;
+
+  const noteDose = doseSeance && doseSeance.note
+    ? `<p class="dose-modulee"><b class="dose-modulee__badge">Dose modulée</b>${esc(doseSeance.note)}</p>` : '';
 
   const exos = bloc ? `<div class="exos">${bloc.exercices.map((e) => `
       <article class="exo">
         <h4 class="exo__nom">${esc(e.nom)}</h4>
-        <p class="exo__dose">${esc(e.dose)}</p>
+        <p class="exo__dose${doseSeance ? ' exo__dose--modulee' : ''}">${esc(doseSeance ? doseAvecSeries(e.dose, doseSeance.series) : e.dose)}</p>
         ${e.video ? `<a class="exo__video" href="${esc(e.video)}" target="_blank" rel="noopener">${glyphe('play')}${esc(e.video_titre || 'Vidéo de l’exercice')}</a>` : ''}
         <details class="exo__repli">
           <summary>Point de contrôle &amp; erreur fréquente</summary>
@@ -576,6 +587,7 @@ function detailRenfo(s) {
     </div>
     <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
     ${ted(s.consigne, 'coach')}
+    ${noteDose}
     ${exos}`;
 }
 

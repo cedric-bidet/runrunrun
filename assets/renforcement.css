@@ -42,6 +42,21 @@
   border: var(--border-1) solid var(--trait); padding: 3px var(--space-2);
   margin: 0 0 var(--space-3);
 }
+/* dose écrasée par dose_seance : jamais confondue avec la dose nominale du bloc */
+.exo__dose--modulee { background: var(--amber-500); }
+
+.dose-modulee {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2);
+  font: var(--type-body-sm); color: var(--encre);
+  margin: 0 0 var(--space-4); padding: var(--space-3);
+  background: var(--carte); border: var(--border-1) solid var(--trait);
+  border-left-width: var(--border-3); border-left-color: var(--amber-500);
+}
+.dose-modulee__badge {
+  flex: none; font: var(--type-label); letter-spacing: var(--tracking-label);
+  text-transform: uppercase; color: var(--encre); background: var(--amber-500);
+  border: var(--border-1) solid var(--trait); padding: 3px var(--space-2);
+}
 .exo__video {
   display: inline-flex; align-items: center; gap: var(--space-2);
   height: var(--control-h-sm); padding: 0 var(--space-3);
