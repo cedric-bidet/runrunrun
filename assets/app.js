@@ -478,10 +478,9 @@ function formaterCible(c) {
 }
 
 // une séance de course encore à venir : l'essentiel toujours visible (jour,
-// titre, consigne de Ted), le reste (cible, structure, lieu) derrière un repli
+// titre, consigne de Ted), le reste (cible, structure, lieu, montre) derrière un repli
 function cartePrevue(s) {
   const { puces, structure } = formaterCible(s.cible);
-  const detail = s.lieu || puces.length || structure;
   return `<article class="seance seance--prevue">
     <div class="seance__tete">
       <div class="seance__ident">
@@ -491,15 +490,15 @@ function cartePrevue(s) {
       ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
     </div>
     ${ted(s.consigne, 'coach')}
-    ${detail ? `<details class="seance__detail-repli">
+    <details class="seance__detail-repli">
       <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
       <div class="seance__detail-corps">
         ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
         ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
         ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+        <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
       </div>
-    </details>` : ''}
-    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
+    </details>
   </article>`;
 }
 
