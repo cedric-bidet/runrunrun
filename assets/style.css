@@ -478,7 +478,10 @@ pre {
 
 /* ---------- Séances ---------- */
 
-.seances { display: grid; gap: var(--space-5); }
+/* colonne unique explicite : sans elle, la piste « auto » de la grille se
+   dimensionne sur le titre le plus long (texte non cassé) au lieu de la
+   largeur disponible, ce qui fait déborder toute la page à l'horizontale */
+.seances { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
 
 /* carte de la charte : fond blanc, contour d'encre 2px, ombre dure 4px,
    angles droits. Le statut se lit sur un badge, pas sur un liseré. */
