@@ -167,7 +167,6 @@ function demarrer() {
   rendreBlocs(blocActif);
   rendreJalons();
   rendreRenfo();
-  rendreRegleCalendrier();
   activerNavSemaines();
   rendreStats();
 
@@ -337,13 +336,6 @@ function rendreJalons() {
 }
 
 /* ---------- Semaines ---------- */
-
-function rendreRegleCalendrier() {
-  const r = P.regle_calendrier;
-  if (!r) return;
-  $('#regle-calendrier').innerHTML =
-    `<h3 class="sous-titre">${esc(r.titre)}</h3><ul>${r.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>`;
-}
 
 const ETAT = { termine: 'terminée', en_cours: 'en cours', a_venir: 'à venir' };
 // la note de la séance se lit sur un badge, plus sur un liseré de bordure
@@ -589,6 +581,7 @@ function rendreSeances(idx) {
   const planSemaine = sem.programme ? P.semaines.find((w) => w.num === sem.num) : null;
 
   $('#sem-tete').hidden = !sem.programme;
+  $('#sem-badge').hidden = !sem.programme;
   if (sem.programme) {
     $('#sem-badge').textContent = ETAT[sem.statut];
     $('#sem-badge').className = 'sem-tete__badge sem-tete__badge--' + sem.statut;

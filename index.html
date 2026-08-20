@@ -104,15 +104,13 @@
   <div class="onglet" id="onglet-seances" data-onglet="seances" hidden>
 
     <section class="section" id="s-seances">
-      <div class="etiquette"><span class="etiquette__num">01</span> Séances &amp; analyses</div>
-
-      <details class="regle-cal-repli">
-        <summary>Règle du calendrier</summary>
-        <div class="regle-cal" id="regle-calendrier"></div>
-      </details>
+      <div class="etiquette etiquette--seances">
+        <span class="etiquette__num">01</span> Séances &amp; analyses
+        <span class="sem-tete__badge" id="sem-badge" hidden></span>
+      </div>
 
       <div class="sem-tete" id="sem-tete" hidden>
-        <span class="sem-tete__badge" id="sem-badge"></span>
+        <span class="sem-tete__kicker">Objectif</span>
         <h3 class="sem-tete__titre" id="sem-titre"></h3>
         <p class="sem-tete__objectif" id="sem-objectif"></p>
         <!-- le bilan de la semaine est une parole de coach : rempli par app.js
