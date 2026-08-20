@@ -525,6 +525,42 @@ pre {
   box-shadow: none;
 }
 
+/* séance réalisée : repliée derrière un résumé d'une ligne pour laisser
+   la prochaine séance en tête de liste — le détail reste à un clic */
+.seance--fermee { padding: 0; }
+.seance__resume {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer; user-select: none; list-style: none;
+}
+.seance__resume::-webkit-details-marker { display: none; }
+.seance__resume:focus-visible { outline: var(--outline-focus); outline-offset: var(--outline-focus-offset); }
+.seance__check {
+  flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  background: var(--green-500); color: var(--cream-50);
+  border: var(--border-1) solid var(--trait);
+}
+.seance__check svg { width: 14px; height: 14px; fill: currentColor; }
+.seance__resume-jour {
+  flex: 0 0 auto;
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre-douce);
+}
+.seance__resume-titre {
+  flex: 1 1 auto; min-width: 0;
+  font-family: var(--dp); font-weight: var(--weight-bold);
+  font-size: var(--text-sm); letter-spacing: var(--tracking-display);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.seance--fermee .seance__note { flex: 0 0 auto; }
+.seance--fermee[open] .seance__resume { border-bottom: var(--border-1) solid var(--trait-fin); }
+.seance__corps { padding: var(--space-4); }
+.seance__meta {
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre-douce); margin: 0 0 var(--space-2);
+}
+
 .seance__note {
   display: inline-flex; align-items: center;
   font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
