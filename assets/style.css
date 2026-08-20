@@ -226,11 +226,12 @@ pre {
 }
 .ted--large .ted__avatar { width: 64px; height: 64px; }
 
-/* Ted tient en 1 à 2 phrases : au-delà de quatre lignes, la bulle ne montre que
-   le début et le reste s'ouvre en superposition. Quatre et non trois : Silkscreen
-   est large, il n'y tient que trois ou quatre mots par ligne. */
+/* Ted tient en 1 phrase courte : au-delà de trois lignes, la bulle ne montre que
+   le début et le reste s'ouvre en superposition. On raccourcit à trois lignes
+   pour garder la carte aérée — Silkscreen est large, il n'y tient que trois ou
+   quatre mots par ligne. */
 .ted__texte {
-  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
   overflow: hidden;
 }
 .ted__bulle--repliable { cursor: pointer; }
@@ -514,7 +515,7 @@ pre {
   background: var(--carte);
   border: var(--border-1) solid var(--trait);
   box-shadow: var(--shadow-pixel);
-  padding: var(--space-4);
+  padding: var(--space-5);
 }
 
 /* séance à venir : creuse, en pointillés, sans ombre — jamais confondue
@@ -563,7 +564,7 @@ pre {
 
 /* séance à venir : jour, titre et consigne de Ted toujours visibles ; la
    cible, la structure et le lieu se déplient derrière ce repli à icône */
-.seance__detail-repli { margin-top: var(--space-3); }
+.seance__detail-repli { margin-top: var(--space-4); }
 .seance__detail-repli summary {
   display: inline-flex; align-items: center; gap: var(--space-2);
   font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
@@ -617,8 +618,10 @@ pre {
 .seance__montre[hidden] { display: none; }
 .seance--renfo .exos { margin-top: var(--space-4); }
 
-/* le titre prend la place qui reste, le badge de note ne passe jamais à la ligne */
-.seance__tete { display: flex; justify-content: space-between; gap: var(--space-3); align-items: flex-start; }
+/* le jour vit dans sa propre petite colonne à gauche, détaché du titre ;
+   le titre prend la place qui reste, le badge de note ne passe jamais à la ligne */
+.seance__tete { display: flex; gap: var(--space-4); align-items: flex-start; }
+.seance__jour-col { flex: 0 0 auto; padding-top: 2px; }
 .seance__ident { flex: 1 1 auto; min-width: 0; }
 .seance__tete > .seance__note, .seance__tete > .seance__date { flex: 0 0 auto; }
 .seance__date {
@@ -628,17 +631,18 @@ pre {
 .seance__jour {
   font-family: var(--dp); font-weight: var(--weight-bold);
   font-size: var(--text-md); letter-spacing: var(--tracking-display); color: var(--encre);
-  font-feature-settings: "tnum"; text-transform: uppercase;
+  font-feature-settings: "tnum"; text-transform: uppercase; line-height: 1.2;
 }
 .seance__semaine {
+  display: block;
   font-family: var(--mo); font-weight: var(--weight-regular);
   font-size: var(--text-2xs); letter-spacing: var(--tracking-label);
-  color: var(--encre-douce); margin-left: var(--space-2); vertical-align: 0.12em;
+  color: var(--encre-douce); margin: var(--space-1) 0 0;
 }
 .seance__titre {
   font-family: var(--dp); font-weight: var(--weight-bold);
   font-size: var(--text-xl); letter-spacing: var(--tracking-display);
-  margin: var(--space-1) 0 var(--space-1);
+  margin: 0 0 var(--space-1);
 }
 .seance__lieu { font: var(--type-body-sm); color: var(--encre-douce); margin: 0 0 var(--space-4); }
 
