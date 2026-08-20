@@ -178,6 +178,7 @@ function demarrer() {
   rendreJalons();
   rendreRenfo();
   activerNavSemaines();
+  activerDetailSeance();
   rendreStats();
 
   $('#app').hidden = false;
@@ -205,6 +206,8 @@ function activerOnglets() {
     });
     boutons.forEach((b) => b.setAttribute('aria-selected', b.dataset.onglet === id));
     localStorage.setItem('onglet', id);
+    // on rentre toujours sur la liste, jamais sur la dernière page détail ouverte
+    if (id === 'seances') fermerDetail();
     // un onglet masqué mesure 0 : on ne peut replier ses bulles qu'une fois visible
     replierBulles();
   };
@@ -400,13 +403,71 @@ function bandeFC(s) {
   return `<div class="bande"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Fréquence cardiaque moyenne ${s.fc_moy}, maximale ${s.fc_max}, sur l'échelle des zones">${g}</svg></div>`;
 }
 
-// une carte par séance du journal — le rendu dépend du statut et du type
+// une carte par séance du journal, dans la liste hebdo — compacte, jamais
+// d'accordéon : elle ouvre la page détail (voir detailSeance)
 function carteSeance(s) {
-  if (s.type === 'renfo') return carteRenfo(s);
-  return s.statut === 'realise' ? carteRealisee(s) : cartePrevue(s);
+  return s.statut === 'realise' ? carteListeRealisee(s) : carteListePrevue(s);
 }
 
-function carteRealisee(s) {
+// ce que montre une séance à venir sous le titre, quand elle n'est pas
+// encore réalisée : le créneau pour une course, créneau + durée pour un renfo
+function seanceSousInfo(s) {
+  if (s.type !== 'renfo') return s.creneau || '';
+  const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
+  return [s.creneau, duree].filter(Boolean).join(' · ');
+}
+
+function carteListePrevue(s) {
+  const sousInfo = seanceSousInfo(s);
+  return `<button type="button" class="seance seance--prevue seance--nav" data-date="${s.date}" data-type="${s.type}">
+    <div class="seance__tete">
+      <div class="seance__ident">
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <div class="seance__titre">${esc(s.titre)}</div>
+      </div>
+      ${sousInfo ? `<div class="seance__date">${esc(sousInfo)}</div>` : ''}
+    </div>
+    <span class="seance__nav" aria-hidden="true">${glyphe('chevron-right')}</span>
+  </button>`;
+}
+
+function carteListeRealisee(s) {
+  return `<button type="button" class="seance seance--realisee seance--nav" data-date="${s.date}" data-type="${s.type}">
+    <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
+    <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
+    <span class="seance__resume-titre">${esc(s.titre)}</span>
+    ${s.type !== 'renfo' ? `<span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>` : ''}
+    <span class="seance__nav" aria-hidden="true">${glyphe('chevron-right')}</span>
+  </button>`;
+}
+
+/* ---------- Page détail d'une séance ---------- */
+
+// le rendu complet dépend du statut et du type — c'est exactement ce que
+// montrait l'accordéon avant, mais sur sa propre page
+function detailSeance(s) {
+  if (s.type === 'renfo') return detailRenfo(s);
+  return s.statut === 'realise' ? detailCourseRealisee(s) : detailCoursePrevue(s);
+}
+
+function detailCoursePrevue(s) {
+  const { puces, structure } = formaterCible(s.cible);
+  return `<div class="seance__tete">
+      <div class="seance__ident">
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <h2 class="seance__titre">${esc(s.titre)}</h2>
+      </div>
+      ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
+    </div>
+    <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
+    ${ted(s.consigne, 'coach')}
+    ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
+    ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
+    ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+    <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>`;
+}
+
+function detailCourseRealisee(s) {
   const cc = coutCardiaque(s.fc_moy, s.temps_s, s.distance_km);
   const splits = (s.splits || []).map((k) => {
     if (k.libelle) {
@@ -420,38 +481,35 @@ function carteRealisee(s) {
       <div class="split__f" style="background:${zoneDe(k.fc_moy).couleur};color:${texteSur(zoneDe(k.fc_moy).couleur)}">${k.fc_moy}</div></div>`;
   }).join('');
 
-  return `<details class="seance seance--fermee">
-    <summary class="seance__resume">
-      <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
-      <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
-      <span class="seance__resume-titre">${esc(s.titre)}</span>
+  return `<div class="seance__tete">
+      <div class="seance__ident">
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <h2 class="seance__titre">${esc(s.titre)}</h2>
+      </div>
       <span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>
-    </summary>
-    <div class="seance__corps">
-      <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
-      <p class="seance__lieu">${esc(s.lieu)}${s.conditions ? ` · ${esc(s.conditions)}` : ''}</p>
-
-      <div class="chiffres">
-        <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
-        <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
-        <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
-        <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
-        <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
-      </div>
-
-      ${bandeFC(s)}
-      <div class="splits">${splits}</div>
-      ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
-
-      <div class="analyse">
-        <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
-        <p class="analyse__corps">${esc(s.analyse.corps)}</p>
-        ${ted(s.analyse.a_retenir, TED_NOTE[s.analyse.note], 'À retenir')}
-      </div>
     </div>
-  </details>`;
+    <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
+    <p class="seance__lieu">${esc(s.lieu)}${s.conditions ? ` · ${esc(s.conditions)}` : ''}</p>
+
+    <div class="chiffres">
+      <div class="chiffre"><span class="chiffre__v">${s.distance_km.toFixed(2).replace('.', ',')}<span class="chiffre__u">km</span></span><span class="chiffre__l">Distance</span></div>
+      <div class="chiffre"><span class="chiffre__v">${chrono(s.temps_s)}</span><span class="chiffre__l">Durée</span></div>
+      <div class="chiffre"><span class="chiffre__v">${allureStr(s.temps_s, s.distance_km)}<span class="chiffre__u">/km</span></span><span class="chiffre__l">Allure</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.fc_moy}<span class="chiffre__u">bpm</span></span><span class="chiffre__l">FC moyenne</span></div>
+      <div class="chiffre chiffre--phare"><span class="chiffre__v">${Math.round(cc)}<span class="chiffre__u">b/km</span></span><span class="chiffre__l">Coût cardiaque</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.cadence_spm}<span class="chiffre__u">ppm</span></span><span class="chiffre__l">Cadence</span></div>
+      <div class="chiffre"><span class="chiffre__v">${s.effort_relatif}</span><span class="chiffre__l">Effort relatif</span></div>
+    </div>
+
+    ${bandeFC(s)}
+    <div class="splits">${splits}</div>
+    ${s.commentaire_athlete ? `<p class="citation">« ${esc(s.commentaire_athlete)} »</p>` : ''}
+
+    <div class="analyse">
+      <p class="analyse__verdict">${esc(s.analyse.verdict)}</p>
+      <p class="analyse__corps">${esc(s.analyse.corps)}</p>
+      ${ted(s.analyse.a_retenir, TED_NOTE[s.analyse.note], 'À retenir')}
+    </div>`;
 }
 
 // n'affiche que les clés de `cible` réellement présentes — elles varient selon le type de séance
@@ -467,31 +525,6 @@ function formaterCible(c) {
   if (c.temps_au_seuil_min) puces.push(`${c.temps_au_seuil_min} min au seuil`);
   if (c.distance_test_m) puces.push(String(c.distance_test_m));
   return { puces, structure: c.structure || '' };
-}
-
-// une séance de course encore à venir : l'essentiel toujours visible (jour,
-// titre, consigne de Ted), le reste (cible, structure, lieu, montre) derrière un repli
-function cartePrevue(s) {
-  const { puces, structure } = formaterCible(s.cible);
-  return `<article class="seance seance--prevue">
-    <div class="seance__tete">
-      <div class="seance__ident">
-        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
-        <h3 class="seance__titre">${esc(s.titre)}</h3>
-      </div>
-      ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
-    </div>
-    ${ted(s.consigne, 'coach')}
-    <details class="seance__detail-repli">
-      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
-      <div class="seance__detail-corps">
-        ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
-        ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
-        ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
-        <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
-      </div>
-    </details>
-  </article>`;
 }
 
 // les .fit sont stockés en base64 dans /workouts (AAAA-MM-JJ-<type>.fit.b64,
@@ -514,8 +547,9 @@ function verifierWorkoutsMontre() {
   });
 }
 
-// une séance de renforcement : les exercices du bloc correspondant, contrôle/erreur repliés
-function carteRenfo(s) {
+// une séance de renforcement, réalisée ou à venir : les exercices du bloc
+// correspondant, contrôle/erreur repliés exercice par exercice
+function detailRenfo(s) {
   const bloc = blocRenfo(s.bloc_renfo);
   const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
   const droite = [s.creneau, duree].filter(Boolean).join(' · ');
@@ -533,37 +567,16 @@ function carteRenfo(s) {
         </details>
       </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`;
 
-  if (s.statut === 'realise') {
-    return `<details class="seance seance--renfo seance--fermee">
-      <summary class="seance__resume">
-        <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
-        <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
-        <span class="seance__resume-titre">${esc(s.titre)}</span>
-      </summary>
-      <div class="seance__corps">
-        <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
-        ${ted(s.consigne, 'coach')}
-        ${exos}
-      </div>
-    </details>`;
-  }
-
-  // à faire : l'essentiel toujours visible (jour, titre, consigne de Ted),
-  // les exercices détaillés derrière un repli
-  return `<article class="seance seance--renfo seance--prevue">
-    <div class="seance__tete">
+  return `<div class="seance__tete">
       <div class="seance__ident">
         <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
-        <h3 class="seance__titre">${esc(s.titre)}</h3>
+        <h2 class="seance__titre">${esc(s.titre)}</h2>
       </div>
-      ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
+      ${s.statut !== 'realise' && droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
     </div>
+    <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
     ${ted(s.consigne, 'coach')}
-    <details class="seance__detail-repli">
-      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
-      <div class="seance__detail-corps">${exos}</div>
-    </details>
-  </article>`;
+    ${exos}`;
 }
 
 /* ---------- Séances — navigation semaine par semaine ---------- */
@@ -642,7 +655,6 @@ function rendreSeances(idx) {
   $('#seances').innerHTML = liste.length
     ? liste.map(carteSeance).join('')
     : '<p class="seances-vide">Aucune séance enregistrée pour cette semaine.</p>';
-  verifierWorkoutsMontre();
   replierBulles();
 
   $('#semnav-num').textContent = 'Semaine ' + sem.num;
@@ -651,6 +663,39 @@ function rendreSeances(idx) {
   $('#semnav-next').disabled = semaineIdx === SEM_LISTE.length - 1;
 
   if (!$('#onglet-seances').hidden) window.scrollTo(0, 0);
+}
+
+/* ---------- Séances — page détail ---------- */
+
+// tape une carte de la liste, arrive sur sa page détail ; la flèche du haut
+// ramène à la liste — jamais d'accordéon pour l'analyse d'une séance
+function ouvrirDetail(date, type) {
+  const s = S.find((x) => x.date === date && x.type === type);
+  if (!s) return;
+  const corps = $('#detail-corps');
+  corps.className = 'detail-carte' + (s.statut === 'realise' ? '' : ' detail-carte--prevue');
+  corps.innerHTML = detailSeance(s);
+  verifierWorkoutsMontre();
+  $('#seances-liste').hidden = true;
+  $('#semnav').hidden = true;
+  $('#seance-detail').hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function fermerDetail() {
+  $('#seance-detail').hidden = true;
+  $('#seances-liste').hidden = false;
+  $('#semnav').hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function activerDetailSeance() {
+  $('#seances').addEventListener('click', (e) => {
+    const carte = e.target.closest('.seance--nav');
+    if (!carte) return;
+    ouvrirDetail(carte.dataset.date, carte.dataset.type);
+  });
+  $('#detail-retour').addEventListener('click', fermerDetail);
 }
 
 /* ---------- Statistiques ---------- */

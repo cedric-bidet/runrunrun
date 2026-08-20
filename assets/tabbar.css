@@ -111,6 +111,7 @@ main#app {
   border: var(--border-1) dashed var(--trait); background: var(--page);
 }
 
+.semnav[hidden] { display: none; }
 .semnav {
   position: fixed;
   left: 0;
