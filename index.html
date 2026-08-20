@@ -109,16 +109,28 @@
         <span class="sem-tete__badge" id="sem-badge" hidden></span>
       </div>
 
-      <div class="sem-tete" id="sem-tete" hidden>
-        <span class="sem-tete__kicker">Objectif</span>
-        <h3 class="sem-tete__titre" id="sem-titre"></h3>
-        <p class="sem-tete__objectif" id="sem-objectif"></p>
-        <!-- le bilan de la semaine est une parole de coach : rempli par app.js
-             avec une bulle Ted -->
-        <div id="sem-bilan" hidden></div>
+      <div id="seances-liste">
+        <div class="sem-tete" id="sem-tete" hidden>
+          <span class="sem-tete__kicker">Objectif</span>
+          <h3 class="sem-tete__titre" id="sem-titre"></h3>
+          <p class="sem-tete__objectif" id="sem-objectif"></p>
+          <!-- le bilan de la semaine est une parole de coach : rempli par app.js
+               avec une bulle Ted -->
+          <div id="sem-bilan" hidden></div>
+        </div>
+
+        <div id="seances" class="seances"></div>
       </div>
 
-      <div id="seances" class="seances"></div>
+      <!-- le détail d'une séance est une page à part, jamais un accordéon :
+           on y arrive en tapant une carte de la liste, on en repart par ici -->
+      <div class="seance-detail" id="seance-detail" hidden>
+        <button class="detail-retour" id="detail-retour" type="button">
+          <svg class="detail-retour__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 13v-2h-2v2h2Zm-2-2V9h-2v2h2Zm0 4v-2h-2v2h2Zm-2-6V7h-2v2h2Zm0 8v-2h-2v2h2ZM10 7V5H8v2h2Zm0 12v-2H8v2h2Z"/></svg>
+          Retour aux séances
+        </button>
+        <div class="detail-carte" id="detail-corps"></div>
+      </div>
     </section>
 
     <nav class="semnav" id="semnav" aria-label="Navigation entre semaines">
