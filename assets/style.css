@@ -561,6 +561,26 @@ pre {
   color: var(--encre-douce); margin: 0 0 var(--space-2);
 }
 
+/* séance à venir : jour, titre et consigne de Ted toujours visibles ; la
+   cible, la structure et le lieu se déplient derrière ce repli à icône */
+.seance__detail-repli { margin-top: var(--space-3); }
+.seance__detail-repli summary {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre-douce); cursor: pointer; user-select: none; list-style: none;
+  border-bottom: var(--border-1) solid var(--trait-fin); padding-bottom: 2px;
+}
+.seance__detail-repli summary::-webkit-details-marker { display: none; }
+.seance__detail-repli summary svg {
+  width: 14px; height: 14px; fill: currentColor;
+  transition: transform var(--dur-fast) var(--ease-snap);
+}
+.seance__detail-repli[open] summary svg { transform: rotate(90deg); }
+.seance__detail-repli summary:hover { color: var(--encre); border-bottom-color: var(--trait); }
+.seance__detail-repli summary:focus-visible { outline: var(--outline-focus); outline-offset: var(--outline-focus-offset); }
+.seance__detail-repli[open] summary { margin-bottom: var(--space-3); }
+.seance__detail-corps > :first-child { margin-top: 0; }
+
 .seance__note {
   display: inline-flex; align-items: center;
   font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;

@@ -124,7 +124,8 @@ function activerTed() {
 const GLYPHE = {
   'arrow-down': 'M13 12h6v2h-2v2h-2v2h-2v2h-2v-2H9v-2H7v-2H5v-2h6V4h2v8Z',
   play: 'M15 11h-2V9h2zm0 4h-2v-2h2zm-2 2h-2v-2h2zm0-8h-2V7h2zm-2-2H9V5h2zM9 21H7V3h2zm6-8h2v-2h-2zm-6 4h2v2H9z',
-  check: 'M10 18H8v-2h2v2Zm-2-2H6v-2h2v2Zm4-2v2h-2v-2h2Zm-6 0H4v-2h2v2Zm8 0h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2V8h2v2Zm2-2h-2V6h2v2Z'
+  check: 'M10 18H8v-2h2v2Zm-2-2H6v-2h2v2Zm4-2v2h-2v-2h2Zm-6 0H4v-2h2v2Zm8 0h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2V8h2v2Zm2-2h-2V6h2v2Z',
+  'chevron-right': 'M16 13v-2h-2v2h2Zm-2-2V9h-2v2h2Zm0 4v-2h-2v2h2Zm-2-6V7h-2v2h2Zm0 8v-2h-2v2h2ZM10 7V5H8v2h2Zm0 12v-2H8v2h2Z'
 };
 const glyphe = (nom) => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="${GLYPHE[nom]}"/></svg>`;
 
@@ -476,21 +477,28 @@ function formaterCible(c) {
   return { puces, structure: c.structure || '' };
 }
 
-// une séance de course encore à venir : pas de mesures, juste la cible et la consigne
+// une séance de course encore à venir : l'essentiel toujours visible (jour,
+// titre, consigne de Ted), le reste (cible, structure, lieu) derrière un repli
 function cartePrevue(s) {
   const { puces, structure } = formaterCible(s.cible);
+  const detail = s.lieu || puces.length || structure;
   return `<article class="seance seance--prevue">
     <div class="seance__tete">
       <div class="seance__ident">
-        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${s.creneau ? `<div class="seance__date">${esc(s.creneau)}</div>` : ''}
     </div>
-    ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
-    ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
-    ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
     ${ted(s.consigne, 'coach')}
+    ${detail ? `<details class="seance__detail-repli">
+      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
+      <div class="seance__detail-corps">
+        ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
+        ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
+        ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+      </div>
+    </details>` : ''}
     <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>
   </article>`;
 }
@@ -521,9 +529,7 @@ function carteRenfo(s) {
   const duree = s.cible && s.cible.duree_min ? `${s.cible.duree_min} min` : '';
   const droite = [s.creneau, duree].filter(Boolean).join(' · ');
 
-  const corps = `
-    ${ted(s.consigne, 'coach')}
-    ${bloc ? `<div class="exos">${bloc.exercices.map((e) => `
+  const exos = bloc ? `<div class="exos">${bloc.exercices.map((e) => `
       <article class="exo">
         <h4 class="exo__nom">${esc(e.nom)}</h4>
         <p class="exo__dose">${esc(e.dose)}</p>
@@ -534,7 +540,7 @@ function carteRenfo(s) {
           <p class="exo__controle"><b>Point de contrôle</b>${esc(e.controle)}</p>
           <p class="exo__erreur"><b>Erreur fréquente</b>${esc(e.erreur)}</p>
         </details>
-      </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`}`;
+      </article>`).join('')}</div>` : `<p class="note">Bloc de renforcement « ${esc(s.bloc_renfo || '?')} » introuvable dans le référentiel.</p>`;
 
   if (s.statut === 'realise') {
     return `<details class="seance seance--renfo seance--fermee">
@@ -545,20 +551,27 @@ function carteRenfo(s) {
       </summary>
       <div class="seance__corps">
         <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
-        ${corps}
+        ${ted(s.consigne, 'coach')}
+        ${exos}
       </div>
     </details>`;
   }
 
-  return `<article class="seance seance--renfo${s.statut === 'prevu' ? ' seance--prevue' : ''}">
+  // à faire : l'essentiel toujours visible (jour, titre, consigne de Ted),
+  // les exercices détaillés derrière un repli
+  return `<article class="seance seance--renfo seance--prevue">
     <div class="seance__tete">
       <div class="seance__ident">
-        <div class="seance__jour">${dateFr(s.date)}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
+        <div class="seance__jour">${esc(jourCourt(s.date))}<span class="seance__semaine">S${numSemaine(s.date)}</span></div>
         <h3 class="seance__titre">${esc(s.titre)}</h3>
       </div>
       ${droite ? `<div class="seance__date">${esc(droite)}</div>` : ''}
     </div>
-    ${corps}
+    ${ted(s.consigne, 'coach')}
+    <details class="seance__detail-repli">
+      <summary>${glyphe('chevron-right')}<span>Détail de la séance</span></summary>
+      <div class="seance__detail-corps">${exos}</div>
+    </details>
   </article>`;
 }
 
