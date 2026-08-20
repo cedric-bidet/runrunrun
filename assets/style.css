@@ -444,34 +444,6 @@ pre {
 }
 @media (max-width: 620px) { .bloc { grid-template-columns: 1fr; gap: var(--space-3); } }
 
-/* ---------- Règle du calendrier ---------- */
-
-.regle-cal {
-  border-left: var(--border-3) solid var(--accent);
-  padding: var(--space-1) 0 var(--space-1) var(--space-4);
-  max-width: 68ch;
-}
-.regle-cal ul { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: grid; gap: var(--space-2); }
-.regle-cal li { font: var(--type-body-sm); color: var(--text-muted); padding-left: var(--space-4); position: relative; }
-.regle-cal li::before {
-  content: ""; position: absolute; left: 0; top: 0.55em;
-  width: 4px; height: 4px; background: var(--encre-douce);
-}
-
-.regle-cal-repli { margin-bottom: var(--space-5); }
-.regle-cal-repli summary {
-  display: inline-flex; align-items: center;
-  height: var(--control-h-sm); padding: 0 var(--space-3);
-  background: var(--page); color: var(--encre);
-  border: var(--border-1) solid var(--trait);
-  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
-  cursor: pointer; user-select: none;
-}
-.regle-cal-repli summary::-webkit-details-marker { display: none; }
-.regle-cal-repli summary:hover { background: var(--creux); }
-.regle-cal-repli[open] summary { background: var(--encre); color: var(--cream-50); }
-.regle-cal-repli .regle-cal { margin-top: var(--space-4); }
-
 /* ---------- Jalons ---------- */
 
 .jalons { position: relative; padding-left: var(--space-6); }

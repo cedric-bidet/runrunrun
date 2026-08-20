@@ -75,17 +75,29 @@ main#app {
 }
 .sem-tete[hidden] { display: none; }
 
-/* le statut de la semaine se lit d'un coup d'œil, sur un badge de la charte */
+/* le statut de la semaine se lit d'un coup d'œil, sur un badge de la charte,
+   au niveau de l'étiquette de section plutôt que dans l'en-tête de semaine */
 .sem-tete__badge {
   display: inline-block;
   font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
   color: var(--encre); background: var(--creux);
   border: var(--border-1) solid var(--trait);
-  padding: 3px var(--space-2); margin-bottom: var(--space-3);
+  padding: 3px var(--space-2);
 }
+.sem-tete__badge[hidden] { display: none; }
 .sem-tete__badge--en_cours { background: var(--accent); color: var(--cream-50); }
 .sem-tete__badge--termine { background: var(--green-500); color: var(--encre); }
 .sem-tete__badge--a_venir { background: var(--page); border-style: dashed; color: var(--encre-douce); }
+
+/* la ligne de séparation passe avant le badge, qui reste plaqué à droite */
+.etiquette--seances::after { order: 1; }
+.etiquette--seances #sem-badge { order: 2; }
+
+.sem-tete__kicker {
+  display: block;
+  font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--encre-douce); margin-bottom: var(--space-2);
+}
 
 .sem-tete__titre {
   font-family: var(--dp); font-weight: var(--weight-bold);
