@@ -1,7 +1,7 @@
 {
-  "version": "3.0",
+  "version": "3.1",
   "maj": "2026-08-20",
-  "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.",
+  "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.\n\nNouveauté v3.1 — `dose_seance` : une séance de renfo peut porter un objet `dose_seance` { series, note } qui écrase le nombre de séries affiché sur les cartes d'exercices de renforcement.json. Sans ce champ, la dose du bloc s'applique telle quelle. RAISON : jusqu'au 20 août, une modulation de dose n'existait que dans le texte de `consigne`, que l'écran Séances n'affiche pas au moment de l'exécution — l'athlète voyait 3 × 15 sur la carte et faisait 3 × 15. Une consigne que l'interface ne montre pas n'est pas une consigne. TODO app : le rendu des cartes d'exercices doit lire `dose_seance.series` en priorité sur la dose du bloc.",
   "seances": [
     {
       "id": "18819129254", "date": "2026-06-07", "statut": "realise", "type": "course",
@@ -147,13 +147,14 @@
     },
     {
       "id": "r-2026-08-18", "date": "2026-08-18", "statut": "realise", "type": "renfo",
-      "titre": "Renforcement A — séance complète d'emblée", "bloc_renfo": "A", "creneau": "Matin",
-      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, dose complète",
+      "titre": "Renforcement A — première séance, dose du bloc", "bloc_renfo": "A", "creneau": "Matin",
+      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, soit la dose affichée sur les cartes",
       "point_limitant": "Gainage latéral",
       "commentaire_athlete": "Gainage latéral le plus difficile. Rien à signaler côté chevilles.",
       "analyse": {
-        "verdict": "Dose complète dès la première séance, alors que la consigne était de faire un passage à vide.",
-        "corps": "Rien de dangereux au poids du corps, mais la montée progressive n'existait pas pour la sécurité du mouvement : elle existait pour protéger les jours suivants. Les courbatures d'une première séance de renfo culminent à 24–48 h, donc jeudi — c'est-à-dire le jour du bloc B, la veille de la première sortie longue de 50 minutes.\n\nLe point limitant est instructif. Le gainage latéral travaille la stabilité frontale du bassin, et c'est exactement la même chaîne que ton instabilité de cheville : le bassin qui s'affaisse en planche latérale est le bassin qui ne contrôle pas le pied à la réception. Que ce soit l'exercice le plus dur confirme que le maillon faible est bien là où on l'attendait.\n\nÀ l'inverse, aucune gêne sur les fentes marchées ni les montées de banc — deux exercices en appui unipodal chargé. C'est un bon signal : la cheville tient sous contrainte contrôlée.",
+        "verdict": "Première séance passée en entier. Le point limitant tombe exactement là où le diagnostic l'attendait.",
+        "corps": "Le gainage latéral travaille la stabilité frontale du bassin, et c'est exactement la même chaîne que ton instabilité de cheville : le bassin qui s'affaisse en planche latérale est le bassin qui ne contrôle pas le pied à la réception. Que ce soit l'exercice le plus dur confirme que le maillon faible est bien là où on l'attendait.\n\nÀ l'inverse, aucune gêne sur les fentes marchées ni les montées de banc — deux exercices en appui unipodal chargé. C'est un bon signal : la cheville tient sous contrainte contrôlée.\n\nRien de dangereux au poids du corps. Le seul effet à surveiller est temporel : les courbatures d'une première séance culminent à 24–48 h, et le coût cardiaque du lendemain en portera la trace même sans douleur ressentie.",
+        "correctif_20_08": "Analyse initiale rédigée comme si une consigne de montée progressive avait été écartée. Elle ne l'avait pas été : la carte de séance affichait la dose pleine du bloc, la modulation n'existait que dans un champ texte non rendu par l'app. Reproche retiré, cause structurelle identifiée le 20 août.",
         "a_retenir": "Sur le gainage latéral, 20 secondes en ligne valent mieux que 30 secondes affaissées. La durée n'est pas la mesure de l'exercice, l'alignement l'est.",
         "note": "bon"
       }
@@ -173,29 +174,29 @@
       "analyse": {
         "verdict": "Exécution irréprochable, coût physiologique en hausse. Les deux sont vrais en même temps.",
         "corps": "6,45 km en 40:11 à 146 bpm, soit 6:14/km. Comparé au 17 août sur le parcours identique : 7 secondes au kilomètre plus lent, pour 3 battements de plus. Le coût cardiaque remonte à 909 battements par kilomètre, contre 873 deux jours plus tôt — une dégradation de 4 %. L'effort relatif suit la même pente : 64 contre 58.\n\nL'explication n'est pas une régression aérobie, elle est datée du 18 août. Une première séance de renforcement à dose pleine laisse un coût métabolique et neuromusculaire mesurable à J+1, même en l'absence totale de courbatures. C'est précisément le point : l'absence de douleur n'est pas un indicateur de récupération. Le coût cardiaque, lui, voit ce que la sensation ne voit pas.\n\nCe qui n'a pas bougé est plus important que ce qui a bougé. La dérive réelle — km 2 à 4 contre km 5 à 6, en excluant le km 1 et la rampe du pont — est de 2,8 %, exactement la même valeur que le 17 août. Une dérive reproductible à deux séances d'intervalle, c'est une base aérobie qui tient. Les splits du km 2 au km 6 s'inscrivent dans une fourchette de 17 secondes (6:03 à 6:20), et le km 1 à 133 bpm reste un départ contrôlé modèle. La cadence monte à 174 spm, légèrement au-dessus de la base des trois séances précédentes.\n\nLe pic à 158 bpm sur les 453 derniers mètres est la rampe sous le pont, comme prévu — pas un dépassement de plafond.",
-        "a_retenir": "Ne compare jamais deux coûts cardiaques sans comparer l'état de fraîcheur qui les précède. Le 909 d'aujourd'hui, à J+1 d'un renfo complet, ne contredit pas le 873 du 17 : il le contextualise. Corollaire opérationnel : le bloc B de jeudi reste à 2 séries, et la sortie longue de vendredi garde la priorité.",
+        "a_retenir": "Ne compare jamais deux coûts cardiaques sans comparer l'état de fraîcheur qui les précède. Le 909 du jour, à J+1 d'un renfo complet, ne contredit pas le 873 du 17 : il le contextualise.",
         "note": "bon"
       }
     },
     {
       "id": "r-2026-08-20", "date": "2026-08-20", "statut": "realise", "type": "renfo",
-      "titre": "Renforcement B — dose pleine, consigne écartée une deuxième fois", "bloc_renfo": "B", "creneau": "Libre",
-      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, alors que la consigne était de 2",
-      "point_limitant": "Mollets genou fléchi (soléaire)",
-      "commentaire_athlete": "Aucune courbature du bloc A.",
+      "titre": "Renforcement B — le soléaire répond, et une faille d'interface", "bloc_renfo": "B", "creneau": "Libre",
+      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, soit la dose affichée sur les cartes",
+      "point_limitant": "Mollets genou fléchi (soléaire) — limitant relatif, séance restée facile dans l'ensemble",
+      "commentaire_athlete": "Aucune courbature du bloc A. Le mollet genou fléchi est le plus limitant, mais j'étais relativement facile quand même.",
       "analyse": {
-        "verdict": "Deuxième séance, deuxième dose pleine hors consigne. Cette fois la conséquence est datée : demain.",
-        "corps": "L'absence de courbatures est réelle, et elle n'autorise rien. C'est exactement la leçon écrite hier noir sur blanc : le 19 août, sans la moindre courbature, le coût cardiaque était monté de 873 à 909 b/km, soit 4 %. La sensation n'a pas vu ce que la mesure a vu. Aujourd'hui, la même sensation a servi d'argument pour passer de 2 à 3 séries — c'est le raisonnement que la donnée d'hier invalide.\n\nLe point limitant est le bon signal de la séance, et c'est aussi ce qui rend le timing délicat. Le mollet genou fléchi cible le soléaire, identifié dès la construction du bloc comme ton maillon faible et prioritaire. Qu'il soit le plus dur confirme le diagnostic. Mais le soléaire est aussi le muscle qui absorbe l'essentiel de la force à chaque appui en course — et il vient de prendre 3 × 15 à J-1 de la plus longue sortie depuis la reprise.\n\nCôté cheville, rien à signaler sur le squat bulgare ni sur l'équilibre unipodal : deuxième séance consécutive où le contrôle unipodal passe sans gêne. C'est la vraie bonne nouvelle du jour.",
-        "a_retenir": "Le sujet n'est pas la dose, c'est le calendrier. Un renfo B en dose pleine est parfait — le mardi. La veille d'une sortie longue, c'est deux séries. Et surtout : le renfo du 27-28 août décide de la validité du test du 29.",
-        "note": "attention"
+        "verdict": "Bonne séance, et une leçon qui porte sur le système plutôt que sur l'exécution.",
+        "corps": "La modulation à 2 séries n'a jamais atteint l'écran. Elle vivait dans le champ `consigne` de la séance, que la vue Séances n'affiche pas au moment de faire les exercices : la carte montrait 3 × 8, 3 × 15, 3 × 45 s, 3 × 10, et c'est ce qui a été fait. Une consigne que l'interface ne rend pas n'est pas une consigne — le défaut est dans le modèle de données, pas dans l'exécution. Même cause pour le 18 août. D'où l'introduction du champ `dose_seance` en v3.1.\n\nSur le fond, la séance est bonne. Le mollet genou fléchi cible le soléaire, identifié dès la construction du bloc comme le maillon faible prioritaire — qu'il ressorte comme le plus limitant confirme le diagnostic. Mais « limitant » ici veut dire relatif : la séance est restée facile, ce qui change l'ampleur attendue du report sur demain. Un bloc B à sensation facile ne se compare pas au bloc A du 18 août, qui était une première exposition sur des exercices plus coûteux.\n\nCôté cheville, rien à signaler sur le squat bulgare ni sur l'équilibre unipodal. Deuxième séance consécutive où le contrôle unipodal passe sans gêne : c'est le vrai bon signal de la semaine.",
+        "a_retenir": "Une prescription doit vivre là où elle est lue. Si elle n'apparaît pas sur la carte au moment de l'exécution, elle n'existe pas.",
+        "note": "bon"
       }
     },
 
     {
       "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 50 min", "lieu": "Plat, bords de l'Orne", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 50, "distance_km": 7.7, "allure": "6:15–6:40", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première fois au-delà de 45 min : le stimulus est la durée, pas l'allure. Fourchette d'allure élargie et distance cible revue à la baisse par rapport au plan initial — le renfo B a été fait en dose pleine hier, soléaire compris, donc attends-toi à un coût cardiaque autour de 910–930 b/km. Ce chiffre ne signifiera rien sur ta forme : ne le compare pas au 873 du 17 août. La FC gouverne, l'allure suit. Si tu dois ralentir pour rester sous 150, ralentis. Le seul indicateur qui compte : la dérive sur les 15 dernières minutes. Flasque si > 20 °C."
+      "cible": { "duree_min": 50, "distance_km": 7.9, "allure": "6:10–6:35", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Première fois au-delà de 45 min : le stimulus est la durée, pas l'allure. Le renfo B d'hier était en dose pleine mais resté facile — attends-toi à un coût cardiaque autour de 890–910 b/km, soit une dégradation plus légère que celle du 19 août. Ce chiffre ne dira rien sur ta forme, ne le compare pas au 873 du 17. La FC gouverne, l'allure suit : si tu dois ralentir pour rester sous 150, ralentis. Le seul indicateur qui compte est la dérive sur les 15 dernières minutes. Flasque si > 20 °C."
     },
 
     {
@@ -226,7 +227,7 @@
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10, comme le 17 août",
       "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité, apprise le 19 août et confirmée le 20 : arriver frais. Le renfo a été avancé au jeudi 27 pour cette raison. Un renfo le 28 déplacerait le coût cardiaque de 4 % et rendrait le test sans valeur — deux semaines de travail de terrain perdues pour une séance de 25 minutes."
+      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité apprise le 19 août : arriver frais. Le renfo a été avancé au jeudi 27 pour cette raison. Un renfo le 28 déplacerait le coût cardiaque de plusieurs pour cent et rendrait le test sans valeur — deux semaines de travail de terrain perdues pour une séance de 25 minutes."
     },
 
     {
@@ -237,9 +238,10 @@
     },
     {
       "id": "p-2026-09-01", "date": "2026-09-01", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement A, allégé", "bloc_renfo": "A", "creneau": "Libre",
+      "titre": "Renforcement A, allégé — 2 séries", "bloc_renfo": "A", "creneau": "Libre",
       "cible": { "duree_min": 20 },
-      "consigne": "Deux séries au lieu de trois — et cette fois c'est structurel, pas optionnel : le demi-Cooper du lendemain est un test maximal. Un bloc A complet à J-1 fausse la mesure de VMA, et toutes les allures du bloc seuil en découlent."
+      "dose_seance": { "series": 2, "note": "2 séries au lieu de 3 sur les quatre exercices — veille de test maximal." },
+      "consigne": "Deux séries au lieu de trois, et cette fois c'est structurel : le demi-Cooper du lendemain est un test maximal. Un bloc A complet à J-1 fausse la mesure de VMA, et toutes les allures du bloc seuil en découlent."
     },
     {
       "id": "p-2026-09-02", "date": "2026-09-02", "statut": "prevu", "type": "vma",
