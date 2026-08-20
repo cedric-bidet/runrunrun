@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "maj": "2026-08-19",
+  "maj": "2026-08-20",
   "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.",
   "seances": [
     {
@@ -177,18 +177,25 @@
         "note": "bon"
       }
     },
-
     {
-      "id": "p-2026-08-20", "date": "2026-08-20", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement B, allégé", "bloc_renfo": "B", "creneau": "Libre",
-      "cible": { "duree_min": 20 },
-      "consigne": "Deux séries au lieu de trois — confirmé par la séance du 19 août, dont le coût cardiaque a monté de 4 % à J+1 du bloc A sans la moindre courbature. Le pic de courbatures tombe aujourd'hui, et la sortie longue de demain est la vraie séance de la semaine : elle prime. Garde la dose pleine sur l'équilibre unipodal, qui ne coûte rien musculairement."
+      "id": "r-2026-08-20", "date": "2026-08-20", "statut": "realise", "type": "renfo",
+      "titre": "Renforcement B — dose pleine, consigne écartée une deuxième fois", "bloc_renfo": "B", "creneau": "Libre",
+      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, alors que la consigne était de 2",
+      "point_limitant": "Mollets genou fléchi (soléaire)",
+      "commentaire_athlete": "Aucune courbature du bloc A.",
+      "analyse": {
+        "verdict": "Deuxième séance, deuxième dose pleine hors consigne. Cette fois la conséquence est datée : demain.",
+        "corps": "L'absence de courbatures est réelle, et elle n'autorise rien. C'est exactement la leçon écrite hier noir sur blanc : le 19 août, sans la moindre courbature, le coût cardiaque était monté de 873 à 909 b/km, soit 4 %. La sensation n'a pas vu ce que la mesure a vu. Aujourd'hui, la même sensation a servi d'argument pour passer de 2 à 3 séries — c'est le raisonnement que la donnée d'hier invalide.\n\nLe point limitant est le bon signal de la séance, et c'est aussi ce qui rend le timing délicat. Le mollet genou fléchi cible le soléaire, identifié dès la construction du bloc comme ton maillon faible et prioritaire. Qu'il soit le plus dur confirme le diagnostic. Mais le soléaire est aussi le muscle qui absorbe l'essentiel de la force à chaque appui en course — et il vient de prendre 3 × 15 à J-1 de la plus longue sortie depuis la reprise.\n\nCôté cheville, rien à signaler sur le squat bulgare ni sur l'équilibre unipodal : deuxième séance consécutive où le contrôle unipodal passe sans gêne. C'est la vraie bonne nouvelle du jour.",
+        "a_retenir": "Le sujet n'est pas la dose, c'est le calendrier. Un renfo B en dose pleine est parfait — le mardi. La veille d'une sortie longue, c'est deux séries. Et surtout : le renfo du 27-28 août décide de la validité du test du 29.",
+        "note": "attention"
+      }
     },
+
     {
       "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 50 min", "lieu": "Plat, bords de l'Orne", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 50, "distance_km": 8.0, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première fois au-delà de 45 min, et c'est là qu'est le vrai stimulus maintenant — plus dans l'allure. La dérive cardiaque sur les 15 dernières minutes est le seul indicateur qui compte. Attends-toi à un coût cardiaque encore légèrement dégradé : troisième jour d'affilée avec charge. Flasque si > 20 °C."
+      "cible": { "duree_min": 50, "distance_km": 7.7, "allure": "6:15–6:40", "fc_min": 140, "fc_max": 150 },
+      "consigne": "Première fois au-delà de 45 min : le stimulus est la durée, pas l'allure. Fourchette d'allure élargie et distance cible revue à la baisse par rapport au plan initial — le renfo B a été fait en dose pleine hier, soléaire compris, donc attends-toi à un coût cardiaque autour de 910–930 b/km. Ce chiffre ne signifiera rien sur ta forme : ne le compare pas au 873 du 17 août. La FC gouverne, l'allure suit. Si tu dois ralentir pour rester sous 150, ralentis. Le seul indicateur qui compte : la dérive sur les 15 dernières minutes. Flasque si > 20 °C."
     },
 
     {
@@ -201,7 +208,7 @@
       "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
       "cible": { "duree_min": 25 },
-      "consigne": "Dose pleine cette fois : le corps a vu le stimulus une fois, les courbatures seront nettement moindres."
+      "consigne": "Dose pleine, sans réserve : c'est le bon jour pour ça. Mardi, avec un Z2 léger le lendemain et le test à quatre jours, la dose pleine ne coûte rien au calendrier."
     },
     {
       "id": "p-2026-08-26", "date": "2026-08-26", "statut": "prevu", "type": "z2",
@@ -210,15 +217,16 @@
       "consigne": "Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée."
     },
     {
-      "id": "p-2026-08-28", "date": "2026-08-28", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
-      "cible": { "duree_min": 25 }, "consigne": ""
+      "id": "p-2026-08-27", "date": "2026-08-27", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B — avancé au jeudi", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 },
+      "consigne": "Déplacé du vendredi 28 au jeudi 27. Le plan initial plaçait ce bloc la veille du test de référence, ce qui contredisait directement la condition de validité du test. 48 h d'écart au lieu de 24 : dose pleine autorisée ici. Et surtout : aucun renfo vendredi 28, quelle que soit la sensation."
     },
     {
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10, comme le 17 août",
       "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité apprise le 19 août : arriver frais. Un renfo la veille déplace le coût cardiaque de 4 %, ce qui rendrait la comparaison sans valeur."
+      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité, apprise le 19 août et confirmée le 20 : arriver frais. Le renfo a été avancé au jeudi 27 pour cette raison. Un renfo le 28 déplacerait le coût cardiaque de 4 % et rendrait le test sans valeur — deux semaines de travail de terrain perdues pour une séance de 25 minutes."
     },
 
     {
@@ -231,7 +239,7 @@
       "id": "p-2026-09-01", "date": "2026-09-01", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement A, allégé", "bloc_renfo": "A", "creneau": "Libre",
       "cible": { "duree_min": 20 },
-      "consigne": "Deux séries au lieu de trois. Le test de mercredi prime."
+      "consigne": "Deux séries au lieu de trois — et cette fois c'est structurel, pas optionnel : le demi-Cooper du lendemain est un test maximal. Un bloc A complet à J-1 fausse la mesure de VMA, et toutes les allures du bloc seuil en découlent."
     },
     {
       "id": "p-2026-09-02", "date": "2026-09-02", "statut": "prevu", "type": "vma",
