@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "maj": "2026-08-20",
+  "maj": "2026-08-21",
   "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.\n\nNouveauté v3.1 — `dose_seance` : une séance de renfo peut porter un objet `dose_seance` { series, note } qui écrase le nombre de séries affiché sur les cartes d'exercices de renforcement.json. Sans ce champ, la dose du bloc s'applique telle quelle. RAISON : jusqu'au 20 août, une modulation de dose n'existait que dans le texte de `consigne`, que l'écran Séances n'affiche pas au moment de l'exécution — l'athlète voyait 3 × 15 sur la carte et faisait 3 × 15. Une consigne que l'interface ne montre pas n'est pas une consigne. TODO app : le rendu des cartes d'exercices doit lire `dose_seance.series` en priorité sur la dose du bloc.",
   "seances": [
     {
@@ -191,19 +191,34 @@
         "note": "bon"
       }
     },
-
     {
-      "id": "p-2026-08-21", "date": "2026-08-21", "statut": "prevu", "type": "sortie_longue",
-      "titre": "Sortie longue, 50 min", "lieu": "Plat, bords de l'Orne", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 50, "distance_km": 7.9, "allure": "6:10–6:35", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première fois au-delà de 45 min : le stimulus est la durée, pas l'allure. Le renfo B d'hier était en dose pleine mais resté facile — attends-toi à un coût cardiaque autour de 890–910 b/km, soit une dégradation plus légère que celle du 19 août. Ce chiffre ne dira rien sur ta forme, ne le compare pas au 873 du 17. La FC gouverne, l'allure suit : si tu dois ralentir pour rester sous 150, ralentis. Le seul indicateur qui compte est la dérive sur les 15 dernières minutes. Flasque si > 20 °C."
+      "id": "19834740986", "date": "2026-08-21", "statut": "realise", "type": "sortie_longue",
+      "titre": "Première sortie longue — 8 km, dérive 1,2 %", "lieu": "La Prairie & bords de l'Orne, Caen",
+      "distance_km": 8.04, "temps_s": 3001, "fc_moy": 149, "fc_max": 156, "denivele": 15,
+      "effort_relatif": 90, "cadence_spm": 174, "conditions": "11h21, fin de matinée chaude. Plat. J+1 du renfo B du 20 août.",
+      "splits": [
+        { "km": 1, "temps_s": 380, "fc_moy": 138 }, { "km": 2, "temps_s": 357, "fc_moy": 150 },
+        { "km": 3, "temps_s": 380, "fc_moy": 149 }, { "km": 4, "temps_s": 367, "fc_moy": 149 },
+        { "km": 5, "temps_s": 378, "fc_moy": 152 }, { "km": 6, "temps_s": 376, "fc_moy": 151 },
+        { "km": 7, "temps_s": 381, "fc_moy": 151 }, { "km": 8, "temps_s": 380, "fc_moy": 152 },
+        { "km": 9, "temps_s": 12, "fc_moy": 153, "dist_km": 0.036 }
+      ],
+      "cout_cardiaque_bkm": 928,
+      "cout_cardiaque_normalise_bkm": 892,
+      "derive_reelle_pct": 1.2,
+      "analyse": {
+        "verdict": "Le chiffre brut inquiète, la dérive rassure. C'est la dérive qui a raison.",
+        "corps": "8,04 km en 50:01 à 149 bpm, soit 6:13/km. Le coût cardiaque brut ressort à 928 b/km, au-dessus de la fourchette annoncée de 890–910. Mais la consigne prévoyait explicitement de ne pas lire ce chiffre nu : c'est un J+1 de renfo B, et le biais mesuré le 19 août est de +4 %. Normalisé, cela donne 892 b/km — dans la fourchette, à la place attendue. S'ajoute le créneau : 11h21 en pleine chaleur, contre 8h00–8h10 pour toutes les séances de référence.\n\nLe vrai résultat est ailleurs. La dérive réelle — km 2 à 4 contre km 6 à 8, en excluant le km 1 — passe de 149,5 à 151,3 bpm, soit 1,2 %. Les 15 et 17 août, sur des séances plus courtes, plus fraîches et sans renfo la veille, elle était à 2,8 %. Ici elle est divisée par deux sur une sortie 25 % plus longue, à J+1 d'un renfo, en fin de matinée chaude. Trois facteurs aggravants empilés, et la dérive baisse quand même : c'est le signal aérobie le plus net du carnet depuis la reprise.\n\nUne réserve honnête : la FC moyenne monte à 149 contre 143 le 17, pour une allure plus lente de 6 secondes au kilomètre. Chaleur et fatigue résiduelle expliquent l'essentiel, mais cela confirme que le test du 29 a besoin de son J-1 propre pour être lisible. Aucun renfo le 28, quelle que soit la sensation.\n\nExécution : km 1 à 138 bpm — un peu au-dessus des départs à 131–133 des séances précédentes, effet du créneau chaud. Les sept kilomètres suivants tiennent dans une fourchette de 24 secondes. FC max à 156, soit le plafond Z2 juste effleuré, jamais dépassé. Cadence à 174 spm, stable au-dessus de la base.",
+        "a_retenir": "Sur une sortie longue, la dérive est l'indicateur, pas le coût cardiaque absolu. Le coût dit combien la séance a coûté ce jour-là ; la dérive dit ce que le moteur sait faire.",
+        "note": "excellent"
+      }
     },
 
     {
       "id": "p-2026-08-24", "date": "2026-08-24", "statut": "prevu", "type": "z2",
       "titre": "Z2, 45 min", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 45, "distance_km": 7.3, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148 },
-      "consigne": ""
+      "consigne": "Deux jours après la première sortie longue. Si possible, cale-la plus tôt dans la matinée que le 21 : le créneau de 11h20 a coûté plusieurs battements pour rien."
     },
     {
       "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
@@ -227,7 +242,7 @@
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10, comme le 17 août",
       "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Condition de validité apprise le 19 août : arriver frais. Le renfo a été avancé au jeudi 27 pour cette raison. Un renfo le 28 déplacerait le coût cardiaque de plusieurs pour cent et rendrait le test sans valeur — deux semaines de travail de terrain perdues pour une séance de 25 minutes."
+      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Deux conditions de validité, toutes deux apprises sur le terrain : arriver frais (renfo avancé au jeudi 27, aucun renfo le 28), et partir à 8h10, pas plus tard — le 21 août a montré que le créneau de fin de matinée déplace la FC de plusieurs battements. Deuxième indicateur à relever, aussi important que le coût : la dérive réelle, à comparer aux 1,2 % du 21 août."
     },
 
     {
