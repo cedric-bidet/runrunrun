@@ -516,8 +516,12 @@ button.seance.seance--nav {
 }
 .seance__nav svg { width: 100%; height: 100%; fill: currentColor; }
 
-/* séance réalisée : un résumé d'une ligne — jour, titre, note — c'est tout */
-.seance--realisee.seance--nav {
+/* séance réalisée : un résumé d'une ligne — jour, titre, note — c'est tout.
+   Sélecteur préfixé par `button` : même spécificité que la règle
+   `button.seance.seance--nav` ci-dessus, pour que ce display:flex l'emporte
+   bien sur son display:block (sinon le titre, en inline, déborde au lieu
+   de tronquer avec l'ellipsis). */
+button.seance--realisee.seance--nav {
   display: flex; align-items: center; gap: var(--space-3);
   padding: var(--space-3) calc(var(--space-4) + 22px) var(--space-3) var(--space-4);
 }
@@ -586,13 +590,17 @@ button.seance.seance--nav {
 .seance__montre[hidden] { display: none; }
 .seance--renfo .exos { margin-top: var(--space-4); }
 
-/* le titre prend la place qui reste, le badge de note ne passe jamais à la ligne */
+/* le titre prend la place qui reste, le badge de note ne passe jamais à la
+   ligne — mais le créneau est du texte libre (ex. « premier mercredi soir
+   pris ») : il doit pouvoir s'enrouler, sinon il pousse la carte hors écran */
 .seance__tete { display: flex; justify-content: space-between; gap: var(--space-3); align-items: flex-start; }
 .seance__ident { flex: 1 1 auto; min-width: 0; }
-.seance__tete > .seance__note, .seance__tete > .seance__date { flex: 0 0 auto; }
+.seance__tete > .seance__note { flex: 0 0 auto; }
+.seance__tete > .seance__date { flex: 0 1 auto; min-width: 0; }
 .seance__date {
   font: var(--type-label); letter-spacing: var(--tracking-label); text-transform: uppercase;
   color: var(--encre-douce);
+  text-align: right;
 }
 .seance__jour {
   font-family: var(--dp); font-weight: var(--weight-bold);
