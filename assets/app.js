@@ -145,6 +145,7 @@ function texteSur(fond) {
 
 let A, P, S, R, ZONES;
 let S_REALISE = [];
+let S_COURSE_REALISEE = []; // séances réalisées hors renforcement — seules porteuses de distance/temps/FC
 let SEM_LISTE = [], semaineIdx = 0;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
@@ -160,6 +161,7 @@ Promise.all([
   // journal unifié : passé et futur, course et renforcement — statut 'realise' ou 'prevu'
   S.sort((x, y) => x.date.localeCompare(y.date));
   S_REALISE = S.filter((x) => x.statut === 'realise');
+  S_COURSE_REALISEE = S_REALISE.filter((x) => x.type !== 'renfo');
   demarrer();
 }).catch((e) => {
   console.error(e);
@@ -713,11 +715,11 @@ function activerDetailSeance() {
 /* ---------- Statistiques ---------- */
 
 function rendreStats() {
-  const depuisReprise = S_REALISE.filter((s) => s.date >= '2026-08-01');
+  const depuisReprise = S_COURSE_REALISEE.filter((s) => s.date >= '2026-08-01');
   const kmTot = depuisReprise.reduce((a, s) => a + s.distance_km, 0);
   const tempsTot = depuisReprise.reduce((a, s) => a + s.temps_s, 0);
   const z2 = depuisReprise.filter((s) => s.fc_max <= A.physio.plafond_z2_pratique);
-  const meilleurCC = Math.min(...S_REALISE.map((s) => coutCardiaque(s.fc_moy, s.temps_s, s.distance_km)));
+  const meilleurCC = Math.min(...S_COURSE_REALISEE.map((s) => coutCardiaque(s.fc_moy, s.temps_s, s.distance_km)));
 
   const stats = [
     { v: kmTot.toFixed(1).replace('.', ','), u: 'km', l: 'Depuis la reprise' },
@@ -737,7 +739,7 @@ function rendreStats() {
 
 function grapheVolume() {
   const parSem = {};
-  S_REALISE.filter((s) => s.date >= '2026-08-01').forEach((s) => {
+  S_COURSE_REALISEE.filter((s) => s.date >= '2026-08-01').forEach((s) => {
     const n = numSemaine(s.date);
     parSem[n] = (parSem[n] || 0) + s.distance_km;
   });
@@ -773,7 +775,7 @@ function grapheVolume() {
 }
 
 function grapheCout() {
-  const pts = S_REALISE.map((s) => ({ d: s.date, v: coutCardiaque(s.fc_moy, s.temps_s, s.distance_km), t: s.type }));
+  const pts = S_COURSE_REALISEE.map((s) => ({ d: s.date, v: coutCardiaque(s.fc_moy, s.temps_s, s.distance_km), t: s.type }));
   const W = 1000, H = 230, bas = H - 34, g0 = 46;
   const vmin = 850, vmax = Math.max(...pts.map((p) => p.v)) * 1.03;
   const x = (i) => g0 + (i / (pts.length - 1)) * (W - g0 - 20);
@@ -798,7 +800,7 @@ function grapheCout() {
 }
 
 function grapheNuage() {
-  const pts = S_REALISE.map((s) => ({ x: allureSec(s.temps_s, s.distance_km), y: s.fc_moy, d: s.date, t: s.type }));
+  const pts = S_COURSE_REALISEE.map((s) => ({ x: allureSec(s.temps_s, s.distance_km), y: s.fc_moy, d: s.date, t: s.type }));
   const W = 1000, H = 300, bas = H - 34, g0 = 46;
   const xmin = 280, xmax = 460, ymin = 130, ymax = 185;
   const px = (v) => g0 + ((v - xmin) / (xmax - xmin)) * (W - g0 - 24);
