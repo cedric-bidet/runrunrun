@@ -46,8 +46,8 @@ Structure type d'une séance Z2 :
 
 | Étape | Intensité | Durée | Cible FC |
 |---|---|---|---|
-| Échauffement | WARMUP | 8 min | 120–140 bpm |
-| Z2 principal | ACTIVE | durée cible − 13 min | 138–148 bpm |
+| Échauffement | WARMUP | 8 à 10 min | 120–140 bpm |
+| Z2 principal | ACTIVE | durée cible − 13 à 15 min | 138–148 bpm |
 | Retour au calme | COOLDOWN | 5 min | 110–137 bpm |
 
 Les lignes droites (séance du 26 août) sont un bloc répété 6 fois : 20 s en accélération libre, puis 60 s de récupération marchée. Aucune cible FC dessus — ce n'est pas un fractionné, c'est un rappel neuromusculaire.
@@ -63,7 +63,36 @@ En cas de doute sur un fichier, les points à vérifier après décodage :
 - `workout.sport` = `1` (running), `num_valid_steps` = nombre réel d'étapes
 - `workout_step.custom_target_heart_rate_low/high` : valeurs **décalées de +100**
   (238 = 138 bpm)
-- `duration_value` en millisecondes × 1000 (1620000000 = 27 min)
+- `duration_value` est en **millisecondes** : `1620000` = 27 min. Une valeur à neuf
+  chiffres (`1620000000`) est un bug, pas une durée.
 - CRC final sur 2 octets, cohérent avec l'en-tête de 12 octets
 - `file_id.time_created` : à recalculer si le générateur est réutilisé — un décalage
   d'un an s'était glissé dans les fichiers d'août 2026 (corrigé le 18/08/2026)
+
+### Piège `fit-tool` : ne jamais écrire `duration_value` à la main
+
+La bibliothèque applique une échelle de 1000 à l'affectation de `duration_value`. Y
+écrire une valeur déjà exprimée en millisecondes la multiplie donc une seconde fois :
+10 minutes deviennent 166 heures, et sur la montre l'étape ne se termine jamais toute
+seule — il faut appuyer sur `Lap` à chaque transition.
+
+La règle : passer par les accesseurs de haut niveau, qui prennent l'unité naturelle.
+
+```python
+step.duration_type = WorkoutStepDuration.TIME
+step.duration_time = 600          # secondes — PAS duration_value = 600000
+```
+
+Pour un bloc répété, l'accesseur sans échelle est `duration_step` (index du premier
+step de la boucle) et `target_repeat_steps` (nombre de répétitions).
+
+Après écriture, relire systématiquement le fichier avec `FitFile.from_file` et
+recalculer la durée totale : si elle ne correspond pas à la `cible` de la séance, le
+fichier est faux.
+
+## Journal des corrections
+
+| Date | Correction |
+|---|---|
+| 18/08/2026 | `time_created` décalé d'un an sur les premiers fichiers. |
+| 21/08/2026 | Durées d'étape 1000 × trop longues sur tous les fichiers générés jusqu'au 19/08 (`duration_value` écrit à la main). Fichiers des 21, 24, 26 et 29 août régénérés. Les fichiers des 17 et 19 août, déjà courus, sont laissés en l'état. |
