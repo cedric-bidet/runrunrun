@@ -1,7 +1,7 @@
 {
   "version": "3.1",
-  "maj": "2026-08-21",
-  "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.\n\nNouveauté v3.1 — `dose_seance` : une séance de renfo peut porter un objet `dose_seance` { series, note } qui écrase le nombre de séries affiché sur les cartes d'exercices de renforcement.json. Sans ce champ, la dose du bloc s'applique telle quelle. RAISON : jusqu'au 20 août, une modulation de dose n'existait que dans le texte de `consigne`, que l'écran Séances n'affiche pas au moment de l'exécution — l'athlète voyait 3 × 15 sur la carte et faisait 3 × 15. Une consigne que l'interface ne montre pas n'est pas une consigne. TODO app : le rendu des cartes d'exercices doit lire `dose_seance.series` en priorité sur la dose du bloc.",
+  "maj": "2026-08-24",
+  "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.\n\nNouveauté v3.1 — `dose_seance` : une séance de renfo peut porter un objet `dose_seance` { series, note } qui écrase le nombre de séries affiché sur les cartes d'exercices de renforcement.json. Sans ce champ, la dose du bloc s'applique telle quelle. RAISON : jusqu'au 20 août, une modulation de dose n'existait que dans le texte de `consigne`, que l'écran Séances n'affiche pas au moment de l'exécution — l'athlète voyait 3 × 15 sur la carte et faisait 3 × 15. Une consigne que l'interface ne montre pas n'est pas une consigne. TODO app : le rendu des cartes d'exercices doit lire `dose_seance.series` en priorité sur la dose du bloc.\n\nAjout 24 août — `derive_cout_km_pct` : dérive du coût cardiaque par kilomètre (moyenne des km 2-4 contre moyenne des trois derniers km pleins), en complément de `derive_reelle_pct` qui ne regarde que la FC. RAISON : le 24 août, la dérive FC ressort à 0,7 % alors que l'allure s'est effondrée d'une minute au kilomètre. Quand l'athlète tient son plafond de FC, la dérive migre dans l'allure et l'indicateur FC seul devient aveugle. Les deux champs doivent être lus ensemble.",
   "seances": [
     {
       "id": "18819129254", "date": "2026-06-07", "statut": "realise", "type": "course",
@@ -213,13 +213,30 @@
         "note": "excellent"
       }
     },
-
     {
-      "id": "p-2026-08-24", "date": "2026-08-24", "statut": "prevu", "type": "z2",
-      "titre": "Z2, 45 min", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 45, "distance_km": 7.3, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148 },
-      "consigne": "Deux jours après la première sortie longue. Si possible, cale-la plus tôt dans la matinée que le 21 : le créneau de 11h20 a coûté plusieurs battements pour rien."
+      "id": "19879570331", "date": "2026-08-24", "statut": "realise", "type": "z2",
+      "titre": "984 b/km — quand c'est l'allure qui paie à la place du cœur", "lieu": "Louvigny, stade Hélitas & Porte de Bretagne, Caen",
+      "distance_km": 7.01, "temps_s": 2715, "fc_moy": 152, "fc_max": 161, "denivele": 22,
+      "effort_relatif": 90, "cadence_spm": 171,
+      "conditions": "16h23, plein après-midi d'août — premier créneau de fin de journée du bloc. Parcours différent de la boucle de référence : Louvigny, stade Hélitas, Porte de Bretagne, 22 m de dénivelé contre 8 m à La Prairie. 15 secondes d'arrêt sur le dernier kilomètre.",
+      "splits": [
+        { "km": 1, "temps_s": 352, "fc_moy": 140 }, { "km": 2, "temps_s": 358, "fc_moy": 154 },
+        { "km": 3, "temps_s": 383, "fc_moy": 154 }, { "km": 4, "temps_s": 397, "fc_moy": 153 },
+        { "km": 5, "temps_s": 400, "fc_moy": 152 }, { "km": 6, "temps_s": 405, "fc_moy": 155 },
+        { "km": 7, "temps_s": 412, "fc_moy": 157 },
+        { "km": 8, "temps_s": 4, "fc_moy": 154, "dist_km": 0.011 }
+      ],
+      "cout_cardiaque_bkm": 984,
+      "derive_reelle_pct": 0.7,
+      "derive_cout_km_pct": 7.7,
+      "analyse": {
+        "verdict": "Le plafond a tenu, et c'est ce qui compte. Mais la dérive s'est déplacée dans l'allure — une minute au kilomètre.",
+        "corps": "7,01 km en 45:15 à 152 bpm. Coût cardiaque à 984 b/km : le plus élevé du carnet depuis la reprise, 13 % au-dessus du record du 17 août.\n\nCe qu'il faut lire d'abord, c'est l'exécution, et elle est bonne. Les splits partent de 5:52 et finissent à 6:52 pendant que la FC reste plate entre 152 et 157 : tu as tenu ton plafond en lâchant l'allure, ce qui est exactement la règle Z2 appliquée. Un coureur mal calibré aurait tenu 5:55 au chrono et fini à 168 bpm. Le km 1 à 140 bpm est un peu haut par rapport aux départs à 131–133 des séances de référence, mais il ne casse rien.\n\nC'est ici que l'indicateur habituel devient trompeur. La dérive FC ressort à 0,7 % (km 2-4 contre km 5-7), soit la meilleure valeur du carnet — et elle ne veut rien dire, parce que la FC est restée constante uniquement au prix d'un ralentissement de 15 %. La dérive s'est intégralement transférée dans l'allure. D'où le nouvel indicateur : le coût cardiaque par kilomètre passe de 971 b/km sur les km 2 à 4 à 1046 sur les km 5 à 7, soit +7,7 %. Rapporté aux bornes, le km 2 coûte 921 b/km et le km 7 en coûte 1078 : +17 %. Voilà la vraie dérive de la séance, et elle est trois fois celle du 21 août.\n\nLes causes ne sont pas isolables, et il faut le dire honnêtement. Deux confondants se cumulent : le créneau de 16h23, le plus tardif du bloc, et le parcours — Louvigny et Porte de Bretagne, 22 m de dénivelé, contre 8 m sur la boucle plate de La Prairie. Le 10 août avait déjà documenté l'effet d'un créneau chaud (69 d'effort relatif pour 35 minutes) ; le 21 août l'avait confirmé à 11h21. Mais impossible ici d'attribuer une part chiffrée à chacun. Ce qui est certain : ces 984 b/km ne sont pas comparables aux 873 du 17, et ne mesurent aucune régression.\n\nSignal secondaire cohérent : la cadence tombe à 171 spm contre 173–174 sur les quatre séances précédentes, et elle décroît en continu jusqu'à 168 sur le dernier kilomètre. La cadence qui s'effondre en même temps que l'allure, à FC constante, est la signature d'une contrainte thermique et d'un déficit hydrique, pas d'un défaut technique.",
+        "a_retenir": "Quand tu tiens ton plafond FC, la dérive ne disparaît pas : elle change de colonne. Lis toujours le coût cardiaque par kilomètre à côté de la dérive FC, sinon une séance qui s'effondre ressort comme la plus stable du carnet. Et opérationnellement : le test du 29 se court à 8h10 sur la boucle de La Prairie, pas ailleurs et pas plus tard. Cette séance vient de montrer ce que coûte un changement de créneau et de parcours — assez pour rendre toute comparaison illisible.",
+        "note": "attention"
+      }
     },
+
     {
       "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
@@ -230,7 +247,7 @@
       "id": "p-2026-08-26", "date": "2026-08-26", "statut": "prevu", "type": "z2",
       "titre": "Z2, 40 min + 6 lignes droites", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 40, "distance_km": 6.5, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148, "structure": "40 min Z2 + 6 × 20 s en accélération progressive, récupération marchée complète" },
-      "consigne": "Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée."
+      "consigne": "Fin de matinée, pas d'après-midi : le 24 a montré ce que coûte un créneau tardif. Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée. Bois avant de partir."
     },
     {
       "id": "p-2026-08-27", "date": "2026-08-27", "statut": "prevu", "type": "renfo",
@@ -242,7 +259,7 @@
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 55 min — test de référence", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10, comme le 17 août",
       "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Deux conditions de validité, toutes deux apprises sur le terrain : arriver frais (renfo avancé au jeudi 27, aucun renfo le 28), et partir à 8h10, pas plus tard — le 21 août a montré que le créneau de fin de matinée déplace la FC de plusieurs battements. Deuxième indicateur à relever, aussi important que le coût : la dérive réelle, à comparer aux 1,2 % du 21 août."
+      "consigne": "Même parcours, même heure et même sens de boucle que les 15 et 17 août — pour que la rampe du pont tombe au même endroit et que la comparaison soit propre. Coût cardiaque à battre : 873 b/km. Trois conditions de validité, toutes apprises sur le terrain : arriver frais (renfo avancé au jeudi 27, aucun renfo le 28) ; partir à 8h10, pas plus tard ; et courir la boucle de La Prairie, pas une autre. Le 24 août a empilé un créneau de 16h23 et un parcours à 22 m de dénivelé, et le coût est monté à 984 b/km sans qu'on puisse démêler les deux causes — c'est exactement ce qu'un test de référence ne doit pas produire. Deux indicateurs à relever, aussi importants l'un que l'autre : la dérive réelle FC (1,2 % le 21 août) et la dérive du coût par kilomètre (7,7 % le 24 août)."
     },
 
     {
