@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "maj": "2026-08-24",
+  "maj": "2026-08-25",
   "note_schema": "Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'. Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` + `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à data/renforcement.json. Toute statistique doit filtrer sur statut === 'realise'.\n\nNouveauté v3.1 — `dose_seance` : une séance de renfo peut porter un objet `dose_seance` { series, note } qui écrase le nombre de séries affiché sur les cartes d'exercices de renforcement.json. Sans ce champ, la dose du bloc s'applique telle quelle. RAISON : jusqu'au 20 août, une modulation de dose n'existait que dans le texte de `consigne`, que l'écran Séances n'affiche pas au moment de l'exécution — l'athlète voyait 3 × 15 sur la carte et faisait 3 × 15. Une consigne que l'interface ne montre pas n'est pas une consigne. TODO app : le rendu des cartes d'exercices doit lire `dose_seance.series` en priorité sur la dose du bloc.\n\nAjout 24 août — `derive_cout_km_pct` : dérive du coût cardiaque par kilomètre (moyenne des km 2-4 contre moyenne des trois derniers km pleins), en complément de `derive_reelle_pct` qui ne regarde que la FC. RAISON : le 24 août, la dérive FC ressort à 0,7 % alors que l'allure s'est effondrée d'une minute au kilomètre. Quand l'athlète tient son plafond de FC, la dérive migre dans l'allure et l'indicateur FC seul devient aveugle. Les deux champs doivent être lus ensemble.",
   "seances": [
     {
@@ -236,24 +236,31 @@
         "note": "attention"
       }
     },
-
     {
-      "id": "p-2026-08-25", "date": "2026-08-25", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement A", "bloc_renfo": "A", "creneau": "Libre",
-      "cible": { "duree_min": 25 },
-      "consigne": "Dose pleine, sans réserve : c'est le bon jour pour ça. Mardi, avec un Z2 léger le lendemain et le test à quatre jours, la dose pleine ne coûte rien au calendrier."
+      "id": "r-2026-08-25", "date": "2026-08-25", "statut": "realise", "type": "renfo",
+      "titre": "Renforcement A — plus rien ne limite", "bloc_renfo": "A", "creneau": "Libre",
+      "duree_min": 25, "series_realisees": "3 séries sur les quatre exercices, dose pleine",
+      "point_limitant": "Aucun — le gainage latéral, limitant le 18 août, ne l'est plus",
+      "commentaire_athlete": "3 séries partout. Rien de vraiment limitant. La montée de banc est très bien pour mes chevilles.",
+      "analyse": {
+        "verdict": "Deuxième bloc A, dose pleine, et plus aucun point limitant. C'est une vraie information — à condition de savoir ce qu'elle change.",
+        "corps": "Le 18 août, le gainage latéral ressortait comme le maillon faible, cohérent avec l'instabilité de cheville. Une semaine et trois séances plus tard, plus rien ne limite. Sur du poids de corps, c'est le scénario attendu : les premiers gains sont neuromusculaires — recrutement, coordination, apprentissage du geste — et non structurels. Ils arrivent en quelques séances. Un exercice qui ne fait plus mal n'est donc pas un maillon réparé, c'est un mouvement appris. Le tendon et le muscle, eux, mettent des semaines.\n\nConséquence directe : la dose n'est plus le bon levier. Ajouter une quatrième série allongerait la séance sans rien cibler de neuf. Ce qui reste à gagner est dans la qualité par répétition. Sur le gainage latéral, monter à 40 s par côté, mais uniquement tant que la ligne épaule–hanche–cheville tient : à la première seconde d'affaissement, tu poses. Sur les fentes et les montées de banc, trois secondes pleines à la redescente — c'est la phase excentrique qui construit, et c'est celle qu'on bâcle.\n\nTa remarque sur la montée de banc mérite d'être notée telle quelle. C'est le geste du bloc le plus proche de la propulsion en course : extension de hanche sur un seul appui. Et sa phase descendante est un contrôle excentrique de la cheville sous charge, exactement le déficit que compensent tes semelles. Que tu le ressentes comme bénéfique est cohérent avec le mécanisme, pas seulement avec la sensation. Progression naturelle quand il deviendra trop facile : le step-down, c'est-à-dire descendre lentement sur la jambe restée sur le banc plutôt que monter.\n\nCalendrier : ce renfo tombe à J-4 du test du 29, il ne le menace pas. En revanche il tombe à J-1 du Z2 de demain. Attends-toi à un coût cardiaque autour de 900–930 b/km, et ne le lis pas nu — le biais J+1 mesuré le 19 août est de +4 %.",
+        "a_retenir": "Quand plus rien ne limite au poids du corps, la réponse n'est pas plus de séries : c'est plus de qualité par répétition. Tempo lent à la descente, amplitude complète, position tenue — et on arrête l'exercice quand la forme cède, pas quand le compte est fini.",
+        "note": "bon"
+      }
     },
+
     {
       "id": "p-2026-08-26", "date": "2026-08-26", "statut": "prevu", "type": "z2",
       "titre": "Z2, 40 min + 6 lignes droites", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 40, "distance_km": 6.5, "allure": "6:05–6:25", "fc_min": 138, "fc_max": 148, "structure": "40 min Z2 + 6 × 20 s en accélération progressive, récupération marchée complète" },
-      "consigne": "Fin de matinée, pas d'après-midi : le 24 a montré ce que coûte un créneau tardif. Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée. Bois avant de partir."
+      "consigne": "J+1 du renfo A : coût cardiaque attendu autour de 900–930 b/km, c'est normal, ne le lis pas nu. Fin de matinée, pas d'après-midi : le 24 a montré ce que coûte un créneau tardif. Les lignes droites ne sont pas un fractionné : c'est un rappel neuromusculaire avant l'intensité de septembre. Aucune n'est chronométrée. Bois avant de partir."
     },
     {
       "id": "p-2026-08-27", "date": "2026-08-27", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement B — avancé au jeudi", "bloc_renfo": "B", "creneau": "Libre",
       "cible": { "duree_min": 25 },
-      "consigne": "Déplacé du vendredi 28 au jeudi 27. Le plan initial plaçait ce bloc la veille du test de référence, ce qui contredisait directement la condition de validité du test. 48 h d'écart au lieu de 24 : dose pleine autorisée ici. Et surtout : aucun renfo vendredi 28, quelle que soit la sensation."
+      "consigne": "Déplacé du vendredi 28 au jeudi 27. Le plan initial plaçait ce bloc la veille du test de référence, ce qui contredisait directement la condition de validité du test. 48 h d'écart au lieu de 24 : dose pleine autorisée ici. Comme sur le bloc A du 25 : le levier n'est plus le nombre de séries mais le tempo — trois secondes à la descente du squat bulgare, genou qui reste fléchi en haut du mollet soléaire. Et surtout : aucun renfo vendredi 28, quelle que soit la sensation."
     },
     {
       "id": "p-2026-08-29", "date": "2026-08-29", "statut": "prevu", "type": "sortie_longue",
