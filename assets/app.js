@@ -145,7 +145,7 @@ function texteSur(fond) {
 
 let A, P, S, R, ZONES;
 let S_REALISE = [];
-let S_COURSE_REALISEE = []; // séances réalisées hors renforcement — seules porteuses de distance/temps/FC
+let S_COURSE_REALISEE = []; // séances réalisées porteuses de distance/temps/FC — exclut renfo et repos, qui n'ont pas ces champs
 let SEM_LISTE = [], semaineIdx = 0;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
@@ -161,7 +161,7 @@ Promise.all([
   // journal unifié : passé et futur, course et renforcement — statut 'realise' ou 'prevu'
   S.sort((x, y) => x.date.localeCompare(y.date));
   S_REALISE = S.filter((x) => x.statut === 'realise');
-  S_COURSE_REALISEE = S_REALISE.filter((x) => x.type !== 'renfo');
+  S_COURSE_REALISEE = S_REALISE.filter((x) => x.distance_km !== undefined);
   demarrer();
 }).catch((e) => {
   console.error(e);
@@ -445,7 +445,7 @@ function carteListeRealisee(s) {
     <span class="seance__check" aria-hidden="true">${glyphe('check')}</span>
     <span class="seance__resume-jour">${esc(jourCourt(s.date))}</span>
     <span class="seance__resume-titre">${esc(s.titre)}</span>
-    ${s.type !== 'renfo' ? `<span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>` : ''}
+    ${s.analyse ? `<span class="seance__note seance__note--${esc(s.analyse.note)}">${esc(NOTE[s.analyse.note] || s.analyse.note)}</span>` : ''}
     <span class="seance__nav" aria-hidden="true">${glyphe('chevron-right')}</span>
   </button>`;
 }
@@ -456,6 +456,7 @@ function carteListeRealisee(s) {
 // montrait l'accordéon avant, mais sur sa propre page
 function detailSeance(s) {
   if (s.type === 'renfo') return detailRenfo(s);
+  if (s.type === 'repos') return detailCoursePrevue(s);
   return s.statut === 'realise' ? detailCourseRealisee(s) : detailCoursePrevue(s);
 }
 
