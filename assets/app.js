@@ -620,11 +620,14 @@ function construireSemaines() {
 }
 
 function semaineParDefaut() {
-  let i = SEM_LISTE.findIndex((w) => w.statut === 'en_cours');
+  // La date du jour prime sur le champ `statut` : ce dernier est saisi à la
+  // main dans programme.json et peut traîner en retard (ex. semaine encore
+  // marquée "en_cours" alors qu'on est déjà deux semaines plus loin).
+  const auj = new Date().toISOString().slice(0, 10);
+  let i = SEM_LISTE.findIndex((w) => auj >= w.debut && auj <= w.fin);
   if (i !== -1) return i;
 
-  const auj = new Date().toISOString().slice(0, 10);
-  i = SEM_LISTE.findIndex((w) => auj >= w.debut && auj <= w.fin);
+  i = SEM_LISTE.findIndex((w) => w.statut === 'en_cours');
   if (i !== -1) return i;
 
   for (let k = SEM_LISTE.length - 1; k >= 0; k--) {
