@@ -61,9 +61,9 @@ def construire_cible(cible: dict[str, Any]) -> tuple[dict[str, Any], float, floa
     if cible["type"] == "fc":
         return (
             {
-                "workoutTargetTypeId": TargetType.HEART_RATE,
+                "workoutTargetTypeId": TargetType.HEART_RATE_ZONE,
                 "workoutTargetTypeKey": "heart.rate.zone",
-                "displayOrder": TargetType.HEART_RATE,
+                "displayOrder": TargetType.HEART_RATE_ZONE,
             },
             float(cible["min"]),
             float(cible["max"]),
@@ -71,11 +71,13 @@ def construire_cible(cible: dict[str, Any]) -> tuple[dict[str, Any], float, floa
     if cible["type"] == "allure":
         # cible.min = allure la plus lente = vitesse la plus faible ; cible.max = la plus
         # rapide = vitesse la plus forte. La conversion préserve donc l'ordre (bas, haut).
+        # PACE_ZONE (et non SPEED_ZONE) : cible de course à pied affichée en allure sur
+        # la montre, valeurs toujours en m/s comme pour une cible de vitesse.
         return (
             {
-                "workoutTargetTypeId": TargetType.SPEED,
-                "workoutTargetTypeKey": "speed.zone",
-                "displayOrder": TargetType.SPEED,
+                "workoutTargetTypeId": TargetType.PACE_ZONE,
+                "workoutTargetTypeKey": "pace.zone",
+                "displayOrder": TargetType.PACE_ZONE,
             },
             mmss_en_mps(cible["min"]),
             mmss_en_mps(cible["max"]),
