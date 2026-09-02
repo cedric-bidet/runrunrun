@@ -1,0 +1,26 @@
+{
+  "version": "3.1",
+  "periode": "2026-07",
+  "clos": true,
+  "seances": [
+    {
+      "id": "19179702740", "date": "2026-07-04", "statut": "realise", "type": "course",
+      "titre": "10 km solo, en soirée", "lieu": "Bords de l'Orne, Caen",
+      "distance_km": 10.0, "temps_s": 3168, "fc_moy": 175, "fc_max": 187, "denivele": 11,
+      "effort_relatif": 217, "cadence_spm": 179, "conditions": "18h40, fin de journée chaude",
+      "splits": [
+        { "km": 1, "temps_s": 299, "fc_moy": 150 }, { "km": 2, "temps_s": 301, "fc_moy": 166 },
+        { "km": 3, "temps_s": 304, "fc_moy": 171 }, { "km": 4, "temps_s": 302, "fc_moy": 174 },
+        { "km": 5, "temps_s": 302, "fc_moy": 179 }, { "km": 6, "temps_s": 309, "fc_moy": 181 },
+        { "km": 7, "temps_s": 315, "fc_moy": 183 }, { "km": 8, "temps_s": 330, "fc_moy": 184 },
+        { "km": 9, "temps_s": 355, "fc_moy": 181 }, { "km": 10, "temps_s": 346, "fc_moy": 181 }
+      ],
+      "analyse": {
+        "verdict": "52:48 — meilleur chrono, mais l'exact contraire du 7 juin.",
+        "corps": "Tu es parti à 4:59/km, c'est-à-dire à l'allure du sub-50, et tu as tenu cinq kilomètres. Puis la facture est tombée : 5:09, 5:15, 5:30, 5:55, 5:46. Regarde la fréquence cardiaque : dès le km 5 tu es à 179, et à partir du km 7 tu plafonnes entre 181 et 184 — tu n'as plus de réserve, le cœur ne peut plus compenser, donc c'est l'allure qui cède. Les cinq derniers kilomètres t'ont coûté 1 minute 20 de plus que les cinq premiers.",
+        "a_retenir": "Le sub-50 ne s'obtiendra pas en partant à 4:59. Il s'obtiendra en partant à 5:03 et en ayant un seuil assez haut pour accélérer ensuite.",
+        "note": "reference"
+      }
+    }
+  ]
+}

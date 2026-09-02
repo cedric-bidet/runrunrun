@@ -151,13 +151,42 @@ const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc 
 
 /* ---------- Chargement ---------- */
 
+function chargerJSON(chemin) {
+  return fetch(chemin).then((r) => {
+    if (!r.ok) throw new Error(`${chemin} : ${r.status}`);
+    return r.json();
+  });
+}
+
+// data/seances.json (mois vivant) est complété par les archives listées dans
+// data/seances-index.json (mois clos, non réécrits). Une archive ou l'index
+// manquant est une erreur bloquante : jamais de repli sur des données
+// partielles, qui fausserait silencieusement les graphes de coût cardiaque.
+function chargerSeances() {
+  return chargerJSON('data/seances-index.json').then((index) =>
+    Promise.all([
+      Promise.all(index.archives.map((chemin) => chargerJSON(`data/${chemin}`))),
+      chargerJSON('data/seances.json')
+    ])
+  ).then(([archives, vivant]) => {
+    const parId = new Map();
+    for (const archive of archives) {
+      for (const seance of archive.seances) parId.set(seance.id, seance);
+    }
+    // en cas de doublon (séance présente à la fois dans une archive et dans le
+    // fichier vivant), le fichier vivant gagne
+    for (const seance of vivant.seances) parId.set(seance.id, seance);
+    return Array.from(parId.values());
+  });
+}
+
 Promise.all([
   fetch('data/athlete.json').then((r) => r.json()),
   fetch('data/programme.json').then((r) => r.json()),
-  fetch('data/seances.json').then((r) => r.json()),
+  chargerSeances(),
   fetch('data/renforcement.json').then((r) => r.json())
 ]).then(([a, p, s, r]) => {
-  A = a; P = p; S = s.seances; R = r; ZONES = a.zones;
+  A = a; P = p; S = s; R = r; ZONES = a.zones;
   // journal unifié : passé et futur, course et renforcement — statut 'realise' ou 'prevu'
   S.sort((x, y) => x.date.localeCompare(y.date));
   S_REALISE = S.filter((x) => x.statut === 'realise');
