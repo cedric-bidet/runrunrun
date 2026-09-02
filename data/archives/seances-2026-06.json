@@ -12,6 +12,7 @@
         { "libelle": "1er 5 km", "temps_s": 1712, "fc_moy": 165 },
         { "libelle": "2e 5 km", "temps_s": 1575, "fc_moy": 177 }
       ],
+      "cout_cardiaque_bkm": 933,
       "analyse": {
         "verdict": "La course la mieux gérée de ton année, malgré le chrono.",
         "corps": "28:32 puis 26:15 : un négatif split de 2 minutes 17. Tu as subi un départ bouché, tu t'es adapté, et tu as accéléré progressivement jusqu'à finir à 187 bpm. Ta remarque après coup — « j'avais les jambes pour les 20 km » — est cohérente avec le profil cardiaque : tu n'as pas saturé, tu es monté par paliers. Le chrono de 54:33 ne reflète pas ta forme du jour, il reflète le premier kilomètre perdu.",

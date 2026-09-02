@@ -14,6 +14,7 @@
         { "km": 5, "temps_s": 341, "fc_moy": 166 }, { "km": 6, "temps_s": 379, "fc_moy": 173 },
         { "km": 7, "temps_s": 255, "fc_moy": 163, "dist_km": 0.703 }
       ],
+      "cout_cardiaque_bkm": 947,
       "analyse": {
         "verdict": "Première sortie après un mois d'arrêt. Trop rapide, mais pas grave.",
         "corps": "Allure quasi constante autour de 6:05/km, et pendant ce temps la fréquence cardiaque monte de 122 à 173. C'est une dérive cardiaque de plus de 50 battements sur 40 minutes — le signe d'un effort largement au-dessus de la zone aérobie sur la seconde moitié. Le dénivelé (51 m) et la chaleur bourguignonne y contribuent, mais l'essentiel est ailleurs : tu es parti à l'allure de mai, avec le moteur de début août.",
@@ -32,6 +33,7 @@
         { "km": 3, "temps_s": 403, "fc_moy": 142 }, { "km": 4, "temps_s": 405, "fc_moy": 142 },
         { "km": 5, "temps_s": 173, "fc_moy": 145, "dist_km": 0.43 }
       ],
+      "cout_cardiaque_bkm": 951,
       "analyse": {
         "verdict": "Exactement ce qu'il fallait faire. Et oui, c'est frustrant.",
         "corps": "Fréquence cardiaque moyenne à 140, maximum à 151 : tu es resté dans la zone 2 du début à la fin, avec une dérive de seulement 10 battements sur 30 minutes. L'effort relatif de 38 confirme une séance véritablement facile. Ta frustration est le signe que le protocole fonctionne : la sensation de « trop lent » vient de ton allure de référence en course, pas de ton état de forme aérobie.",
@@ -49,6 +51,7 @@
         { "km": 3, "temps_s": 446, "fc_moy": 153 }, { "km": 4, "temps_s": 454, "fc_moy": 155 },
         { "km": 5, "temps_s": 411, "fc_moy": 154, "dist_km": 0.855 }
       ],
+      "cout_cardiaque_bkm": 1100,
       "analyse": {
         "verdict": "Deux erreurs empilées : le créneau horaire et le premier kilomètre.",
         "corps": "Le km 1 à 6:17 est parti 40 secondes trop vite, à 146 bpm — soit déjà au sommet de la Z2 avant même d'être échauffé. Ensuite tout se dégrade en même temps : l'allure s'effondre (7:00, puis 7:26, puis 7:34, puis 8:01) alors que la fréquence cardiaque, elle, continue de monter vers 155. Tu ralentis de 1 min 44 au kilomètre et ton cœur ne redescend pas. L'effort relatif de 69 pour 35 minutes le confirme : presque le double du 8 août pour une séance censée être identique.",
@@ -66,6 +69,7 @@
         { "km": 3, "temps_s": 423, "fc_moy": 141 }, { "km": 4, "temps_s": 416, "fc_moy": 143 },
         { "km": 5, "temps_s": 137, "fc_moy": 147, "dist_km": 0.333 }
       ],
+      "cout_cardiaque_bkm": 974,
       "analyse": {
         "verdict": "La correction du 10 août, appliquée à la lettre.",
         "corps": "Départ à 132 bpm, puis un plateau parfait à 141–143 sur les trois kilomètres suivants. Les splits tiennent dans une fourchette de 11 secondes (6:52 à 7:03) : c'est la définition d'une allure maîtrisée. Effort relatif de 38, identique au 8 août, pour une séance sur terrain différent — la reproductibilité est là.",
@@ -84,6 +88,7 @@
         { "km": 5, "temps_s": 375, "fc_moy": 144 }, { "km": 6, "temps_s": 378, "fc_moy": 147 },
         { "km": 7, "temps_s": 150, "fc_moy": 148, "dist_km": 0.398 }
       ],
+      "cout_cardiaque_bkm": 888,
       "analyse": {
         "verdict": "Meilleure séance depuis la reprise, et de loin. Avec une réserve à poser.",
         "corps": "6,4 km en 40 minutes à 142 bpm de moyenne. Trois jours plus tôt, tu courais à 6:57/km pour 140 bpm ; aujourd'hui c'est 6:15/km pour 142 bpm. Soit 42 secondes au kilomètre gagnées pour deux battements de plus. Ton coût cardiaque tombe à 888 battements par kilomètre — le meilleur chiffre du carnet, meilleur même que tes deux 10 km de juin et juillet.\n\nLa réserve : une partie de ce gain vient du terrain. La Prairie et l'hippodrome sont parfaitement plats, tu étais au frais à 8h52, alors que les séances du 8 et du 12 comportaient du relief et de la chaleur. Mais le coût cardiaque intègre déjà la fréquence cardiaque : même en retirant l'effet terrain, il reste une progression réelle.",
@@ -104,6 +109,7 @@
         { "km": 5, "temps_s": 371, "fc_moy": 146 }, { "km": 6, "temps_s": 363, "fc_moy": 147 },
         { "km": 7, "temps_s": 207, "fc_moy": 152, "dist_km": 0.558 }
       ],
+      "cout_cardiaque_bkm": 874,
       "analyse": {
         "verdict": "Même parcours, même durée, 160 mètres de plus. Le 15 août n'était pas un coup de terrain.",
         "corps": "6,56 km en 40:06 à 143 bpm : 6:07/km contre 6:15/km deux jours plus tôt, pour un battement de plus. Le coût cardiaque descend à 873 battements par kilomètre — nouveau record du carnet, et il tombe sur le même parcours, au même créneau, dans les mêmes conditions que le 15. La réserve posée sur l'effet terrain saute : c'est une adaptation, pas une circonstance.\n\nLa régularité est le vrai point fort. Les splits alternent 6:08 / 6:02 / 6:10 / 6:02 / 6:11 / 6:03, une oscillation de 8 secondes qui suit les aller-retours de la boucle, sans aucune dérive de fond. Le km 1 à 131 bpm est un départ contrôlé exemplaire.\n\nLe pic à 156 bpm sur les 558 derniers mètres n'est pas une fin de séance qui coûte : c'est la rampe sous le pont. Deux segments ailleurs sur la boucle le confirment — 150 et 151 bpm de moyenne sur les portions montantes, contre 142 à 147 partout ailleurs. En retirant ce tronçon, la dérive réelle est de quatre battements sur 36 minutes, soit 2,8 %.",
@@ -137,6 +143,7 @@
         { "km": 5, "temps_s": 372, "fc_moy": 148 }, { "km": 6, "temps_s": 370, "fc_moy": 152 },
         { "km": 7, "temps_s": 171, "fc_moy": 155, "dist_km": 0.453 }
       ],
+      "cout_cardiaque_bkm": 910,
       "analyse": {
         "verdict": "Exécution irréprochable, coût physiologique en hausse. Les deux sont vrais en même temps.",
         "corps": "6,45 km en 40:11 à 146 bpm, soit 6:14/km. Comparé au 17 août sur le parcours identique : 7 secondes au kilomètre plus lent, pour 3 battements de plus. Le coût cardiaque remonte à 909 battements par kilomètre, contre 873 deux jours plus tôt — une dégradation de 4 %. L'effort relatif suit la même pente : 64 contre 58.\n\nL'explication n'est pas une régression aérobie, elle est datée du 18 août. Une première séance de renforcement à dose pleine laisse un coût métabolique et neuromusculaire mesurable à J+1, même en l'absence totale de courbatures. C'est précisément le point : l'absence de douleur n'est pas un indicateur de récupération. Le coût cardiaque, lui, voit ce que la sensation ne voit pas.\n\nCe qui n'a pas bougé est plus important que ce qui a bougé. La dérive réelle — km 2 à 4 contre km 5 à 6, en excluant le km 1 et la rampe du pont — est de 2,8 %, exactement la même valeur que le 17 août. Une dérive reproductible à deux séances d'intervalle, c'est une base aérobie qui tient. Les splits du km 2 au km 6 s'inscrivent dans une fourchette de 17 secondes (6:03 à 6:20), et le km 1 à 133 bpm reste un départ contrôlé modèle. La cadence monte à 174 spm, légèrement au-dessus de la base des trois séances précédentes.\n\nLe pic à 158 bpm sur les 453 derniers mètres est la rampe sous le pont, comme prévu — pas un dépassement de plafond.",
