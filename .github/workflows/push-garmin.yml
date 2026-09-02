@@ -1,0 +1,23 @@
+name: Pousser les séances sur Garmin
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/seances.json'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * 0'    # dimanche soir, filet de sécurité
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/push_garmin.py
+        env:
+          GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}

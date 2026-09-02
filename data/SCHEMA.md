@@ -173,3 +173,36 @@ Un fichier `clos: true` ne se réécrit pas. Exception unique levée le 2026-09-
 compléter `cout_cardiaque_bkm` sur 9 séances antérieures au 21 août, date d'introduction
 du champ. Avant d'archiver un mois, vérifier que toutes les séances de course portent
 les champs calculables — c'est le dernier moment où les corriger est simple.
+
+## Ajout 2 septembre (3) — `workout`
+
+Champ optionnel sur une séance prévue, poussé vers Garmin Connect par
+`scripts/push_garmin.py`. Seules les séances qui le portent sont envoyées.
+
+```json
+"workout": {
+  "nom": "S37 · 2 × 8 min au seuil",
+  "steps": [
+    { "type": "warmup", "duree_s": 900, "cible": { "type": "fc", "min": 120, "max": 145 } },
+    { "repeat": 3, "steps": [
+      { "type": "interval", "duree_s": 20, "cible": { "type": "allure", "min": "3:00", "max": "2:45" } },
+      { "type": "recovery", "duree_s": 60 }
+    ]},
+    { "type": "cooldown", "duree_s": 600 }
+  ]
+}
+```
+
+- `type` ∈ `warmup`, `interval`, `recovery`, `cooldown`
+- `duree_s` en secondes ; alternative `distance_m` pour un pas à la distance
+- `cible.type` ∈ `fc` (bpm) ou `allure` (mm:ss au kilomètre) ; absente = pas de cible
+- Pour une allure, `min` est l'allure **la plus lente** (borne haute en temps) et `max`
+  la plus rapide — contre-intuitif, mais cohérent avec la lecture humaine « 5:25–5:32 »
+- Un groupe porte `repeat` (nombre d'itérations) et `steps` ; pas d'imbrication au-delà
+  d'un niveau
+
+RAISON : `cible.structure` (le texte affiché à l'écran) est du texte libre destiné à la
+lecture humaine, pas machine-lisible. Un parseur de langue naturelle qui se trompe sur
+une séance de seuil produirait une séance fausse sur la montre, au pire moment, sans que
+rien ne le signale — d'où ce second champ structuré, en plus de `cible.structure` et non
+à sa place. Les deux doivent rester cohérents ; ce n'est pas vérifié automatiquement.

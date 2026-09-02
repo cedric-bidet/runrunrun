@@ -62,7 +62,22 @@
       "id": "p-2026-09-08", "date": "2026-09-08", "statut": "prevu", "type": "seuil",
       "titre": "2 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 45, "distance_km": 7.4, "allure": "5:25–5:32", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min Z2 + 3 lignes droites franches · 2 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 16 },
-      "consigne": "Allure calibrée par le test du 2 septembre : VMA 13,1 km/h, donc seuil à 84–86 %, soit 5:25–5:32/km. Vise la moitié rapide, 5:25–5:28. Si ça te paraît nettement trop facile, dis-le : la VMA du 2 est probablement un plancher à cause de l'échauffement défaillant, et on remontera la fourchette.\n\nPROTOCOLE D'ÉCHAUFFEMENT CORRIGÉ, à appliquer dès cette séance. Une seule activité du début à la fin : on n'arrête jamais le chrono entre l'échauffement et les fractions, c'est le bouton Lap (BACK) qui les sépare. 15 minutes de Z2 seulement, FC sous 145. Puis 3 lignes droites FRANCHES de 20 s, jusqu'à 2:45–3:00/km — franchement au-dessus de l'allure de seuil — avec récupération marchée complète. Et moins de 90 secondes entre la dernière ligne droite et le départ de la première fraction : le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120 bpm.\n\nPremière séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Choisis un tronçon sans rampe, une bosse fausse toute la fraction. Au-delà de 175 bpm, ralentis en cours de fraction. Et le deuxième bloc doit être au même chrono que le premier — s'il est plus lent, c'est que tu es parti trop vite."
+      "consigne": "Allure calibrée par le test du 2 septembre : VMA 13,1 km/h, donc seuil à 84–86 %, soit 5:25–5:32/km. Vise la moitié rapide, 5:25–5:28. Si ça te paraît nettement trop facile, dis-le : la VMA du 2 est probablement un plancher à cause de l'échauffement défaillant, et on remontera la fourchette.\n\nPROTOCOLE D'ÉCHAUFFEMENT CORRIGÉ, à appliquer dès cette séance. Une seule activité du début à la fin : on n'arrête jamais le chrono entre l'échauffement et les fractions, c'est le bouton Lap (BACK) qui les sépare. 15 minutes de Z2 seulement, FC sous 145. Puis 3 lignes droites FRANCHES de 20 s, jusqu'à 2:45–3:00/km — franchement au-dessus de l'allure de seuil — avec récupération marchée complète. Et moins de 90 secondes entre la dernière ligne droite et le départ de la première fraction : le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120 bpm.\n\nPremière séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Choisis un tronçon sans rampe, une bosse fausse toute la fraction. Au-delà de 175 bpm, ralentis en cours de fraction. Et le deuxième bloc doit être au même chrono que le premier — s'il est plus lent, c'est que tu es parti trop vite.",
+      "workout": {
+        "nom": "S37 · 2 × 8 min au seuil",
+        "steps": [
+          { "type": "warmup", "duree_s": 900, "cible": { "type": "fc", "min": 120, "max": 145 } },
+          { "repeat": 3, "steps": [
+            { "type": "interval", "duree_s": 20, "cible": { "type": "allure", "min": "3:00", "max": "2:45" } },
+            { "type": "recovery", "duree_s": 60 }
+          ]},
+          { "repeat": 2, "steps": [
+            { "type": "interval", "duree_s": 480, "cible": { "type": "allure", "min": "5:32", "max": "5:25" } },
+            { "type": "recovery", "duree_s": 180 }
+          ]},
+          { "type": "cooldown", "duree_s": 600 }
+        ]
+      }
     },
     {
       "id": "p-2026-09-10", "date": "2026-09-10", "statut": "prevu", "type": "z2",
