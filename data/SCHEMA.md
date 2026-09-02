@@ -1,5 +1,40 @@
 # Schéma de `data/seances.json`
 
+## Invariants — à lire avant toute analyse
+
+Valeurs de référence, indépendantes du découpage en fichiers.
+Si l'une d'elles est contredite par une analyse en cours, c'est l'analyse qu'il faut
+réexaminer d'abord.
+
+**Physiologie**
+- FC max 187 · FC repos 63 · plafond Z2 pratique 155 (validé au talk test)
+- Zones Karvonen : Z2 = 137–150
+- VMA 13,1 km/h, allure 4:35/km — demi-Cooper du 2026-09-02, 1310 m.
+  Seule base de calcul des allures du bloc seuil.
+- Cadence de croisière 173–174 spm (valeur Garmin = valeur Strava × 2)
+
+**Test de référence Z2**
+- Record : **874 b/km**, le 2026-08-17, La Prairie & hippodrome, 40:06, 6,56 km, 143 bpm
+  (la prose d'analyse de cette séance dit 873 ; voir section B)
+- Conditions strictes de comparabilité : boucle de La Prairie uniquement (8 m D+),
+  départ 8h10, 40 min, J-1 sans renforcement, jamais fusionné avec une sortie longue
+- Louvigny n'est PAS le parcours de référence (+22 m D+)
+- Une séance à `test_reference_valide: false` ne se trace jamais sur la même série
+  qu'un test valide
+
+**Points de vigilance ouverts**
+- Km 1 systématiquement trop rapide et trop chargé en FC — 4 épisodes documentés
+- Soléaire (mollet genou fléchi) = maillon limitant du renforcement, ne progresse pas
+  au rythme du gainage latéral
+- Lire toujours `derive_reelle_pct` ET `derive_cout_km_pct` ensemble : quand le plafond
+  de FC est tenu, la dérive migre dans l'allure et l'indicateur FC devient aveugle
+- Fenêtre de calcul des deux dérives : km 2–4 contre les trois derniers km **pleins**.
+  Un km partiel de fin n'entre jamais dans le calcul.
+
+**Objectifs**
+- Sub-50 sur 10 km — course cible 2026-11-22
+- Semi-marathon Pegasus (Marathon de la Liberté, Caen) — juin 2027
+
 Journal unifié : passé et futur, course et renforcement. `statut` vaut 'realise' ou 'prevu'.
 Une séance réalisée porte ses métriques à plat + `analyse`. Une séance prévue porte `cible` +
 `consigne`, jamais de métriques. Les séances de renfo portent `bloc_renfo`, qui renvoie à
@@ -133,6 +168,11 @@ Le 1er de chaque mois, ou dès que `seances.json` dépasse ~25 Ko :
 Les trois écritures passent en un seul `push_files`, ce qui garantit qu'aucun état
 intermédiaire incohérent n'est publié. **Ne jamais faire l'étape 2 sans l'étape 1 dans le même
 commit.**
+
+Un fichier `clos: true` ne se réécrit pas. Exception unique levée le 2026-09-02 pour
+compléter `cout_cardiaque_bkm` sur 9 séances antérieures au 21 août, date d'introduction
+du champ. Avant d'archiver un mois, vérifier que toutes les séances de course portent
+les champs calculables — c'est le dernier moment où les corriger est simple.
 
 ## Ajout 2 septembre (3) — `workout`
 
