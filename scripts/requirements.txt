@@ -1,1 +1,1 @@
-garminconnect[workout]
+garminconnect[workout]==0.3.11
