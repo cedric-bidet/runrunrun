@@ -15,6 +15,7 @@
         { "km": 7, "temps_s": 315, "fc_moy": 183 }, { "km": 8, "temps_s": 330, "fc_moy": 184 },
         { "km": 9, "temps_s": 355, "fc_moy": 181 }, { "km": 10, "temps_s": 346, "fc_moy": 181 }
       ],
+      "cout_cardiaque_bkm": 924,
       "analyse": {
         "verdict": "52:48 — meilleur chrono, mais l'exact contraire du 7 juin.",
         "corps": "Tu es parti à 4:59/km, c'est-à-dire à l'allure du sub-50, et tu as tenu cinq kilomètres. Puis la facture est tombée : 5:09, 5:15, 5:30, 5:55, 5:46. Regarde la fréquence cardiaque : dès le km 5 tu es à 179, et à partir du km 7 tu plafonnes entre 181 et 184 — tu n'as plus de réserve, le cœur ne peut plus compenser, donc c'est l'allure qui cède. Les cinq derniers kilomètres t'ont coûté 1 minute 20 de plus que les cinq premiers.",
