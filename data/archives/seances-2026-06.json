@@ -1,0 +1,23 @@
+{
+  "version": "3.1",
+  "periode": "2026-06",
+  "clos": true,
+  "seances": [
+    {
+      "id": "18819129254", "date": "2026-06-07", "statut": "realise", "type": "course",
+      "titre": "10 km de la Liberté", "lieu": "Caen",
+      "distance_km": 10.0, "temps_s": 3273, "fc_moy": 171, "fc_max": 187, "denivele": 44,
+      "effort_relatif": 211, "cadence_spm": 178, "conditions": "Départ 8h40, bouchon sur le premier kilomètre",
+      "splits": [
+        { "libelle": "1er 5 km", "temps_s": 1712, "fc_moy": 165 },
+        { "libelle": "2e 5 km", "temps_s": 1575, "fc_moy": 177 }
+      ],
+      "analyse": {
+        "verdict": "La course la mieux gérée de ton année, malgré le chrono.",
+        "corps": "28:32 puis 26:15 : un négatif split de 2 minutes 17. Tu as subi un départ bouché, tu t'es adapté, et tu as accéléré progressivement jusqu'à finir à 187 bpm. Ta remarque après coup — « j'avais les jambes pour les 20 km » — est cohérente avec le profil cardiaque : tu n'as pas saturé, tu es monté par paliers. Le chrono de 54:33 ne reflète pas ta forme du jour, il reflète le premier kilomètre perdu.",
+        "a_retenir": "Ce schéma de course est ton modèle pour le sub-50. Pas l'inverse.",
+        "note": "reference"
+      }
+    }
+  ]
+}
