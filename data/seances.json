@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "maj": "2026-09-02",
+  "maj": "2026-09-05",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -47,10 +47,31 @@
       }
     },
     {
-      "id": "p-2026-09-04", "date": "2026-09-04", "statut": "prevu", "type": "sortie_longue",
-      "titre": "Sortie longue, 50 min", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 50, "distance_km": 8.1, "allure": "6:10–6:30", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Récupération active après le test maximal. Parcours libre, l'iso-protocole ne concerne plus que le test du 10.\n\nIndicateur à lire : la dérive du coût par kilomètre, et elle seule. Référence 1,4 % le 31 août sur 40 min, 4,3 % le 29 août sur 55 min — la durée compte, ne compare qu'à format égal. Le coût absolu d'une sortie longue ne signifie rien."
+      "id": "20031374922", "date": "2026-09-04", "statut": "realise", "type": "sortie_longue",
+      "titre": "Sortie longue, 50 min — courue en tempo", "lieu": "La Prairie & voie verte, Caen",
+      "distance_km": 8.7, "temps_s": 3005, "fc_moy": 157, "fc_max": 172, "denivele": 16,
+      "effort_relatif": 130, "cadence_spm": 174,
+      "temperature_c": "26 à 30",
+      "conditions": "11h38, fin de matinée déjà chaude : 28 °C au départ, 26 °C au plus frais, 30 °C sur le dernier tiers. Plat, 16 m de dénivelé cumulé. J+2 du demi-Cooper du 2 septembre.",
+      "derive_reelle_pct": 7.3,
+      "derive_cout_km_pct": 7.3,
+      "splits": [
+        { "km": 1, "temps_s": 360, "fc_moy": 131 },
+        { "km": 2, "temps_s": 339, "fc_moy": 152 },
+        { "km": 3, "temps_s": 345, "fc_moy": 156 },
+        { "km": 4, "temps_s": 344, "fc_moy": 154 },
+        { "km": 5, "temps_s": 349, "fc_moy": 161 },
+        { "km": 6, "temps_s": 340, "fc_moy": 164 },
+        { "km": 7, "temps_s": 339, "fc_moy": 166 },
+        { "km": 8, "temps_s": 349, "fc_moy": 166 },
+        { "km": 9, "dist_km": 0.7, "temps_s": 240, "fc_moy": 170 }
+      ],
+      "analyse": {
+        "verdict": "Séance de récupération courue en tempo. La régularité d'allure est la meilleure du carnet ; l'intensité est fausse de bout en bout — 157 bpm de moyenne pour une cible à 140–150, et un dernier kilomètre à 170.",
+        "corps": "LE CHIFFRE QUI CLASSE LA SÉANCE. 130 d'effort relatif. Le 31 août, 40 minutes de Z2 en donnaient 69 ; le 29 août, 55 minutes de sortie longue en donnaient 98. Cette sortie, prescrite comme récupération active à J+2 d'un test maximal, est la plus coûteuse de tout le bloc de reconstruction — plus coûteuse que la sortie la plus longue, et plus coûteuse que le test lui-même. La cible était 6:10–6:30 et 140–150 bpm. Tu as couru 5:45 de moyenne à 157, et tu as fini les sept derniers cents mètres à 170, c'est-à-dire en Z4.\n\nCE QUI EST BON, ET IL FAUT LE DIRE. Les kilomètres 2 à 8 tiennent en dix secondes : 5:39, 5:45, 5:44, 5:49, 5:40, 5:39, 5:49. C'est la régularité d'allure la plus propre depuis la reprise, et elle confirme ce que le demi-Cooper avait montré : le mécanisme du départ trop rapide, documenté quatre fois en août, ne se déclenche plus. Le km 1 sort à 6:00 pour une borne basse à 6:10 — dix secondes d'écart, sans commune mesure avec les 6:01 à 139 bpm du 31 août.\n\nLE PROBLÈME EST AILLEURS : LA FC NE SE STABILISE JAMAIS. À allure constante, elle monte de 152 au km 2 à 170 à l'arrivée. Dérive de 7,3 % sur la FC, 7,3 % sur le coût par kilomètre. Pour une fois les deux indicateurs disent la même chose, et c'est justement parce que l'allure n'a rien absorbé — le cas de figure inverse du 24 août, où le plafond de FC tenu masquait un effondrement de l'allure. Références à format comparable : 1,4 % le 31 août sur 40 min, 4,3 % le 29 août sur 55 min. Sur 50 minutes, 7,3 % est de loin la plus forte dérive mesurée depuis la reprise.\n\nCe n'est pas un signal de régression aérobie, c'est la définition d'une allure située au-dessus du seuil aérobie : une FC qui ne plafonne jamais dit que l'allure n'est pas soutenable. Traduction pratique, et elle est utile : aujourd'hui, 5:45/km n'est pas une allure d'endurance pour toi. L'objectif du 22 novembre est à 4:59. Il reste 46 secondes au kilomètre à trouver, et c'est le travail du bloc qui commence lundi — pas celui d'une sortie de récupération.\n\nCE QUE LA CHALEUR EXPLIQUE, ET CE QU'ELLE N'EXPLIQUE PAS. 26 à 30 °C à 11h38 pèsent sur la dérive, mais pas à cette hauteur : le 29 août, 55 minutes par temps chaud n'avaient produit que 4,3 %. Le reste est le prix de l'allure. Le coût cardiaque ressort à 904 b/km : cette valeur ne se compare ni au record de 874 du 17 août, ni à aucun test de référence — parcours différent, durée différente, intensité sans rapport. Elle ne se trace pas sur la même série.\n\nSIGNAL TECHNIQUE MINEUR. 174 spm à 5:45/km, contre 176 sur l'échauffement du 2 septembre couru à 6:07. Vingt secondes au kilomètre gagnées sans un seul pas de cadence en plus : l'accélération est venue de l'amplitude, pas de la fréquence. Cohérent avec les 200 spm relevés sur le test — la cadence suit l'allure, mais seulement au-delà d'un écart important.",
+        "a_retenir": "Une séance facile se juge sur la FC, jamais sur la sensation ni sur le chrono. À J+2 d'un test maximal, 157 bpm de moyenne ne récupèrent rien : ils ajoutent de la fatigue à trois jours du premier bloc de seuil. Le bloc qui démarre lundi ne produira du progrès que si les jours faciles sont réellement faciles — c'est le contraste qui fait le travail, pas l'intensité moyenne permanente.",
+        "note": "attention"
+      }
     },
     {
       "id": "p-2026-09-07", "date": "2026-09-07", "statut": "prevu", "type": "renfo",
@@ -62,7 +83,7 @@
       "id": "p-2026-09-08", "date": "2026-09-08", "statut": "prevu", "type": "seuil",
       "titre": "2 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 45, "distance_km": 7.4, "allure": "5:25–5:32", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min Z2 + 3 lignes droites franches · 2 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 16 },
-      "consigne": "Allure calibrée par le test du 2 septembre : VMA 13,1 km/h, donc seuil à 84–86 %, soit 5:25–5:32/km. Vise la moitié rapide, 5:25–5:28. Si ça te paraît nettement trop facile, dis-le : la VMA du 2 est probablement un plancher à cause de l'échauffement défaillant, et on remontera la fourchette.\n\nPROTOCOLE D'ÉCHAUFFEMENT CORRIGÉ, à appliquer dès cette séance. Une seule activité du début à la fin : on n'arrête jamais le chrono entre l'échauffement et les fractions, c'est le bouton Lap (BACK) qui les sépare. 15 minutes de Z2 seulement, FC sous 145. Puis 3 lignes droites FRANCHES de 20 s, jusqu'à 2:45–3:00/km — franchement au-dessus de l'allure de seuil — avec récupération marchée complète. Et moins de 90 secondes entre la dernière ligne droite et le départ de la première fraction : le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120 bpm.\n\nPremière séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Choisis un tronçon sans rampe, une bosse fausse toute la fraction. Au-delà de 175 bpm, ralentis en cours de fraction. Et le deuxième bloc doit être au même chrono que le premier — s'il est plus lent, c'est que tu es parti trop vite.",
+      "consigne": "Allure calibrée par le test du 2 septembre : VMA 13,1 km/h, donc seuil à 84–86 %, soit 5:25–5:32/km. Vise la moitié rapide, 5:25–5:28. Si ça te paraît nettement trop facile, dis-le : la VMA du 2 est probablement un plancher à cause de l'échauffement défaillant, et on remontera la fourchette.\n\nPROTOCOLE D'ÉCHAUFFEMENT CORRIGÉ, à appliquer dès cette séance. Une seule activité du début à la fin : on n'arrête jamais le chrono entre l'échauffement et les fractions, c'est le bouton Lap (BACK) qui les sépare. 15 minutes de Z2 seulement, FC sous 145. Puis 3 lignes droites FRANCHES de 20 s, jusqu'à 2:45–3:00/km — franchement au-dessus de l'allure de seuil — avec récupération marchée complète. Et moins de 90 secondes entre la dernière ligne droite et le départ de la première fraction : le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120 bpm.\n\nLe 4 septembre ajoute une exigence : l'échauffement doit vraiment rester sous 145 bpm. Tu arrives avec une sortie à 157 de moyenne dans les jambes, la tentation sera de mettre l'échauffement à 155. Ce serait griller la séance avant la première fraction.\n\nPremière séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Choisis un tronçon sans rampe, une bosse fausse toute la fraction. Au-delà de 175 bpm, ralentis en cours de fraction. Et le deuxième bloc doit être au même chrono que le premier — s'il est plus lent, c'est que tu es parti trop vite.",
       "workout": {
         "nom": "S37 · 2 × 8 min au seuil",
         "steps": [
@@ -89,7 +110,7 @@
       "id": "p-2026-09-12", "date": "2026-09-12", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première heure de course depuis la reprise. Week-end libre. Indicateur à suivre : la dérive du coût par kilomètre, référence 4,3 % sur 55 min le 29 août. Sur cinq minutes de plus, la maintenir au même niveau serait déjà un gain."
+      "consigne": "Première heure de course depuis la reprise. Week-end libre.\n\nLE PLAFOND N'EST PAS INDICATIF : 150 bpm, et tu ralentis dès que tu le touches, même si l'allure tombe à 6:40. Le 4 septembre, la même consigne a produit une sortie à 157 de moyenne et 170 en fin de parcours — une séance facile transformée en tempo, à trois jours du premier seuil. Sur une heure, la même erreur coûte davantage. Si tu dois choisir entre tenir l'allure et tenir la FC, c'est toujours la FC.\n\nIndicateur à suivre : la dérive du coût par kilomètre. Références de format : 4,3 % sur 55 min le 29 août, 7,3 % sur 50 min le 4 septembre — cette dernière courue trop vite, elle ne dit rien de ton aérobie. Sur 60 minutes menées sous 150, viser sous 5 %."
     },
     {
       "id": "p-2026-09-14", "date": "2026-09-14", "statut": "prevu", "type": "seuil",
