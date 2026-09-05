@@ -1,7 +1,7 @@
 {
   "prenom": "Cédric",
   "ville": "Caen",
-  "maj": "2026-09-04",
+  "maj": "2026-09-05",
   "physio": {
     "fc_max": 187,
     "fc_repos": 63,
@@ -9,7 +9,7 @@
     "plafond_z2_pratique": 155,
     "vo2max_garmin": 47,
     "vdot_course": 36,
-    "vma_estimee": "12,0 – 12,5 km/h",
+    "vma_estimee": "13,1 km/h — mesurée au demi-Cooper du 2 septembre 2026",
     "note_plafond": "Plafond Z2 relevé de 150 à 155 bpm après validation du test de la parole à 155–158 bpm. Le calcul théorique sous-estimait ta zone réelle."
   },
   "zones": [
