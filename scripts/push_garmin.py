@@ -194,6 +194,13 @@ def se_connecter():
 
     Le jeton (contenu de garmin_tokens.json généré par une connexion locale) est écrit
     dans un fichier temporaire au démarrage — jamais commité, jamais journalisé.
+
+    Garmin fait TOURNER le refresh token à chaque rafraîchissement : l'ancien est
+    brûlé et garminconnect réécrit le nouveau couple dans le tokenstore. Sur un
+    runner, ce dossier doit donc être connu du workflow, sinon le jeton rafraîchi
+    disparaît avec la machine et le run suivant rejoue un refresh token mort.
+    D'où GARMIN_TOKEN_DIR : le workflow le pose, lit le fichier après coup et
+    réécrit le secret. En local, sans cette variable, un tempdir suffit.
     """
     from garminconnect import (
         Garmin,
@@ -210,7 +217,11 @@ def se_connecter():
         )
         sys.exit(1)
 
-    tokendir = tempfile.mkdtemp(prefix="garmin_tokens_")
+    tokendir = os.environ.get("GARMIN_TOKEN_DIR")
+    if tokendir:
+        Path(tokendir).mkdir(mode=0o700, parents=True, exist_ok=True)
+    else:
+        tokendir = tempfile.mkdtemp(prefix="garmin_tokens_")
     (Path(tokendir) / "garmin_tokens.json").write_text(secret, encoding="utf-8")
 
     garmin = Garmin()
