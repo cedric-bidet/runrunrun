@@ -1,6 +1,6 @@
 {
-  "version": "3.1",
-  "maj": "2026-09-05",
+  "version": "3.2",
+  "maj": "2026-09-08",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -77,19 +77,30 @@
       "id": "p-2026-09-07", "date": "2026-09-07", "statut": "prevu", "type": "renfo",
       "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
       "cible": { "duree_min": 25 },
-      "consigne": "Une seule séance de renfo par semaine à partir d'ici : le seuil prend la priorité. Position calculée : J-3 du test du 10, donc sans effet sur lui.\n\nSur le mollet genou fléchi, le levier est le tempo, pas la dose : trois secondes à la descente et le genou reste fléchi en haut. S'il se tend, le gastrocnémien prend le relais et le soléaire ne travaille plus. Il limite depuis le 20 août, c'est normal sur un exercice de force locale — et c'est la raison de ne pas le changer."
+      "consigne": "Une seule séance de renfo par semaine à partir d'ici : le seuil prend la priorité. Position calculée : J-3 du test du 10, donc sans effet sur lui.",
+      "points": [
+        "Mollet genou fléchi : trois secondes à la descente, et le genou reste fléchi en haut.",
+        "S'il se tend, le gastrocnémien prend le relais et le soléaire ne travaille plus.",
+        "Il limite depuis le 20 août : c'est normal sur un exercice de force locale, et c'est la raison de ne pas le changer."
+      ]
     },
     {
       "id": "p-2026-09-08", "date": "2026-09-08", "statut": "prevu", "type": "seuil",
       "titre": "2 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 45, "distance_km": 7.4, "allure": "5:25–5:32", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min Z2 + 3 lignes droites franches · 2 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 16 },
-      "consigne": "Allure calibrée par le test du 2 septembre : VMA 13,1 km/h, donc seuil à 84–86 %, soit 5:25–5:32/km. Vise la moitié rapide, 5:25–5:28. Si ça te paraît nettement trop facile, dis-le : la VMA du 2 est probablement un plancher à cause de l'échauffement défaillant, et on remontera la fourchette.\n\nPROTOCOLE D'ÉCHAUFFEMENT CORRIGÉ, à appliquer dès cette séance. Une seule activité du début à la fin : on n'arrête jamais le chrono entre l'échauffement et les fractions, c'est le bouton Lap (BACK) qui les sépare. 15 minutes de Z2 seulement, FC sous 145. Puis 3 lignes droites FRANCHES de 20 s, jusqu'à 2:45–3:00/km — franchement au-dessus de l'allure de seuil — avec récupération marchée complète. Et moins de 90 secondes entre la dernière ligne droite et le départ de la première fraction : le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120 bpm.\n\nLe 4 septembre ajoute une exigence : l'échauffement doit vraiment rester sous 145 bpm. Tu arrives avec une sortie à 157 de moyenne dans les jambes, la tentation sera de mettre l'échauffement à 155. Ce serait griller la séance avant la première fraction.\n\nPremière séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Choisis un tronçon sans rampe, une bosse fausse toute la fraction. Au-delà de 175 bpm, ralentis en cours de fraction. Et le deuxième bloc doit être au même chrono que le premier — s'il est plus lent, c'est que tu es parti trop vite.",
+      "consigne": "Première séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Vise la moitié rapide de la fourchette, 5:25–5:28, sur un tronçon sans rampe. Dis-moi si ça t'a paru nettement trop facile : la VMA du 2 est peut-être un plancher.",
+      "points": [
+        "Une seule activité du début à la fin : c'est le bouton Lap (BACK) qui sépare les blocs, jamais le chrono.",
+        "Échauffement sous 145 bpm, vraiment : tu arrives avec la sortie du 4 à 157 de moyenne dans les jambes.",
+        "Moins de 90 s entre la dernière ligne droite et le départ. Le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120.",
+        "Deuxième bloc au même chrono que le premier : plus lent, c'est que tu es parti trop vite. Plafond dur à 175, tu ralentis en cours de fraction."
+      ],
       "workout": {
         "nom": "S37 · 2 × 8 min au seuil",
         "steps": [
           { "type": "warmup", "duree_s": 900, "cible": { "type": "fc", "min": 120, "max": 145 } },
           { "repeat": 3, "steps": [
-            { "type": "interval", "duree_s": 20, "cible": { "type": "allure", "min": "3:00", "max": "2:45" } },
+            { "type": "interval", "libelle": "Ligne droite", "duree_s": 20, "cible": { "type": "allure", "min": "3:00", "max": "2:45" } },
             { "type": "recovery", "duree_s": 60 }
           ]},
           { "repeat": 2, "steps": [
@@ -104,13 +115,24 @@
       "id": "p-2026-09-10", "date": "2026-09-10", "statut": "prevu", "type": "z2",
       "titre": "Test de référence — 40 min, boucle de La Prairie", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10",
       "cible": { "duree_min": 40, "distance_km": 6.6, "allure": "6:05–6:20", "fc_min": 135, "fc_max": 145 },
-      "consigne": "Le test dans son format correct, celui du 17 août. Quarante minutes, pas cinquante-cinq. Boucle de La Prairie et de l'hippodrome, même sens, et rien au-delà : pas de prolongement vers Louvigny, c'est exactement ce qui a rendu le 29 août illisible. Départ 8h10. Coût à battre : 873 b/km.\n\nRéserve posée d'avance, pour qu'elle ne serve pas d'excuse après coup : c'est un J+2 de ton premier seuil du bloc, ce que le 17 août n'était pas. Si le coût ressort entre 890 et 910, ce n'est pas une régression. Le renfo du 7 est à J-3, donc neutre.\n\nPas de lignes droites avant ce test : c'est une Z2, l'échauffement franc du 8 septembre ne s'applique pas ici. Tu pars froid et tu montes progressivement.\n\nEt le point qui décide de tout : km 1 à 6:20 minimum, 135 bpm maximum. Tu l'as réussi le 29 — 6:33 et 134 bpm — raté le 31 — 6:01 et 139 bpm — et parfaitement tenu sur le demi-Cooper du 2, où partir trop vite se payait immédiatement. Tu sais le faire. Regarde la montre au 500e mètre, pas au premier kilomètre : à ce moment-là, c'est déjà joué."
+      "consigne": "Le test dans son format correct, celui du 17 août : quarante minutes, boucle de La Prairie et de l'hippodrome, même sens, rien au-delà. Coût à battre : 873 b/km.",
+      "points": [
+        "Km 1 à 6:20 minimum, 135 bpm maximum. Regarde la montre au 500e mètre : au premier kilomètre, c'est déjà joué.",
+        "Pas de lignes droites avant : c'est une Z2, l'échauffement franc du 8 ne s'applique pas ici. Tu pars froid et tu montes progressivement.",
+        "Aucun prolongement vers Louvigny — c'est exactement ce qui a rendu le 29 août illisible.",
+        "Réserve posée d'avance : c'est un J+2 de seuil, ce que le 17 août n'était pas. Entre 890 et 910 b/km, ce n'est pas une régression."
+      ]
     },
     {
       "id": "p-2026-09-12", "date": "2026-09-12", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première heure de course depuis la reprise. Week-end libre.\n\nLE PLAFOND N'EST PAS INDICATIF : 150 bpm, et tu ralentis dès que tu le touches, même si l'allure tombe à 6:40. Le 4 septembre, la même consigne a produit une sortie à 157 de moyenne et 170 en fin de parcours — une séance facile transformée en tempo, à trois jours du premier seuil. Sur une heure, la même erreur coûte davantage. Si tu dois choisir entre tenir l'allure et tenir la FC, c'est toujours la FC.\n\nIndicateur à suivre : la dérive du coût par kilomètre. Références de format : 4,3 % sur 55 min le 29 août, 7,3 % sur 50 min le 4 septembre — cette dernière courue trop vite, elle ne dit rien de ton aérobie. Sur 60 minutes menées sous 150, viser sous 5 %."
+      "consigne": "Première heure de course depuis la reprise, week-end libre. Si tu dois choisir entre tenir l'allure et tenir la FC, c'est toujours la FC.",
+      "points": [
+        "Plafond 150 bpm, et ce n'est pas indicatif : tu ralentis dès que tu le touches, même si l'allure tombe à 6:40.",
+        "Le 4 septembre, la même consigne a donné 157 de moyenne et 170 en fin de parcours. Sur une heure, la même erreur coûte davantage.",
+        "Indicateur du jour : la dérive du coût par kilomètre. Sous 150 bpm et sur 60 minutes, viser sous 5 %."
+      ]
     },
     {
       "id": "p-2026-09-14", "date": "2026-09-14", "statut": "prevu", "type": "seuil",
