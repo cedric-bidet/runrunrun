@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '0 18 * * 0'    # dimanche soir, filet de sécurité
 
+permissions:
+  contents: read
+
 jobs:
   push:
     runs-on: ubuntu-latest
@@ -21,3 +24,26 @@ jobs:
       - run: python scripts/push_garmin.py
         env:
           GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}
+          GARMIN_TOKEN_DIR: ${{ runner.temp }}/garmin
+
+      # Garmin fait tourner le refresh token à chaque rafraîchissement : sans
+      # cette étape, le jeton renouvelé meurt avec le runner et le secret devient
+      # un jeton brûlé dès le run suivant. `always()` parce qu'un envoi raté sur
+      # une séance n'annule pas la rotation déjà opérée côté Garmin.
+      - name: Rejouer le jeton tourné dans le secret
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+          JETON_INITIAL: ${{ secrets.GARMIN_TOKENS }}
+        run: |
+          fichier="$RUNNER_TEMP/garmin/garmin_tokens.json"
+          if [ ! -f "$fichier" ]; then
+            echo "Pas de tokenstore sur le disque : rien à réécrire."
+            exit 0
+          fi
+          if [ "$(cat "$fichier")" = "$JETON_INITIAL" ]; then
+            echo "Jeton inchangé : le secret reste en l'état."
+            exit 0
+          fi
+          gh secret set GARMIN_TOKENS --repo "$GITHUB_REPOSITORY" < "$fichier"
+          echo "Jeton tourné : secret GARMIN_TOKENS mis à jour."
