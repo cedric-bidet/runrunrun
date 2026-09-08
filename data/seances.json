@@ -85,42 +85,142 @@
       ]
     },
     {
-      "id": "p-2026-09-08", "date": "2026-09-08", "statut": "prevu", "type": "seuil",
-      "titre": "2 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 45, "distance_km": 7.4, "allure": "5:25–5:32", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min Z2 + 3 lignes droites franches · 2 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 16 },
-      "consigne": "Première séance de seuil depuis très longtemps : l'objectif est la sensation, pas le chrono. Vise la moitié rapide de la fourchette, 5:25–5:28, sur un tronçon sans rampe. Dis-moi si ça t'a paru nettement trop facile : la VMA du 2 est peut-être un plancher.",
-      "points": [
-        "Une seule activité du début à la fin : c'est le bouton Lap (BACK) qui sépare les blocs, jamais le chrono.",
-        "Échauffement sous 145 bpm, vraiment : tu arrives avec la sortie du 4 à 157 de moyenne dans les jambes.",
-        "Moins de 90 s entre la dernière ligne droite et le départ. Le 2 septembre, quatre minutes d'attente ont fait retomber la FC à 120.",
-        "Deuxième bloc au même chrono que le premier : plus lent, c'est que tu es parti trop vite. Plafond dur à 175, tu ralentis en cours de fraction."
+      "id": "20085800233",
+      "date": "2026-09-08",
+      "statut": "realise",
+      "type": "seuil",
+      "titre": "2 × 8 min au seuil — première séance du bloc, fenêtre d'allure trop étroite",
+      "lieu": "Hippodrome & voie verte, Caen",
+      "distance_km": 7.52,
+      "temps_s": 3006,
+      "fc_moy": 147,
+      "fc_max": 177,
+      "denivele": 25,
+      "effort_relatif": 84,
+      "cadence_spm": 161,
+      "temperature_c": "21 à 23",
+      "conditions": "11h40, fin de matinée. Capteur à 29 °C au départ (encore chaud au poignet), stabilisé entre 21 et 23 °C sur toute la séance. Hippodrome et voie verte, 25 m de dénivelé cumulé. Une seule activité du début à la fin, treize laps propres au bouton BACK.",
+      "commentaire_athlete": "Sur les 3×20 s je n'avais pas mon allure affichée, impossible de me repérer. Sur les deux blocs, sensation constante de devoir ralentir, la montre sonnait tout le temps. Sur le bloc 2 j'ai donc essayé de ralentir. J'ai l'impression d'avoir fait une petite séance, j'aurais pu faire 4:45 sur les 2×8 min.",
+      "echauffement": {
+        "duree_s": 900,
+        "dist_m": 2299,
+        "allure": "6:31",
+        "fc_moy": 139,
+        "fc_max": 145,
+        "conforme": true,
+        "note": "Plafond 145 bpm tenu exactement. Première fois que le protocole d'échauffement est respecté."
+      },
+      "lignes_droites": {
+        "n": 3,
+        "duree_s": 20,
+        "allures": [
+          "4:56",
+          "4:18",
+          "3:40"
+        ],
+        "cible": "2:45–3:00",
+        "conforme": false,
+        "cause": "Cible inatteignable par construction : la jauge d'allure GPS met 5 à 10 s à se stabiliser, elle est illisible sur un pas de 20 s. Erreur de prescription, pas d'exécution."
+      },
+      "delai_derniere_ligne_droite_s": 1,
+      "blocs": [
+        {
+          "n": 1,
+          "duree_s": 480,
+          "dist_m": 1592,
+          "allure": "5:01",
+          "fc_moy": 169,
+          "fc_max": 177,
+          "cadence_spm": 187,
+          "cout_b_km": 849,
+          "demi_1": {
+            "allure": "4:31",
+            "fc_moy": 165,
+            "cout_b_km": 750
+          },
+          "demi_2": {
+            "allure": "5:38",
+            "fc_moy": 173,
+            "cout_b_km": 975
+          },
+          "derive_cout_km_pct": 29.0,
+          "lecture": "Dérive non physiologique. Le ralentissement est piloté par l'alarme d'allure, pas par la fatigue : la FC redescend à 170-171 au milieu du bloc puis remonte à 177 à la fin, profil incompatible avec une défaillance."
+        },
+        {
+          "n": 2,
+          "duree_s": 480,
+          "dist_m": 1538,
+          "allure": "5:12",
+          "fc_moy": 166,
+          "fc_max": 177,
+          "cadence_spm": 177,
+          "cout_b_km": 863,
+          "demi_1": {
+            "allure": "5:17",
+            "fc_moy": 160
+          },
+          "demi_2": {
+            "allure": "5:06",
+            "fc_moy": 173
+          },
+          "derive_cout_km_pct": 0.3,
+          "lecture": "Hors montée initiale de FC, coût par kilomètre plat et négatif split. Exécution de seuil correcte, mais courue avec le bloc 1 dans les jambes et en ralentissement volontaire."
+        }
       ],
-      "workout": {
-        "nom": "S37 · 2 × 8 min au seuil",
-        "steps": [
-          { "type": "warmup", "duree_s": 900, "cible": { "type": "fc", "min": 120, "max": 145 } },
-          { "repeat": 3, "steps": [
-            { "type": "interval", "libelle": "Ligne droite", "duree_s": 20, "cible": { "type": "allure", "min": "3:00", "max": "2:45" } },
-            { "type": "recovery", "duree_s": 60 }
-          ]},
-          { "repeat": 2, "steps": [
-            { "type": "interval", "duree_s": 480, "cible": { "type": "allure", "min": "5:32", "max": "5:25" } },
-            { "type": "recovery", "duree_s": 180 }
-          ]},
-          { "type": "cooldown", "duree_s": 600 }
-        ]
+      "recup_inter_blocs": {
+        "duree_s": 180,
+        "mode": "marche",
+        "fc_fin": 113,
+        "chute_bpm": 64
+      },
+      "retour_au_calme": {
+        "duree_s": 600,
+        "dist_m": 1204,
+        "allure": "8:19",
+        "fc_moy": 135
+      },
+      "temps_au_seuil_min": 16,
+      "temps_au_dessus_175_s": 145,
+      "erreurs_de_prescription": [
+        "Fenêtre d'allure de 7 secondes (5:32–5:25) sur les blocs de 8 min : la montre sonne en continu dès 5 s d'écart. La séance a été pilotée par l'alarme, pas par la sensation. Fenêtre minimale utilisable : 20 s.",
+        "Cible d'allure 2:45–3:00 sur un pas de 20 s : illisible sur jauge GPS. Les lignes droites se prescrivent en clair, sans cible chiffrée.",
+        "Première lecture de la séance par Claude : la 2e moitié du bloc 1 a été attribuée à un départ trop rapide, par pattern-matching sur un défaut connu de l'athlète, sans envisager la cause instrumentale. Corrigé après retour de l'athlète.",
+        "Deuxième lecture par Claude : le niveau de l'athlète a été estimé à partir du 10 km du 7 juin (5:28/km), une course avec bouchon au départ et terminée avec de la réserve — donc non maximale. Le bon repère était le 10 km du 4 juillet (5:17/km, effort relatif 217) et le 5 km du 2 juillet (4:51/km). Fourchette de seuil sous-évaluée d'environ 10 s/km en conséquence. Corrigé après relecture de l'historique Strava."
+      ],
+      "analyse": {
+        "verdict": "Séance courue plus vite que prescrit, pas plus lentement. Les deux blocs sortent à 5:01 et 5:12 pour une cible à 5:25–5:32, à 169 et 166 bpm de moyenne. Le protocole d'échauffement est acquis. Deux défauts de prescription rendent la séance partiellement illisible : une fenêtre d'allure de 7 secondes qui a fait sonner la montre en continu, et une fourchette de seuil elle-même trop lente d'une dizaine de secondes au kilomètre.",
+        "corps": "CE QUI EST ACQUIS. Échauffement de 15 minutes à 139 bpm de moyenne, 145 de maximum : le plafond est tenu au bpm près, pour la première fois. Enchaînement dernière ligne droite → premier bloc : immédiat, contre quatre minutes d'attente le 2 septembre. Les deux corrections issues du demi-Cooper sont en place et n'ont plus besoin d'être répétées.\n\nCE QUI A CASSÉ LA SÉANCE. La fenêtre d'allure poussée sur la montre faisait sept secondes de large. À 5:01, l'athlète était vingt-quatre secondes hors plage : alarme continue. La 2e moitié du bloc 1, à 5:38 pour 4:31 sur la première, n'est donc pas un effondrement — c'est une obéissance à l'alarme. Le profil de FC le confirme : redescente à 170-171 en milieu de bloc, remontée à 177 en fin. Une défaillance aérobie ne produit pas cette forme. Le bloc 2 est un ralentissement délibéré, annoncé comme tel par l'athlète.\n\nCE QUE LA SÉANCE PERMET QUAND MÊME DE LIRE. Le bloc 2, hors montée initiale de FC, tient un coût par kilomètre plat (+0,3 %) à 5:12/km. C'est la meilleure information de la journée : la FC y monte encore en fin de fraction, jusqu'à 173. Ça situe le seuil réel autour de 5:15–5:25/km, soit légèrement plus rapide que la fourchette prescrite, mais pas de quoi requalifier la VMA du 2 septembre.\n\nSUR LA SENSATION DE PETITE SÉANCE. Elle est juste, et elle porte sur la dose : 84 d'effort relatif, contre 130 pour la sortie de récupération du 4 septembre. Seize minutes de travail, c'est peu — c'est volontaire pour une première séance de seuil, et c'est ce que le bloc fait progresser (24 min le 14). Sur ce point la réponse reste : plus de minutes.\n\nSUR L'ALLURE, EN REVANCHE, L'ATHLÈTE A RAISON ET LA PRESCRIPTION AVAIT TORT. Trois lignes indépendantes convergent sur un seuil réel à 5:15–5:20/km : 85–88 % d'une VMA de 13,1 km/h donnent 5:12–5:24 ; le 10 km solo du 4 juillet à 5:17/km avec un effort relatif de 217 place l'allure de 10 km à ce niveau ; et le bloc 2 d'aujourd'hui, couru à 5:12/km avec une FC qui monte encore à 173 en fin de fraction, situe le seuil juste en dessous. La fourchette 5:25–5:32 était trop lente. Elle est corrigée à 5:12–5:25 à partir du 14 septembre.\n\nCE QUI NE TIENT PAS DANS LE 4:45. Le meilleur 5 km de l'athlète sur douze mois est à 4:51/km (2 juillet 2026). Le 4:45 revendiqué est donc plus rapide que son allure de 5 km, proposé pour 16 à 24 minutes de travail fractionné. On ne tient pas au seuil une allure supérieure à son allure de 5 km. La contrainte ne vient pas d'une estimation, elle vient de son propre meilleur chrono récent. Confirmation accessoire dans les données du jour : la première moitié du bloc 1, courue à 4:31/km pendant quatre minutes, avait déjà porté la FC à 176.\n\nCOÛT RÉEL. 145 secondes passées au-dessus de 175 bpm, plafond dur de la séance. Ce n'est pas une séance chère en volume, mais elle l'est en intensité : la réserve posée sur le test de référence du 10 doit être déplacée de 890–910 à 900–920 b/km."
+      },
+      "reperes_historiques": {
+        "5km_median_nov2025_mai2026": "4:56–4:59/km",
+        "5km_meilleur_2026": "4:51/km (2 juillet 2026, 7 records personnels)",
+        "10km_solo_4_juillet_2026": "5:17/km, effort relatif 217",
+        "10km_liberte_7_juin_2026": "5:28/km — non maximal (bouchon au départ, réserve à l'arrivée), ne pas utiliser comme repère de niveau",
+        "coupure": "33 jours sans course du 4 juillet au 6 août 2026, puis reprise à 6:00–7:20/km",
+        "lecture": "La VMA du 2 septembre (13,1 km/h) est cohérente avec le 10 km du 4 juillet : la vitesse a tenu, c'est la base aérobie qui a été perdue pendant la coupure."
       }
     },
     {
-      "id": "p-2026-09-10", "date": "2026-09-10", "statut": "prevu", "type": "z2",
-      "titre": "Test de référence — 40 min, boucle de La Prairie", "lieu": "La Prairie & hippodrome, Caen", "creneau": "8h10",
-      "cible": { "duree_min": 40, "distance_km": 6.6, "allure": "6:05–6:20", "fc_min": 135, "fc_max": 145 },
+      "id": "p-2026-09-10",
+      "date": "2026-09-10",
+      "statut": "prevu",
+      "type": "z2",
+      "titre": "Test de référence — 40 min, boucle de La Prairie",
+      "lieu": "La Prairie & hippodrome, Caen",
+      "creneau": "8h10",
+      "cible": {
+        "duree_min": 40,
+        "distance_km": 6.6,
+        "allure": "6:05–6:20",
+        "fc_min": 135,
+        "fc_max": 145
+      },
       "consigne": "Le test dans son format correct, celui du 17 août : quarante minutes, boucle de La Prairie et de l'hippodrome, même sens, rien au-delà. Coût à battre : 873 b/km.",
       "points": [
         "Km 1 à 6:20 minimum, 135 bpm maximum. Regarde la montre au 500e mètre : au premier kilomètre, c'est déjà joué.",
         "Pas de lignes droites avant : c'est une Z2, l'échauffement franc du 8 ne s'applique pas ici. Tu pars froid et tu montes progressivement.",
         "Aucun prolongement vers Louvigny — c'est exactement ce qui a rendu le 29 août illisible.",
-        "Réserve posée d'avance : c'est un J+2 de seuil, ce que le 17 août n'était pas. Entre 890 et 910 b/km, ce n'est pas une régression."
+        "Réserve posée d'avance : c'est un J+2 de seuil, et le seuil du 8 a coûté plus cher que prévu (145 s au-dessus de 175 bpm). Entre 900 et 920 b/km, ce n'est pas une régression."
       ]
     },
     {
@@ -135,10 +235,79 @@
       ]
     },
     {
-      "id": "p-2026-09-14", "date": "2026-09-14", "statut": "prevu", "type": "seuil",
-      "titre": "3 × 8 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 55, "distance_km": 9.2, "allure": "5:25–5:32", "fc_min": 162, "fc_max": 172, "structure": "Échauffement 15 min + 3 lignes droites franches · 3 × 8 min · récup 3 min trot · retour au calme 10 min", "temps_au_seuil_min": 24 },
-      "consigne": "Même protocole d'échauffement que le 8 : une seule activité, 15 min sous 145 bpm, lignes droites à 2:45–3:00/km, moins de 90 s avant la première fraction.\n\nLe troisième bloc doit être au même chrono que le premier. S'il est plus lent, tu es parti trop vite. Allure à réajuster si le 8 septembre a montré que 13,1 km/h sous-estimait la VMA."
+      "id": "p-2026-09-14",
+      "date": "2026-09-14",
+      "statut": "prevu",
+      "type": "seuil",
+      "titre": "3 × 8 min au seuil",
+      "lieu": "Plat",
+      "creneau": "Fin de matinée",
+      "cible": {
+        "duree_min": 55,
+        "distance_km": 9.5,
+        "allure": "5:12–5:25",
+        "fc_min": 160,
+        "fc_max": 172,
+        "structure": "Échauffement 15 min + 3 lignes droites franches · 3 × 8 min · récup 3 min trot · retour au calme 10 min",
+        "temps_au_seuil_min": 24
+      },
+      "consigne": "Deux corrections par rapport au 8. La fourchette d'allure passe à 5:12–5:25 : la précédente était trop lente, ton 10 km du 4 juillet à 5:17 et ta VMA du 2 septembre disent la même chose. Et plus aucune cible chiffrée sur les lignes droites — la montre ne doit plus sonner en continu.\n\nLes trois blocs au même chrono. Vise 5:15–5:18. Si les trois sortent à cette allure sans que tu te sentes limité, on remonte encore au 22.",
+      "points": [
+        "Lignes droites : vite, sans sprinter. Pas de jauge à regarder, elle ne sert à rien sur 20 secondes.",
+        "Une seule activité, séparation au bouton BACK. Moins de 90 s entre la dernière ligne droite et le premier bloc — c'était bon le 8.",
+        "Plafond FC à 172, dur. Au-dessus, tu ralentis dans la fraction, sans attendre la fin.",
+        "Bloc 3 au même chrono que le bloc 1. Plus lent, c'est que tu es parti trop vite — et cette fois ni l'alarme d'allure ni une fourchette trop lente ne pourront servir d'explication."
+      ],
+      "workout": {
+        "nom": "S38 · 3 × 8 min au seuil",
+        "steps": [
+          {
+            "type": "warmup",
+            "duree_s": 900,
+            "cible": {
+              "type": "fc",
+              "min": 120,
+              "max": 145
+            }
+          },
+          {
+            "repeat": 3,
+            "steps": [
+              {
+                "type": "interval",
+                "libelle": "Ligne droite — vite, sans sprinter",
+                "duree_s": 20
+              },
+              {
+                "type": "recovery",
+                "duree_s": 60
+              }
+            ]
+          },
+          {
+            "repeat": 3,
+            "steps": [
+              {
+                "type": "interval",
+                "duree_s": 480,
+                "cible": {
+                  "type": "allure",
+                  "min": "5:25",
+                  "max": "5:12"
+                }
+              },
+              {
+                "type": "recovery",
+                "duree_s": 180
+              }
+            ]
+          },
+          {
+            "type": "cooldown",
+            "duree_s": 600
+          }
+        ]
+      }
     },
     {
       "id": "p-2026-09-15", "date": "2026-09-15", "statut": "prevu", "type": "renfo",
@@ -163,10 +332,23 @@
       "cible": { "duree_min": 25 }, "consigne": ""
     },
     {
-      "id": "p-2026-09-22", "date": "2026-09-22", "statut": "prevu", "type": "seuil",
-      "titre": "2 × 12 min au seuil", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 55, "distance_km": 8.9, "allure": "5:25–5:35", "fc_min": 165, "fc_max": 173, "structure": "Échauffement 15 min + 3 lignes droites franches · 2 × 12 min · récup 4 min trot · retour au calme 10 min", "temps_au_seuil_min": 24 },
-      "consigne": "Même volume qu'en semaine 38, mais en deux fractions : la difficulté monte d'un cran sans que l'allure change."
+      "id": "p-2026-09-22",
+      "date": "2026-09-22",
+      "statut": "prevu",
+      "type": "seuil",
+      "titre": "2 × 12 min au seuil",
+      "lieu": "Plat",
+      "creneau": "Fin de matinée",
+      "cible": {
+        "duree_min": 55,
+        "distance_km": 9.1,
+        "allure": "5:15–5:28",
+        "fc_min": 165,
+        "fc_max": 173,
+        "structure": "Échauffement 15 min + 3 lignes droites franches · 2 × 12 min · récup 4 min trot · retour au calme 10 min",
+        "temps_au_seuil_min": 24
+      },
+      "consigne": "Même volume qu'en semaine 38, mais en deux fractions : la difficulté monte d'un cran sans que l'allure change. Fourchette recalée sur le seuil corrigé du 8 septembre, et élargie à 13 s — une fenêtre étroite fait sonner la montre en continu et pilote la séance à la place de la sensation."
     },
     {
       "id": "p-2026-09-24", "date": "2026-09-24", "statut": "prevu", "type": "z2",
@@ -181,10 +363,23 @@
       "consigne": "La plus longue du bloc jusqu'ici. Prends une flasque."
     },
     {
-      "id": "p-2026-09-28", "date": "2026-09-28", "statut": "prevu", "type": "seuil",
-      "titre": "20 min de tempo continu", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 45, "distance_km": 7.5, "allure": "5:35–5:45", "fc_min": 158, "fc_max": 168, "structure": "Échauffement 15 min · 20 min continues · retour au calme 10 min", "temps_au_seuil_min": 20 },
-      "consigne": "Un seul bloc, légèrement plus lent que le seuil. Test de tenue mentale, pas de performance. Semaine allégée : ne cherche pas à en faire plus."
+      "id": "p-2026-09-28",
+      "date": "2026-09-28",
+      "statut": "prevu",
+      "type": "seuil",
+      "titre": "20 min de tempo continu",
+      "lieu": "Plat",
+      "creneau": "Fin de matinée",
+      "cible": {
+        "duree_min": 45,
+        "distance_km": 7.5,
+        "allure": "5:25–5:38",
+        "fc_min": 158,
+        "fc_max": 168,
+        "structure": "Échauffement 15 min · 20 min continues · retour au calme 10 min",
+        "temps_au_seuil_min": 20
+      },
+      "consigne": "Un seul bloc, légèrement plus lent que le seuil (recalé après le 8 septembre). Test de tenue mentale, pas de performance. Semaine allégée : ne cherche pas à en faire plus."
     },
     {
       "id": "p-2026-09-30", "date": "2026-09-30", "statut": "prevu", "type": "z2",
