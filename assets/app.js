@@ -502,8 +502,68 @@ function detailCoursePrevue(s) {
     ${ted(s.consigne, 'coach')}
     ${s.lieu ? `<p class="seance__lieu">${esc(s.lieu)}</p>` : ''}
     ${puces.length ? `<div class="cible-puces">${puces.map((p) => `<span class="cible-puce">${esc(p)}</span>`).join('')}</div>` : ''}
-    ${structure ? `<p class="seance__structure">${esc(structure)}</p>` : ''}
+    ${deroule(s) || (structure ? `<p class="seance__structure">${esc(structure)}</p>` : '')}
+    ${pointsCles(s)}
     <a class="seance__montre" data-date="${s.date}" data-type="${s.type}" hidden>${glyphe('arrow-down')}Envoyer sur la montre</a>`;
+}
+
+/* ---------- Déroulé et points clés ---------- */
+
+// Le déroulé se lit dans workout.steps : exactement la donnée envoyée sur la
+// montre, l'écran et la montre ne peuvent donc pas diverger. Sans workout, on
+// retombe sur la phrase libre de cible.structure.
+const STEP_LIBELLE = {
+  warmup: 'Échauffement', interval: 'Fraction', recovery: 'Récup', cooldown: 'Retour au calme'
+};
+
+function dureeStep(st) {
+  if (st.distance_m) return `${String(st.distance_m).replace('.', ',')} m`;
+  const s = st.duree_s || 0;
+  if (!s) return '';
+  return s % 60 === 0 ? `${s / 60} min` : `${s} s`;
+}
+
+// convention du fichier (voir SCHEMA.md) : cible.min est la borne lente,
+// cible.max la rapide. À l'écran on lit toujours de la plus rapide à la plus lente.
+function cibleStep(c) {
+  if (!c) return '';
+  if (c.type === 'fc') {
+    if (c.min && c.max) return `FC ${c.min}–${c.max}`;
+    return c.max ? `FC ≤ ${c.max}` : `FC ≥ ${c.min}`;
+  }
+  if (c.type === 'allure') return `${c.max}–${c.min}/km`;
+  return '';
+}
+
+function lignesDeroule(steps, repet) {
+  return (steps || []).flatMap((st) => (st.repeat
+    ? lignesDeroule(st.steps, st.repeat)
+    : [{
+      repet: repet ? `${repet} ×` : '',
+      quoi: st.libelle || STEP_LIBELLE[st.type] || st.type,
+      duree: dureeStep(st),
+      cible: cibleStep(st.cible)
+    }]));
+}
+
+function deroule(s) {
+  const lignes = s.workout ? lignesDeroule(s.workout.steps) : [];
+  if (!lignes.length) return '';
+  return `<h3 class="section-titre">Déroulé</h3>
+    <div class="deroule">${lignes.map((l) => `<div class="deroule__ligne">
+      <span class="deroule__repet">${esc(l.repet)}</span>
+      <span class="deroule__quoi">${esc(l.quoi)}</span>
+      <span class="deroule__duree">${esc(l.duree)}</span>
+      ${l.cible ? `<span class="deroule__cible">${esc(l.cible)}</span>` : ''}
+    </div>`).join('')}</div>`;
+}
+
+// Les points ne redisent pas le déroulé : ils disent ce qui fait rater la séance.
+// Des impératifs courts, quatre au maximum — au-delà, plus rien ne ressort.
+function pointsCles(s) {
+  if (!s.points || !s.points.length) return '';
+  return `<h3 class="section-titre">À retenir</h3>
+    <ul class="points">${s.points.map((p) => `<li class="points__l">${esc(p)}</li>`).join('')}</ul>`;
 }
 
 function detailCourseRealisee(s) {
@@ -620,6 +680,7 @@ function detailRenfo(s) {
     <div class="seance__meta">${dateFr(s.date)} · S${numSemaine(s.date)}</div>
     ${ted(s.consigne, 'coach')}
     ${noteDose}
+    ${pointsCles(s)}
     ${exos}`;
 }
 
