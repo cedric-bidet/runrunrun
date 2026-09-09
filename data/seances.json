@@ -1,6 +1,6 @@
 {
   "version": "3.2",
-  "maj": "2026-09-08",
+  "maj": "2026-09-09",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -74,15 +74,23 @@
       }
     },
     {
-      "id": "p-2026-09-07", "date": "2026-09-07", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
-      "cible": { "duree_min": 25 },
-      "consigne": "Une seule séance de renfo par semaine à partir d'ici : le seuil prend la priorité. Position calculée : J-3 du test du 10, donc sans effet sur lui.",
-      "points": [
-        "Mollet genou fléchi : trois secondes à la descente, et le genou reste fléchi en haut.",
-        "S'il se tend, le gastrocnémien prend le relais et le soléaire ne travaille plus.",
-        "Il limite depuis le 20 août : c'est normal sur un exercice de force locale, et c'est la raison de ne pas le changer."
-      ]
+      "id": "r-2026-09-07",
+      "date": "2026-09-07",
+      "statut": "realise",
+      "type": "renfo",
+      "titre": "Renforcement B — 3 séries pleines, le soléaire ne limite plus",
+      "bloc_renfo": "B",
+      "creneau": "Libre",
+      "duree_min": 25,
+      "series_realisees": "3 séries complètes sur les quatre exercices",
+      "point_limitant": "Aucun",
+      "commentaire_athlete": "Séance facile.",
+      "analyse": {
+        "verdict": "Le mollet genou fléchi ne limite plus. C'est le premier changement d'état sur le bloc B depuis le 20 août, et il ferme la voie de progression par le volume : trois séries pleines sans point limitant, il n'y a plus rien à ajouter de ce côté.",
+        "corps": "CE QUI A CHANGÉ. Le soléaire limitait sur les deux séances de bloc B précédentes, depuis le 20 août. Trois séries pleines aujourd'hui, aucun point limitant signalé, séance perçue comme facile. Sur un exercice de force locale, c'est le signal attendu : la charge est devenue insuffisante.\n\nLA RÉSERVE, ET ELLE COMPTE. « Aucun point limitant » a deux lectures sur une séance de force, et rien dans les données ne permet de les séparer. Soit le soléaire a progressé et la charge est dépassée. Soit le tempo excentrique n'a pas été tenu — trois secondes à la descente, genou fléchi en haut — auquel cas la séance a été facile parce qu'elle n'a pas travaillé. La distinction ne se lit pas dans le nombre de séries, seulement dans la qualité par répétition. Les deux hypothèses mènent à la même décision, ce qui rend l'arbitrage inutile pour la suite mais pas pour la lecture : si le tempo était tenu, le passage en unilatéral va relimiter immédiatement ; s'il ne l'était pas, l'unilatéral rendra le défaut impossible à ignorer, parce qu'on ne triche pas sur une jambe.\n\nDÉCISION. Le mollet genou fléchi passe en unilatéral à partir du 23 septembre, deux séries par jambe. Deux raisons, et la seconde pèse plus que la première : c'est le seul levier de charge qui reste, et l'instabilité de cheville fait du travail unilatéral la priorité structurelle du programme — les semelles compensent, elles ne corrigent pas.\n\nERREUR DE PLACEMENT, DE MON FAIT. La consigne du 7 situait la séance à J-3 du test de référence du 10, et concluait qu'elle était sans effet. Elle ne mentionnait pas qu'elle tombait à J-1 de la première séance de seuil du bloc, le 8. Le 19 août a pourtant établi qu'un renfo laisse environ 4 % de coût cardiaque supplémentaire le lendemain. L'effet n'est pas visible dans les données du 8 — séance courue plus vite que prescrit, aucun signe de fatigue — mais le raisonnement était incomplet, et il produisait la même faute une semaine plus tard : le renfo B était placé le 21, veille du seuil du 22. Décalé au 23. Règle posée : le renfo passe après la séance de seuil, jamais avant.",
+        "a_retenir": "Sur un exercice de force locale, l'absence de point limitant n'est pas une bonne nouvelle en soi — c'est le signal qu'il faut changer l'exercice, pas ajouter des séries. Et le renfo se place désormais après le seuil dans la semaine, pas la veille.",
+        "note": "bon"
+      }
     },
     {
       "id": "20085800233",
@@ -99,7 +107,7 @@
       "effort_relatif": 84,
       "cadence_spm": 161,
       "temperature_c": "21 à 23",
-      "conditions": "11h40, fin de matinée. Capteur à 29 °C au départ (encore chaud au poignet), stabilisé entre 21 et 23 °C sur toute la séance. Hippodrome et voie verte, 25 m de dénivelé cumulé. Une seule activité du début à la fin, treize laps propres au bouton BACK.",
+      "conditions": "11h40, fin de matinée. Capteur à 29 °C au départ (encore chaud au poignet), stabilisé entre 21 et 23 °C sur toute la séance. Hippodrome et voie verte, 25 m de dénivelé cumulé. Une seule activité du début à la fin, treize laps propres au bouton BACK. J+1 du renfo B du 7 septembre (information ajoutée le 9 septembre, après confirmation de la séance).",
       "commentaire_athlete": "Sur les 3×20 s je n'avais pas mon allure affichée, impossible de me repérer. Sur les deux blocs, sensation constante de devoir ralentir, la montre sonnait tout le temps. Sur le bloc 2 j'ai donc essayé de ralentir. J'ai l'impression d'avoir fait une petite séance, j'aurais pu faire 4:45 sur les 2×8 min.",
       "echauffement": {
         "duree_s": 900,
@@ -185,7 +193,8 @@
         "Fenêtre d'allure de 7 secondes (5:32–5:25) sur les blocs de 8 min : la montre sonne en continu dès 5 s d'écart. La séance a été pilotée par l'alarme, pas par la sensation. Fenêtre minimale utilisable : 20 s.",
         "Cible d'allure 2:45–3:00 sur un pas de 20 s : illisible sur jauge GPS. Les lignes droites se prescrivent en clair, sans cible chiffrée.",
         "Première lecture de la séance par Claude : la 2e moitié du bloc 1 a été attribuée à un départ trop rapide, par pattern-matching sur un défaut connu de l'athlète, sans envisager la cause instrumentale. Corrigé après retour de l'athlète.",
-        "Deuxième lecture par Claude : le niveau de l'athlète a été estimé à partir du 10 km du 7 juin (5:28/km), une course avec bouchon au départ et terminée avec de la réserve — donc non maximale. Le bon repère était le 10 km du 4 juillet (5:17/km, effort relatif 217) et le 5 km du 2 juillet (4:51/km). Fourchette de seuil sous-évaluée d'environ 10 s/km en conséquence. Corrigé après relecture de l'historique Strava."
+        "Deuxième lecture par Claude : le niveau de l'athlète a été estimé à partir du 10 km du 7 juin (5:28/km), une course avec bouchon au départ et terminée avec de la réserve — donc non maximale. Le bon repère était le 10 km du 4 juillet (5:17/km, effort relatif 217) et le 5 km du 2 juillet (4:51/km). Fourchette de seuil sous-évaluée d'environ 10 s/km en conséquence. Corrigé après relecture de l'historique Strava.",
+        "Placement du renfo B du 7 septembre : sa consigne ne le situait que par rapport au test du 10 (J-3), en omettant qu'il tombait à J-1 de la première séance de seuil du bloc. Le 19 août a établi un surcoût cardiaque de 4 % à J+1 d'un renfo. Effet non mesurable ici (séance courue plus vite que prescrit, aucun signe de fatigue), mais le placement était fautif et se reproduisait à l'identique le 21 septembre. Corrigé : renfo décalé au 23."
       ],
       "analyse": {
         "verdict": "Séance courue plus vite que prescrit, pas plus lentement. Les deux blocs sortent à 5:01 et 5:12 pour une cible à 5:25–5:32, à 169 et 166 bpm de moyenne. Le protocole d'échauffement est acquis. Deux défauts de prescription rendent la séance partiellement illisible : une fenêtre d'allure de 7 secondes qui a fait sonner la montre en continu, et une fourchette de seuil elle-même trop lente d'une dizaine de secondes au kilomètre.",
@@ -327,11 +336,6 @@
       "consigne": "Décalée au vendredi : semaine de garde."
     },
     {
-      "id": "p-2026-09-21", "date": "2026-09-21", "statut": "prevu", "type": "renfo",
-      "titre": "Renforcement B", "bloc_renfo": "B", "creneau": "Libre",
-      "cible": { "duree_min": 25 }, "consigne": ""
-    },
-    {
       "id": "p-2026-09-22",
       "date": "2026-09-22",
       "statut": "prevu",
@@ -351,10 +355,22 @@
       "consigne": "Même volume qu'en semaine 38, mais en deux fractions : la difficulté monte d'un cran sans que l'allure change. Fourchette recalée sur le seuil corrigé du 8 septembre, et élargie à 13 s — une fenêtre étroite fait sonner la montre en continu et pilote la séance à la place de la sensation."
     },
     {
+      "id": "p-2026-09-23", "date": "2026-09-23", "statut": "prevu", "type": "renfo",
+      "titre": "Renforcement B — mollet genou fléchi en unilatéral", "bloc_renfo": "B", "creneau": "Libre",
+      "cible": { "duree_min": 25 },
+      "consigne": "Décalé du lundi au mercredi. Le 21 tombait la veille du seuil du 22, exactement comme le 7 tombait la veille du seuil du 8. À partir d'ici le renfo se place après la séance de seuil, jamais avant.\n\nLe soléaire n'a plus limité le 7 septembre à trois séries pleines. Le nombre de séries n'est donc plus un levier : on passe en unilatéral.",
+      "points": [
+        "Mollet genou fléchi sur une jambe. Deux séries par jambe pour commencer, pas trois.",
+        "Trois secondes à la descente, genou fléchi en haut d'un bout à l'autre.",
+        "Si tu ne sens rien monter, c'est le tempo qui manque, pas la charge.",
+        "Cheville instable : l'unilatéral n'est pas seulement une progression de force, c'est le travail qui manque le plus."
+      ]
+    },
+    {
       "id": "p-2026-09-24", "date": "2026-09-24", "statut": "prevu", "type": "z2",
       "titre": "Z2, 45 min + 6 lignes droites", "lieu": "Plat", "creneau": "Fin de matinée — jeudi soir pris",
       "cible": { "duree_min": 45, "distance_km": 7.5, "allure": "6:00–6:15", "fc_min": 135, "fc_max": 145 },
-      "consigne": "Lignes droites en fin de séance, format Z2 : 4:00–4:15/km suffit ici, c'est un entretien neuromusculaire et non une pré-activation avant effort."
+      "consigne": "Lignes droites en fin de séance, format Z2 : 4:00–4:15/km suffit ici, c'est un entretien neuromusculaire et non une pré-activation avant effort. J+1 du renfo B : séance de récupération, son coût cardiaque ne se compare pas aux Z2 de référence."
     },
     {
       "id": "p-2026-09-26", "date": "2026-09-26", "statut": "prevu", "type": "sortie_longue",
