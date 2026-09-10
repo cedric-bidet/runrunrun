@@ -11,16 +11,25 @@ réexaminer d'abord.
 - Zones Karvonen : Z2 = 137–150
 - VMA 13,1 km/h, allure 4:35/km — demi-Cooper du 2026-09-02, 1310 m.
   Seule base de calcul des allures du bloc seuil.
-- Cadence de croisière 173–174 spm (valeur Garmin = valeur Strava × 2)
+- Cadence de croisière 173–174 spm (valeur Garmin = valeur Strava × 2).
+  Travail volontaire sur la foulée en cours depuis le 2026-09-10 (182 spm relevés) :
+  la cadence n'est plus une variable passive, elle doit être lue comme une consigne
+  possible avant d'être lue comme un signal.
 
 **Test de référence Z2**
 - Record : **874 b/km**, le 2026-08-17, La Prairie & hippodrome, 40:06, 6,56 km, 143 bpm
   (la prose d'analyse de cette séance dit 873 ; voir section B)
 - Conditions strictes de comparabilité : boucle de La Prairie uniquement (8 m D+),
-  départ 8h10, 40 min, J-1 sans renforcement, jamais fusionné avec une sortie longue
+  départ 8h10, 40 min, J-1 sans renforcement, jamais fusionné avec une sortie longue,
+  **foulée normale** (aucun travail de cadence pendant le test)
+- Le test se court **le dimanche** à 8h10 depuis le 2026-09-10. En période scolaire,
+  8h10 en semaine n'existe pas : enfants à préparer et à déposer. Un créneau de
+  vacances ne se reconduit pas sans vérification.
 - Louvigny n'est PAS le parcours de référence (+22 m D+)
 - Une séance à `test_reference_valide: false` ne se trace jamais sur la même série
   qu'un test valide
+- **Seuil de signification : 25 b/km.** En dessous, on écrit « stable » et on attend le
+  point suivant — voir la section du 10 septembre.
 
 **Points de vigilance ouverts**
 - Km 1 systématiquement trop rapide et trop chargé en FC — 4 épisodes documentés
@@ -30,6 +39,8 @@ réexaminer d'abord.
   de FC est tenu, la dérive migre dans l'allure et l'indicateur FC devient aveugle
 - Fenêtre de calcul des deux dérives : km 2–4 contre les trois derniers km **pleins**.
   Un km partiel de fin n'entre jamais dans le calcul.
+- La sensation ne valide pas une séance facile. Le 2026-09-10, « facile de bout en bout »
+  a coexisté avec 23 min sur 40 au-dessus du plafond de FC et une dérive de 8,8 %.
 
 **Objectifs**
 - Sub-50 sur 10 km — course cible 2026-11-22
@@ -94,9 +105,12 @@ Fourchette de température relevée par le capteur de la montre sur la séance.
 
 RAISON : trois séances de fin de journée (10, 24, 31 août) ont été lues avec des conclusions
 très différentes sans que la température soit jamais consignée, alors qu'elle explique une
-part importante de l'écart. Le 24 août s'est couru entre 29 et 36 °C, le 31 entre 27 et 28 °C :
-sur le même parcours et le même type de créneau, l'écart de coût cardiaque est de 72 b/km.
-Sans ce champ, ces deux séances paraissent opposer une régression à un progrès.
+part importante de l'écart.
+
+**DÉCLASSÉ LE 10 SEPTEMBRE — voir la section de ce jour.** Ce champ contient une lecture de
+capteur au poignet, pas une température d'air. Toutes les valeurs consignées depuis le
+31 août sont surestimées, dans une proportion variable. Aucune conclusion thermique ne
+peut s'appuyer dessus sans recoupement météo.
 
 Rappel de calcul, valable pour les deux dérives : fenêtre km 2-4 contre les trois derniers km
 PLEINS. Un km partiel de fin n'entre jamais dans le calcul.
@@ -111,6 +125,10 @@ SHA était valide — vérifié par relecture, le fichier n'avait pas bougé. Le
 intégral est passé immédiatement via `push_files`, ce qui élimine l'hypothèse du volume.
 Avantage annexe : `push_files` ne réclame pas de SHA, donc plus de risque de conflit entre la
 lecture et l'écriture.
+
+Complément 10 septembre : le dépôt étant public, `curl` sur
+`raw.githubusercontent.com/cedric-bidet/runrunrun/main/...` permet de récupérer un fichier
+sans passer par l'API GitHub — utile pour éditer par script avant de pousser.
 
 ## Ajout 2 septembre (1) — `vma_kmh`, `allure_vma`, `distance_test_m`, `splits_minute`
 
@@ -132,7 +150,7 @@ la seconde (12h40), la FC est retombée à 117–120 bpm — vérifiable sur les
 secondes du stream. Sur un effort maximal on doit partir à 130–140. Conséquence : le chrono ne
 s'arrête jamais entre l'échauffement et les fractions, c'est le bouton Lap qui les sépare.
 
-**(b) Échauffement plus court et plus frais.** 22 min à 151 bpm de moyenne par 30 °C, c'est
+**(b) Échauffement plus court et plus frais.** 22 min à 151 bpm de moyenne, c'est
 coûteux sans être préparatoire. Cible : 15 min, FC sous 145.
 
 **(c) Lignes droites franches avant un effort maximal.** Le conseil donné la veille — « 4:00–
@@ -145,6 +163,11 @@ moins de 90 secondes entre la dernière ligne droite et le départ de la fractio
 
 Les défauts (b) et (c) ne se contredisent pas : l'échauffement était trop long et trop tiède en
 moyenne, et pas assez vif au sommet. Le problème est la forme, pas la quantité.
+
+Complément 8 septembre : ne jamais pousser de cible chiffrée sur les lignes droites. La jauge
+d'allure GPS met 5 à 10 s à se stabiliser, elle est illisible sur un pas de 20 s.
+Et fenêtre d'allure minimale sur une fraction : 20 s. En dessous, la montre sonne en continu
+et pilote la séance à la place de l'athlète.
 
 ## Note d'outillage 2 septembre — plafond d'écriture
 
@@ -206,3 +229,55 @@ lecture humaine, pas machine-lisible. Un parseur de langue naturelle qui se trom
 une séance de seuil produirait une séance fausse sur la montre, au pire moment, sans que
 rien ne le signale — d'où ce second champ structuré, en plus de `cible.structure` et non
 à sa place. Les deux doivent rester cohérents ; ce n'est pas vérifié automatiquement.
+
+## Ajout 10 septembre — incertitude de mesure : ce que la montre sait et ce qu'elle ne sait pas
+
+Établi après deux erreurs de lecture le même jour, toutes deux dues à une confiance excessive
+dans une valeur affichée.
+
+**(a) `temperature_c` n'est pas une température d'air.** Le capteur est au contact du poignet
+et lit majoritairement la chaleur corporelle. Le 10 septembre, il affichait 26–27 °C stabilisés
+alors qu'il faisait 18–19 °C sous un ciel couvert. L'artefact avait été repéré le 8 septembre
+(« 29 °C au départ, encore chaud au poignet ») mais supposé transitoire : il ne l'est pas. Le
+biais persiste toute la séance et varie avec l'allure et le vent — plus faible sur une séance
+rapide, plus fort sur une Z2 lente, ce qui le rend inutilisable même comme correction
+constante. Conséquence rétroactive : les 30 °C du 2 septembre sont impossibles (maximum réel
+à Caen ce jour-là : 22 °C), et la pénalité thermique de 2–3 % imposée au demi-Cooper a été
+retirée. **Règle : aucune conclusion thermique sans relevé météo. Noter la température réelle
+au départ des tests.**
+
+**(b) Marges d'erreur des métriques, et ce qu'on peut en conclure.**
+
+| Indicateur | Marge | Statut |
+|---|---|---|
+| Dérive intra-séance (FC et coût/km) | faible | **fiable** — même capteur, même poignet, mêmes conditions ; les biais systématiques s'annulent |
+| FC moyenne | ±2 à 3 bpm en régime stable | utilisable, à vérifier contre un verrouillage sur la cadence |
+| Distance GPS | ±1 à 2 % | 6 507 m contre 6 558 m sur la même boucle = bruit, pas un écart de parcours |
+| Coût par kilomètre entre deux séances | **±15 à 20 b/km** | cumule les deux précédentes |
+| Effort relatif, calories | estimations Firstbeat | **non comparables** — 62 contre 58 ne veut rien dire |
+
+**RèGLE OPÉRATIONNELLE : sur le coût par kilomètre entre deux tests, seul un écart supérieur
+à 25 b/km compte comme signal.** En dessous, on écrit « stable » et on attend le point suivant.
+
+RAISON : l'écart entre 873 et 899 vaut 26 b/km, soit 3 % — à peine au-dessus du bruit.
+Traiter 873 comme un record à battre et poser une réserve « entre 900 et 920 » suppose une
+précision de l'ordre de 10 b/km que l'instrument n'a pas. La dérive intra-séance garde son
+seuil actuel : elle est bien plus fiable, parce qu'elle compare la montre à elle-même.
+
+**PISTE MATÉRIELLE :** une ceinture pectorale supprime la plus grosse des deux incertitudes.
+C'est le seul achat qui améliorerait réellement la qualité de la série de tests.
+
+## Ajout 10 septembre — protocole des tests de référence : ce qui ne change jamais
+
+Un test de référence ne mesure quelque chose que si tout le reste est constant. Le
+10 septembre, trois variables avaient bougé — l'horaire, la température supposée, et la
+foulée — rendant le résultat inexploitable comme point de série.
+
+Sur un jour de test : même heure, même parcours, même sens, **même foulée**. Le travail
+volontaire de cadence se place sur les Z2 ordinaires, par blocs courts, jamais sur une séance
+dont le coût est suivi sur une série.
+
+Et une règle de prescription plus générale, issue de l'erreur de créneau : **vérifier qu'un
+créneau reconduit existe encore dans la vie de l'athlète.** Un horaire établi pendant les
+vacances scolaires ne survit pas à la rentrée. Une prescription intenable n'est pas un
+manquement de l'athlète.
