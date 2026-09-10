@@ -1,6 +1,6 @@
 {
   "version": "3.2",
-  "maj": "2026-09-09",
+  "maj": "2026-09-10",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -212,27 +212,116 @@
       }
     },
     {
-      "id": "p-2026-09-10",
+      "id": "20114423630",
       "date": "2026-09-10",
-      "statut": "prevu",
+      "statut": "realise",
       "type": "z2",
-      "titre": "Test de référence — 40 min, boucle de La Prairie",
+      "titre": "Test de référence — protocole non tenu, résultat hors série",
       "lieu": "La Prairie & hippodrome, Caen",
-      "creneau": "8h10",
-      "cible": {
-        "duree_min": 40,
-        "distance_km": 6.6,
-        "allure": "6:05–6:20",
-        "fc_min": 135,
-        "fc_max": 145
+      "distance_km": 6.51,
+      "temps_s": 2418,
+      "fc_moy": 145,
+      "fc_max": 159,
+      "denivele": 8,
+      "effort_relatif": 62,
+      "cadence_spm": 182,
+      "temperature_c": "26 à 27",
+      "conditions": "11h46 au lieu du créneau prescrit de 8h10 : enfants à préparer et à emmener à l'école. Capteur stabilisé à 26–27 °C sur toute la séance, contre 23 °C le 17 août à 8h10. Boucle de La Prairie et de l'hippodrome, format identique au 17 août — 40 min, même sens, 8 m de dénivelé, aucun prolongement vers Louvigny. Foulée volontairement modifiée pendant la séance. J+2 du seuil du 8 septembre.",
+      "commentaire_athlete": "Facile de bout en bout. Travail volontaire sur la foulée.",
+      "test_reference_valide": false,
+      "cout_b_km": 899,
+      "derive_reelle_pct": 9.8,
+      "derive_cout_km_pct": 8.8,
+      "derive_cout_km_hors_montee_pct": 4.9,
+      "temps_au_dessus_145_s": 1402,
+      "temps_au_dessus_150_s": 953,
+      "splits": [
+        {
+          "km": 1,
+          "temps_s": 369,
+          "allure": "6:09",
+          "fc_moy": 126,
+          "cout_b_km": 776
+        },
+        {
+          "km": 2,
+          "temps_s": 374,
+          "allure": "6:14",
+          "fc_moy": 143,
+          "cout_b_km": 888
+        },
+        {
+          "km": 3,
+          "temps_s": 377,
+          "allure": "6:17",
+          "fc_moy": 144,
+          "cout_b_km": 906
+        },
+        {
+          "km": 4,
+          "temps_s": 364,
+          "allure": "6:04",
+          "fc_moy": 150,
+          "cout_b_km": 910
+        },
+        {
+          "km": 5,
+          "temps_s": 372,
+          "allure": "6:12",
+          "fc_moy": 153,
+          "cout_b_km": 947
+        },
+        {
+          "km": 6,
+          "temps_s": 372,
+          "allure": "6:12",
+          "fc_moy": 152,
+          "cout_b_km": 942
+        },
+        {
+          "km": 7,
+          "dist_km": 0.51,
+          "temps_s": 190,
+          "allure": "6:14",
+          "fc_moy": 153,
+          "cout_b_km": 950
+        }
+      ],
+      "moities": {
+        "demi_1": {
+          "dist_m": 3241,
+          "allure": "6:13",
+          "fc_moy": 138.4,
+          "cout_b_km": 861
+        },
+        "demi_2": {
+          "dist_m": 3266,
+          "allure": "6:10",
+          "fc_moy": 151.9,
+          "cout_b_km": 937
+        }
       },
-      "consigne": "Le test dans son format correct, celui du 17 août : quarante minutes, boucle de La Prairie et de l'hippodrome, même sens, rien au-delà. Coût à battre : 873 b/km.",
-      "points": [
-        "Km 1 à 6:20 minimum, 135 bpm maximum. Regarde la montre au 500e mètre : au premier kilomètre, c'est déjà joué.",
-        "Pas de lignes droites avant : c'est une Z2, l'échauffement franc du 8 ne s'applique pas ici. Tu pars froid et tu montes progressivement.",
-        "Aucun prolongement vers Louvigny — c'est exactement ce qui a rendu le 29 août illisible.",
-        "Réserve posée d'avance : c'est un J+2 de seuil, et le seuil du 8 a coûté plus cher que prévu (145 s au-dessus de 175 bpm). Entre 900 et 920 b/km, ce n'est pas une régression."
-      ]
+      "comparaison_17_aout": {
+        "heure": "8h10 contre 11h46",
+        "temperature_c": "23 contre 26–27",
+        "distance_km": "6.56 contre 6.51",
+        "temps_s": "2406 contre 2418",
+        "allure": "6:07 contre 6:12",
+        "cadence_spm": "173 contre 182",
+        "fc_moy": "142,8 (déduite du coût) contre 145,2",
+        "cout_b_km": "873 contre 899",
+        "lecture": "Format de parcours identique, trois conditions de protocole différentes. Les 899 b/km ne se tracent pas sur la même série que les 873."
+      },
+      "erreurs_de_prescription": [
+        "Créneau 8h10 reconduit un jeudi de période scolaire. Le 17 août tombait pendant les vacances : ce créneau n'existe plus depuis la rentrée, et il n'existera plus une seule fois d'ici au 29 novembre sur un jour d'école. Le protocole a été reconduit sans vérifier qu'il restait tenable — c'est la cause directe des 11h46 et de l'invalidation du test. Corrigé : le test de référence passe au dimanche matin, prochain rendez-vous le 20 septembre.",
+        "La consigne du jour n'interdisait pas de modifier la foulée. Un test d'étalonnage ne mesure quelque chose que si la mécanique de course est celle des tests précédents. Ajouté au protocole : sur un test de référence, rien ne change — ni l'heure, ni le parcours, ni la foulée."
+      ],
+      "analyse": {
+        "verdict": "Le test ne compte pas comme point de la série de référence : trois conditions du protocole ont bougé en même temps — horaire, température, foulée — et la première est de mon fait. Ce qui reste lisible malgré tout : 899 b/km, sous la réserve de 900–920 posée d'avance, une régularité d'allure inédite sur ce format, et une dérive de 8,8 % que la chaleur seule n'explique pas.",
+        "corps": "POURQUOI LE TEST NE COMPTE PAS. Le format du parcours a bien été respecté : boucle de La Prairie et de l'hippodrome, 40 minutes, 8 m de dénivelé, aucun prolongement — 6,51 km contre 6,56 le 17 août, à cinquante mètres près. C'est tout le reste qui a bougé. Départ à 11h46 contre 8h10, capteur stabilisé à 26–27 °C contre 23 °C, et une foulée volontairement modifiée en cours de séance. Un test de référence n'a de valeur que par ce qui ne change pas entre deux mesures ; ici trois variables ont changé d'un coup, et il devient impossible d'attribuer les 26 battements par kilomètre d'écart à l'une plutôt qu'aux autres.\n\nL'ERREUR DE CRÉNEAU M'INCOMBE. Le 17 août était un lundi de vacances scolaires. Le 10 septembre est un jeudi de rentrée, avec deux enfants à préparer et à déposer. J'ai reconduit un créneau de 8h10 sans vérifier qu'il restait atteignable, alors que l'obligation d'horaire standardisé est précisément ce qui donne sa valeur au test. Ce n'est pas un manquement de ton côté : la prescription était impossible à tenir telle qu'écrite. Le test de référence passe au dimanche matin, où 8h10 est réellement disponible.\n\nCE QUE DIT QUAND MÊME LE CHIFFRE. 899 b/km. La réserve posée d'avance, avant la séance, situait le résultat attendu entre 900 et 920 compte tenu du J+2 d'un seuil coûteux (145 s au-dessus de 175 bpm le 8). Tu es juste en dessous de la borne basse, et cela avec 3 à 4 °C de plus qu'au 17 août — soit environ 1 à 1,5 % de surcoût imputable à la seule température. Aucune lecture de régression n'est possible ici, dans un sens comme dans l'autre : c'est simplement conforme à ce qui était annoncé.\n\nLA RÉGULARITÉ D'ALLURE EST LE MEILLEUR RÉSULTAT DE LA SÉANCE. 6:09, 6:14, 6:17, 6:04, 6:12, 6:12, 6:14. Treize secondes d'amplitude sur quarante minutes, sur une séance où la consigne était de partir lentement et de monter progressivement. Le km 1 sort à 6:09 pour une borne basse à 6:20 — onze secondes trop vite, à noter, mais sans commune mesure avec le mécanisme documenté quatre fois en août. Sur ce point il n'y a plus rien à corriger.\n\nLE VRAI SIGNAL EST LA DÉRIVE, ET ELLE EST FIABLE. Première moitié : 138,4 bpm, 861 b/km. Seconde moitié : 151,9 bpm, 937 b/km. Soit +9,8 % sur la FC et +8,8 % sur le coût par kilomètre. Les deux indicateurs disent la même chose, ce qui exclut l'artefact : le cas piège est celui du 24 août, où un plafond de FC tenu masquait un effondrement de l'allure. Ici l'allure est plate de bout en bout, donc elle n'a rien absorbé, et la dérive est intégralement physiologique. Même en retirant les cinq premières minutes de montée en régime, il reste +4,9 %. La référence à format strictement identique est de 1,4 % le 31 août sur 40 minutes de Z2. Corollaire : le plafond de 145 bpm a été franchi pendant 23 minutes sur 40, avec une FC moyenne de 148,3 hors montée initiale et une pointe à 159.\n\nTROIS CAUSES S'EMPILENT, ET ELLES NE SONT PAS SÉPARABLES. Les 26–27 °C, le J+2 d'un seuil qui a coûté cher, et la foulée modifiée. Ce troisième facteur mérite d'être posé explicitement : 182 spm aujourd'hui contre 173 le 17 août, à cinq secondes au kilomètre près sur l'allure. Neuf pas d'écart que l'allure n'explique pas — le carnet avait établi le 4 septembre que la cadence suit l'allure, et ici elle ne la suit pas, parce qu'elle a été pilotée volontairement. Un schéma moteur en cours de modification n'est pas encore automatisé, et un schéma non automatisé consomme davantage d'oxygène à vitesse égale. C'est une hypothèse, pas une mesure, mais elle est cohérente avec l'ordre de grandeur observé.\n\nLA SENSATION NE SERT PAS DE VALIDATION ICI, ET C'EST LE POINT LE PLUS UTILE DE LA JOURNÉE. « Facile de bout en bout », pendant que la FC montait de 138 à 152 et passait 23 minutes au-dessus du plafond. Le 4 septembre, sensation et FC disaient la même chose — trop dur des deux côtés. Aujourd'hui elles divergent, et c'est la FC qui a raison : une allure ressentie comme facile pendant que le coût cardiaque monte de 9 %, c'est la définition d'une allure légèrement au-dessus du seuil aérobie du jour. Rien d'alarmant sur une séance ; ça le devient si la même chose se reproduit sur la sortie longue de 60 minutes du 12, où la même erreur coûte une demi-heure de plus.\n\nSUR LE TRAVAIL DE FOULÉE. Il est légitime et il a sa place — mais pas un jour de test, et pas en continu sur quarante minutes. Un jour de test de référence, rien ne change. Le reste du temps, la cadence se travaille par blocs courts sur les séances de Z2 ordinaires, dont le coût cardiaque n'est de toute façon pas suivi sur une série.",
+        "a_retenir": "Le test est perdu comme point de mesure, et la faute de créneau est la mienne : 8h10 en semaine n'existe plus depuis la rentrée, et je l'ai reconduit sans le vérifier. Le test de référence passe au dimanche matin. Deux choses acquises malgré tout : l'allure est d'une régularité qu'on n'avait jamais eue sur ce format, et le départ trop rapide ne se déclenche plus. Une chose à surveiller de près le 12 : « facile » et « FC qui dérive de 9 % » ont coexisté aujourd'hui — sur une heure, c'est la FC qui décide, pas la sensation.",
+        "note": "attention"
+      }
     },
     {
       "id": "p-2026-09-12", "date": "2026-09-12", "statut": "prevu", "type": "sortie_longue",
@@ -242,6 +331,7 @@
       "points": [
         "Plafond 150 bpm, et ce n'est pas indicatif : tu ralentis dès que tu le touches, même si l'allure tombe à 6:40.",
         "Le 4 septembre, la même consigne a donné 157 de moyenne et 170 en fin de parcours. Sur une heure, la même erreur coûte davantage.",
+        "Le 10 septembre, « facile » et une dérive de 9 % ont coexisté. La sensation ne valide rien : c'est la montre qui décide.",
         "Indicateur du jour : la dérive du coût par kilomètre. Sous 150 bpm et sur 60 minutes, viser sous 5 %."
       ]
     },
@@ -329,13 +419,37 @@
       "id": "p-2026-09-16", "date": "2026-09-16", "statut": "prevu", "type": "z2",
       "titre": "Z2, 40 min", "lieu": "Plat", "creneau": "Fin de matinée — mercredi soir pris",
       "cible": { "duree_min": 40, "distance_km": 6.6, "allure": "6:05–6:20", "fc_min": 135, "fc_max": 145 },
-      "consigne": "Séance de récupération, pas un test : J+1 du renfo A de la veille."
+      "consigne": "Séance de récupération, pas un test : J+1 du renfo A de la veille. C'est ici que le travail de cadence a sa place — par blocs courts, pas en continu, et sur une séance dont le coût n'est suivi sur aucune série."
     },
     {
       "id": "p-2026-09-18", "date": "2026-09-18", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
       "consigne": "Décalée au vendredi : semaine de garde."
+    },
+    {
+      "id": "p-2026-09-20",
+      "date": "2026-09-20",
+      "statut": "prevu",
+      "type": "z2",
+      "titre": "Test de référence — 40 min, boucle de La Prairie",
+      "lieu": "La Prairie & hippodrome, Caen",
+      "creneau": "Dimanche 8h10",
+      "cible": {
+        "duree_min": 40,
+        "distance_km": 6.6,
+        "allure": "6:05–6:20",
+        "fc_min": 135,
+        "fc_max": 145
+      },
+      "consigne": "Reprise du test du 10, au créneau où 8h10 est réellement tenable : dimanche, pas de jour d'école. Format du 17 août, rien de plus. Coût à battre : 873 b/km.\n\nUn test de référence ne mesure quelque chose que si rien n'a bougé depuis le précédent. Aujourd'hui, rien ne change.",
+      "points": [
+        "8h10, boucle de La Prairie et de l'hippodrome, même sens, aucun prolongement vers Louvigny.",
+        "Foulée normale. Aucun travail de cadence pendant le test — il reprend dès le lendemain sur les Z2 ordinaires.",
+        "Km 1 à 6:20 minimum, 135 bpm maximum. Regarde la montre au 500e mètre.",
+        "Pas de lignes droites avant : tu pars froid et tu montes progressivement.",
+        "Placement : J+2 de la sortie longue du 18, J-2 du seuil du 22. Séance facile par ailleurs, elle ne coûte rien au bloc."
+      ]
     },
     {
       "id": "p-2026-09-22",
