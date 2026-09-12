@@ -1,6 +1,6 @@
 {
   "version": "3.2",
-  "maj": "2026-09-10",
+  "maj": "2026-09-12",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -53,6 +53,7 @@
       "effort_relatif": 130, "cadence_spm": 174,
       "temperature_c": "26 à 30 (capteur montre — non fiable, voir erreurs du 10 septembre ; air réel vers 21–22)",
       "conditions": "11h38, fin de matinée. Plat, 16 m de dénivelé cumulé. J+2 du demi-Cooper du 2 septembre.",
+      "commentaire_athlete": "",
       "derive_reelle_pct": 7.3,
       "derive_cout_km_pct": 7.3,
       "splits": [
@@ -326,17 +327,56 @@
       }
     },
     {
-      "id": "p-2026-09-12", "date": "2026-09-12", "statut": "prevu", "type": "sortie_longue",
-      "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
-      "cible": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Première heure de course depuis la reprise, week-end libre. Si tu dois choisir entre tenir l'allure et tenir la FC, c'est toujours la FC.",
-      "points": [
-        "Plafond 150 bpm, et ce n'est pas indicatif : tu ralentis dès que tu le touches, même si l'allure tombe à 6:40.",
-        "Le 4 septembre, la même consigne a donné 157 de moyenne et 170 en fin de parcours. Sur une heure, la même erreur coûte davantage.",
-        "Le 10 septembre, « facile » et une dérive de 9 % ont coexisté. La sensation ne valide rien : c'est la montre qui décide.",
-        "Foulée normale ici aussi : on isole le facteur cadence avant de le réintroduire.",
-        "Indicateur du jour : la dérive du coût par kilomètre. Sous 150 bpm et sur 60 minutes, viser sous 5 %."
-      ]
+      "id": "20142241533",
+      "date": "2026-09-12",
+      "statut": "realise",
+      "type": "sortie_longue",
+      "titre": "Sortie longue, 60 min — plafond tenu deux tiers du temps, allure trop rapide de bout en bout",
+      "lieu": "Voie verte, Louvigny & stade Hélitas, Caen",
+      "distance_km": 10.09,
+      "temps_s": 3606,
+      "fc_moy": 150.1,
+      "fc_max": 163,
+      "denivele": 28,
+      "effort_relatif": 111,
+      "cadence_spm": 176,
+      "temperature_c": "20 à 21 (air, relevé météo Caen : min 12–13, max 21–24, ciel clair à variable) — capteur montre à 29–32, écarté",
+      "conditions": "12h26, samedi. Voie verte, petite boucle de Louvigny et stade Hélitas, 28 m de dénivelé cumulé. J+2 du test du 10 septembre. Découpage montre atypique : premier tour de 1 871 m (Lap tardif), puis huit tours de 1 000 m et un solde de 217 m. Les splits ci-dessous sont donc décalés de 871 m par rapport aux bornes kilométriques GPS — sans effet sur la lecture, les huit tours pleins restant des segments de 1 000 m. Temps passés au-dessus des seuils de FC estimés sur un échantillonnage à 36 s.",
+      "commentaire_athlete": "Pas de travail particulier sur la foulée aujourd'hui.",
+      "test_reference_valide": false,
+      "cout_b_km": 895,
+      "derive_reelle_pct": 3.0,
+      "derive_cout_km_pct": 5.4,
+      "temps_au_dessus_150_s": 2250,
+      "temps_au_dessus_155_s": 510,
+      "splits": [
+        { "km": 1, "dist_km": 1.871, "temps_s": 661, "allure": "5:53", "fc_moy": 139.9, "cout_b_km": 824 },
+        { "km": 2, "temps_s": 349, "allure": "5:49", "fc_moy": 152.0, "cout_b_km": 884 },
+        { "km": 3, "temps_s": 354, "allure": "5:54", "fc_moy": 148.7, "cout_b_km": 878 },
+        { "km": 4, "temps_s": 356, "allure": "5:56", "fc_moy": 150.5, "cout_b_km": 893 },
+        { "km": 5, "temps_s": 363, "allure": "6:03", "fc_moy": 150.5, "cout_b_km": 911 },
+        { "km": 6, "temps_s": 358, "allure": "5:58", "fc_moy": 150.8, "cout_b_km": 900 },
+        { "km": 7, "temps_s": 357, "allure": "5:57", "fc_moy": 152.6, "cout_b_km": 908 },
+        { "km": 8, "temps_s": 358, "allure": "5:58", "fc_moy": 155.4, "cout_b_km": 927 },
+        { "km": 9, "temps_s": 369, "allure": "6:09", "fc_moy": 156.7, "cout_b_km": 964 },
+        { "km": 10, "dist_km": 0.217, "temps_s": 83, "allure": "6:22", "fc_moy": 158.4, "cout_b_km": 1010 }
+      ],
+      "fenetre_derive": {
+        "debut": { "segments": "km 2-4", "allure": "5:53", "fc_moy": 150.4, "cout_b_km": 885 },
+        "fin": { "segments": "km 7-9", "allure": "6:01", "fc_moy": 154.9, "cout_b_km": 933 }
+      },
+      "cible_rappel": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
+      "erreurs_de_prescription": [
+        "Lecture à chaud par Claude, fenêtre de dérive : les deux dérives ont été calculées sur les quatre premiers kilomètres pleins contre les quatre derniers, ce qui donnait 3,7 %. Le protocole du carnet impose km 2-4 contre les trois derniers km pleins, soit 5,4 %. L'écart n'est pas cosmétique : la valeur annoncée passait sous l'objectif de 5 % alors qu'elle est au-dessus. Corrigé ici.",
+        "Lecture à chaud par Claude, température : la dérive a été attribuée pour « une bonne part » à la chaleur, sur la base du capteur de la montre à 29–32 °C, tout en reconnaissant dans la même phrase que ce capteur n'est pas fiable. Le relevé météo donne 21–24 °C de maximum à Caen ce jour-là, soit environ 20–21 °C à 12h26. La règle interdisant toute conclusion thermique sans relevé météo avait été posée le 10 septembre, deux jours plus tôt, après exactement la même erreur. Aucun rabais thermique n'est accordé : la dérive est physiologique et le prix de l'allure.",
+        "Lecture à chaud par Claude, départ : « le départ était propre » a été écrit en comparant le premier tour à la moyenne de la séance et au profil de montée en FC. Comparé à la prescription, il est 12 s/km trop rapide (5:53 pour une borne rapide à 6:05). Le jugement portait sur le mauvais référentiel."
+      ],
+      "analyse": {
+        "verdict": "Une heure pleine, 150,1 bpm de moyenne. Le plafond est tenu en moyenne et franchi sur le dernier tiers, mais la cause est en amont : l'allure a été courue 8 s/km au-dessus de la borne rapide du début à la fin. Malgré cela, 5,4 % de dérive du coût par kilomètre — la plus faible du bloc, sur la séance la plus longue. Trois erreurs de lecture de ma part dans le débrief à chaud, corrigées ici.",
+        "corps": "LE PLAFOND, ET OÙ IL CÈDE. 150,1 bpm de moyenne pour une cible à 140–150, environ 37 minutes sur 60 au-dessus de 150 et 8 minutes au-dessus de 155. Les trois derniers segments sortent à 152,6, 155,4 et 156,7 de moyenne, avec une pointe à 163. La consigne était explicite : ralentir dès que le plafond est touché, même si l'allure tombe à 6:40. Tu as ralenti — 6:09 sur l'avant-dernier kilomètre, 6:22 sur le solde — mais tu as ralenti trop tard et pas assez.\n\nLA CAUSE EST EN AMONT. La fourchette prescrite était 6:05–6:25. Tu as couru 5:57 de moyenne, et aucun segment n'entre dans la fourchette avant le cinquième. Ce n'est pas le mécanisme de départ trop rapide documenté quatre fois en août : la FC monte progressivement, 139,9 sur le premier tour, sans à-coup. C'est une séance entière courue 8 à 16 s/km au-dessus de la borne rapide. Avec cette avance, le plafond de FC ne pouvait pas tenir soixante minutes — la fin de séance n'est pas un défaut de discipline, c'est la conséquence arithmétique du début.\n\nET POURTANT LE RÉSULTAT EST BON, ET IL FAUT LE DIRE. Km 2-4 : 5:53, 150,4 bpm, 885 b/km. Trois derniers km pleins : 6:01, 154,9 bpm, 933 b/km. Soit +3,0 % sur la FC et +5,4 % sur le coût par kilomètre. Les références du bloc sont 8,8 % le 10 septembre sur 40 minutes et 7,3 % le 4 septembre sur 50 minutes. C'est la plus faible dérive mesurée depuis la reprise, obtenue sur la séance la plus longue et à une allure plus rapide que prescrit. L'objectif « sous 5 % » est manqué de quatre dixièmes de point, ce qui à ce niveau de bruit se lit comme atteint à la marge, pas comme un échec.\n\nLE CONTRASTE AVEC LE 4 SEPTEMBRE EST LE VRAI ACQUIS. Prescription quasi identique, dix minutes plus courte : 157 bpm de moyenne et 170 en fin de parcours. Aujourd'hui 150,1 et 158. La consigne « si tu dois choisir, c'est toujours la FC » a été suivie. Ce n'est pas une variation de forme, c'est un changement d'exécution — le premier depuis que le carnet documente l'écart entre séance facile prescrite et séance facile réalisée.\n\nCE QUE LA SÉANCE NE PERMET PAS DE LIRE. Ce n'est pas un test de référence : parcours de Louvigny et de la voie verte, 28 m de dénivelé, soixante minutes. Les 895 b/km ne se tracent sur aucune série et ne se comparent ni aux 873 du 17 août ni aux 899 du 10 septembre. Le seul indicateur exploitable ici est la dérive, qui compare la montre à elle-même.\n\nMES TROIS ERREURS DE LECTURE. Elles sont détaillées dans erreurs_de_prescription. La plus grave est la deuxième : j'ai invoqué la chaleur sur la foi du capteur au poignet, deux jours après avoir posé la règle qui l'interdit. La première change la conclusion chiffrée — 3,7 % annoncés contre 5,4 % réels, c'est-à-dire objectif tenu contre objectif manqué. La troisième est un défaut de référentiel : j'ai jugé le départ par rapport à la séance, pas par rapport à la consigne.\n\nCADENCE — QUESTION FERMÉE, ET C'EST UNE BONNE NOUVELLE POUR LE 20. 176 spm de moyenne, 177 à 179 sur les segments 3 à 7, retour à 173–174 sur les deux derniers, là où l'allure ralentit. L'athlète confirme n'avoir fait aucun travail volontaire de foulée aujourd'hui : ces 176 sont spontanés, à 5:57/km contre 173–174 à 6:10–6:15 sur les Z2 ordinaires. C'est exactement la règle établie le 4 septembre — la cadence suit l'allure — et ça la confirme sur un troisième point. Conséquence pour le test du 20 : le facteur cadence n'a pas été réintroduit entre-temps, l'hypothèse « la dérive du 10 venait de la foulée modifiée » reste intacte et testable, à condition de courir le test en foulée normale.",
+        "a_retenir": "Sur une heure, un plafond de FC ne se tient pas en ralentissant à la fin, il se tient en partant assez lentement. Huit secondes au kilomètre d'avance sur la fourchette suffisent à rendre le dernier tiers intenable, et c'est exactement ce qui s'est passé. Le reste est le meilleur signal du bloc : 5,4 % de dérive sur 60 minutes contre 8,8 % sur 40 le 10 septembre, et 150,1 de moyenne là où la même consigne avait donné 157 le 4. La discipline de FC est acquise ; c'est la discipline d'allure de départ qui reste à installer.",
+        "note": "bon"
+      }
     },
     {
       "id": "p-2026-09-14",
