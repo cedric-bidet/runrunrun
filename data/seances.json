@@ -1,6 +1,6 @@
 {
   "version": "3.2",
-  "maj": "2026-09-12",
+  "maj": "2026-09-13",
   "note_schema": "Voir data/SCHEMA.md",
   "seances": [
     {
@@ -468,7 +468,8 @@
       "id": "p-2026-09-18", "date": "2026-09-18", "statut": "prevu", "type": "sortie_longue",
       "titre": "Sortie longue, 60 min", "lieu": "Plat", "creneau": "Fin de matinée",
       "cible": { "duree_min": 60, "distance_km": 9.8, "allure": "6:05–6:25", "fc_min": 140, "fc_max": 150 },
-      "consigne": "Décalée au vendredi : semaine de garde."
+      "consigne": "Décalée au vendredi : semaine de garde. Prescription identique au 12 : soixante minutes, 6:05–6:25, plafond 150. Le 12, tu as couru 5:57 de moyenne et aucun segment n'est entré dans la fourchette avant le cinquième — le plafond a cédé sur le dernier tiers par arithmétique, pas par manque de discipline. Cette séance se joue donc entièrement sur les dix premières minutes.\n\nObjectif chiffré, le même qu'au 12 : dérive du coût par kilomètre sous 5 %. Elle est sortie à 5,4 % à une allure trop rapide de 8 s/km. À la bonne allure, elle est atteignable.",
+      "points": ["Km 1 à 6:20 minimum. Regarde la montre au 500e mètre, pas au premier kilomètre.", "À vingt minutes, si l'allure moyenne est sous 6:05, tu ralentis — même si la FC est basse.", "Plafond 150 bpm : au-dessus, tu ralentis dans le kilomètre en cours, pas au suivant.", "J-2 du test de référence du 20. Une sortie longue payée trop cher vendredi contamine le test de dimanche : c'est la seule raison de ne pas forcer."]
     },
     {
       "id": "p-2026-09-20",
@@ -485,7 +486,7 @@
         "fc_min": 135,
         "fc_max": 145
       },
-      "consigne": "Reprise du test du 10, au créneau où 8h10 est réellement tenable : dimanche, pas de jour d'école. Format du 17 août, rien de plus. Coût à battre : 873 b/km.\n\nUn test de référence ne mesure quelque chose que si rien n'a bougé depuis le précédent. Aujourd'hui, rien ne change — et c'est ce qui permettra de savoir si la dérive du 10 venait de la foulée ou de la fatigue.",
+      "consigne": "Reprise du test du 10, au créneau où 8h10 est réellement tenable : dimanche, pas de jour d'école. Format du 17 août, rien de plus. Coût à battre : 874 b/km — en gardant en tête que seul un écart supérieur à 25 b/km compte comme signal.\n\nUn test de référence ne mesure quelque chose que si rien n'a bougé depuis le précédent. Aujourd'hui, rien ne change — et c'est ce qui permettra de savoir si la dérive du 10 venait de la foulée ou de la fatigue.",
       "points": [
         "8h10, boucle de La Prairie et de l'hippodrome, même sens, aucun prolongement vers Louvigny.",
         "Foulée normale. Aucun travail de cadence pendant le test — il reprend dès le lendemain sur les Z2 ordinaires.",
