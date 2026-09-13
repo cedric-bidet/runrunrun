@@ -25,9 +25,15 @@
 </head>
 <body>
 
+<div id="erreur-lien" class="erreur" hidden>
+  <h2>Lien invalide.</h2>
+  <p>Cette page affiche le carnet d'entraînement d'un utilisateur précis, à partir d'un lien personnel (« magic link »).</p>
+  <p>Le lien doit ressembler à <code>index.html?u=&lt;jeton&gt;</code>. Vérifie que tu as bien ouvert ton lien complet, sans le tronquer.</p>
+</div>
+
 <div id="erreur" class="erreur" hidden>
   <h2>Les données ne se chargent pas.</h2>
-  <p>Cette page lit quatre fichiers JSON dans <code>data/</code>. Un navigateur bloque ces lectures quand la page est ouverte directement depuis le disque (<code>file://</code>).</p>
+  <p>Cette page lit des fichiers JSON dans <code>data/</code>. Un navigateur bloque ces lectures quand la page est ouverte directement depuis le disque (<code>file://</code>).</p>
   <p>Deux solutions : publier le dossier sur GitHub Pages, ou lancer un serveur local depuis le dossier du site&nbsp;:</p>
   <pre>python3 -m http.server 8000</pre>
   <p>puis ouvrir <code>http://localhost:8000</code>.</p>

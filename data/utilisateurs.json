@@ -1,0 +1,6 @@
+{
+  "_note": "Mapping magic-link -> utilisateur. Le lien d'accès est https://<site>/index.html?u=<token>. Pour ajouter un utilisateur : créer data/utilisateurs/<dossier>/ avec les 4 JSON (voir data/SCHEMA.md), générer un token (ex. `openssl rand -hex 24`), ajouter une entrée ci-dessous.",
+  "tokens": {
+    "c96cf31274c43d520e7100d7e2d13dd69b78006de1b28a8b": { "dossier": "cedric", "nom": "Cédric" }
+  }
+}

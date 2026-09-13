@@ -149,6 +149,42 @@ let S_COURSE_REALISEE = []; // séances réalisées porteuses de distance/temps/
 let SEM_LISTE = [], semaineIdx = 0;
 const zoneDe = (fc) => ZONES.find((z) => fc >= z.min && fc < z.max) || ZONES[fc < ZONES[0].min ? 0 : ZONES.length - 1];
 
+/* ---------- Multi-utilisateurs (magic link) ---------- */
+
+// chaque utilisateur a un lien dédié index.html?u=<token> ; le token se
+// résout en dossier via data/utilisateurs.json, et toutes les données de cet
+// utilisateur vivent sous data/utilisateurs/<dossier>/. Pas de session, pas
+// de cookie : le lien complet EST l'identifiant.
+let BASE = '';
+
+function jetonUrl() {
+  return new URLSearchParams(location.search).get('u');
+}
+
+// « Ajouter à l'écran d'accueil » sur Android suit le start_url du manifest,
+// pas l'URL de la page courante : sans ce réécriture, l'icône installée
+// perdrait le jeton et ouvrirait le carnet sans utilisateur résolu.
+function personnaliserManifest(jeton) {
+  if (!jeton) return;
+  const lien = document.querySelector('link[rel="manifest"]');
+  if (!lien) return;
+  fetch(lien.href).then((r) => r.json()).then((m) => {
+    m.start_url = `index.html?u=${encodeURIComponent(jeton)}`;
+    lien.href = URL.createObjectURL(new Blob([JSON.stringify(m)], { type: 'application/json' }));
+  }).catch(() => {});
+}
+personnaliserManifest(jetonUrl());
+
+function resoudreUtilisateur() {
+  const jeton = jetonUrl();
+  if (!jeton) return Promise.reject(new Error('lien_absent'));
+  return chargerJSON('data/utilisateurs.json').then((registre) => {
+    const entree = registre.tokens && registre.tokens[jeton];
+    if (!entree) throw new Error('lien_invalide');
+    return entree.dossier;
+  });
+}
+
 /* ---------- Chargement ---------- */
 
 function chargerJSON(chemin) {
@@ -158,15 +194,16 @@ function chargerJSON(chemin) {
   });
 }
 
-// data/seances.json (mois vivant) est complété par les archives listées dans
-// data/seances-index.json (mois clos, non réécrits). Une archive ou l'index
-// manquant est une erreur bloquante : jamais de repli sur des données
-// partielles, qui fausserait silencieusement les graphes de coût cardiaque.
+// data/utilisateurs/<dossier>/seances.json (mois vivant) est complété par les
+// archives listées dans seances-index.json (mois clos, non réécrits). Une
+// archive ou l'index manquant est une erreur bloquante : jamais de repli sur
+// des données partielles, qui fausserait silencieusement les graphes de coût
+// cardiaque.
 function chargerSeances() {
-  return chargerJSON('data/seances-index.json').then((index) =>
+  return chargerJSON(`${BASE}seances-index.json`).then((index) =>
     Promise.all([
-      Promise.all(index.archives.map((chemin) => chargerJSON(`data/${chemin}`))),
-      chargerJSON('data/seances.json')
+      Promise.all(index.archives.map((chemin) => chargerJSON(`${BASE}${chemin}`))),
+      chargerJSON(`${BASE}seances.json`)
     ])
   ).then(([archives, vivant]) => {
     const parId = new Map();
@@ -180,12 +217,15 @@ function chargerSeances() {
   });
 }
 
-Promise.all([
-  fetch('data/athlete.json').then((r) => r.json()),
-  fetch('data/programme.json').then((r) => r.json()),
-  chargerSeances(),
-  fetch('data/renforcement.json').then((r) => r.json())
-]).then(([a, p, s, r]) => {
+resoudreUtilisateur().then((dossier) => {
+  BASE = `data/utilisateurs/${dossier}/`;
+  return Promise.all([
+    chargerJSON(`${BASE}athlete.json`),
+    chargerJSON(`${BASE}programme.json`),
+    chargerSeances(),
+    chargerJSON(`${BASE}renforcement.json`)
+  ]);
+}).then(([a, p, s, r]) => {
   A = a; P = p; S = s; R = r; ZONES = a.zones;
   // journal unifié : passé et futur, course et renforcement — statut 'realise' ou 'prevu'
   S.sort((x, y) => x.date.localeCompare(y.date));
@@ -194,7 +234,7 @@ Promise.all([
   demarrer();
 }).catch((e) => {
   console.error(e);
-  $('#erreur').hidden = false;
+  $(e.message === 'lien_absent' || e.message === 'lien_invalide' ? '#erreur-lien' : '#erreur').hidden = false;
 });
 
 function demarrer() {
@@ -626,13 +666,14 @@ function formaterCible(c) {
   return { puces, structure: c.structure || '' };
 }
 
-// les .fit sont stockés en base64 dans /workouts (AAAA-MM-JJ-<type>.fit.b64,
-// voir workouts/README.md — le MCP GitHub ne transporte pas de binaire).
-// on ne montre le bouton que si le fichier correspondant existe, et on
-// décode le .fit à la volée pour proposer un vrai téléchargement binaire.
+// les .fit sont stockés en base64 dans le dossier de l'utilisateur, sous
+// workouts/ (AAAA-MM-JJ-<type>.fit.b64, voir workouts/README.md — le MCP
+// GitHub ne transporte pas de binaire). on ne montre le bouton que si le
+// fichier correspondant existe, et on décode le .fit à la volée pour
+// proposer un vrai téléchargement binaire.
 function verifierWorkoutsMontre() {
   document.querySelectorAll('.seance__montre[data-date]').forEach((a) => {
-    const chemin = `workouts/${a.dataset.date}-${a.dataset.type}.fit.b64`;
+    const chemin = `${BASE}workouts/${a.dataset.date}-${a.dataset.type}.fit.b64`;
     fetch(chemin)
       .then((r) => (r.ok ? r.text() : Promise.reject()))
       .then((b64) => {

@@ -20,11 +20,49 @@ assets/tabbar.css
 assets/renforcement.css
 assets/app.js
 assets/icones/         icônes de l'app (192, 180, 512 px)
-data/athlete.json      profil, zones cardiaques, objectifs, chronos de référence
-data/programme.json    vue macro : blocs de périodisation, jalons, cadence hebdomadaire (pas de détail de séance)
-data/seances.json      journal unifié : réalisées et prévues, course et renforcement
-data/renforcement.json référentiel d'exercices (consommé par les cartes de séance renfo)
+data/utilisateurs.json mapping magic-link → utilisateur (voir « Multi-utilisateurs »)
+data/utilisateurs/<utilisateur>/
+  athlete.json         profil, zones cardiaques, objectifs, chronos de référence
+  programme.json       vue macro : blocs de périodisation, jalons, cadence hebdomadaire (pas de détail de séance)
+  seances.json         journal unifié : réalisées et prévues, course et renforcement (mois vivant)
+  seances-index.json   liste des archives de mois clos
+  archives/            mois clos, non réécrits (voir data/SCHEMA.md)
+  renforcement.json    référentiel d'exercices (consommé par les cartes de séance renfo)
+  workouts/            .fit encodés en base64, un par séance de course à venir
 ```
+
+## Multi-utilisateurs (magic link)
+
+L'app sert plusieurs utilisateurs depuis le même déploiement statique, sans
+base de données ni compte : chaque utilisateur reçoit un lien personnel de la
+forme `https://<site>/index.html?u=<jeton>`. Le jeton est l'unique moyen
+d'accès — pas de mot de passe, pas de session.
+
+- `data/utilisateurs.json` fait correspondre chaque jeton à un dossier
+  utilisateur (`{ "tokens": { "<jeton>": { "dossier": "cedric", "nom": "Cédric" } } }`).
+- Toutes les données de cet utilisateur — les quatre JSON habituels, les
+  archives et les workouts — vivent sous `data/utilisateurs/<dossier>/`.
+- Au chargement, `assets/app.js` lit `?u=` dans l'URL, résout le dossier via
+  `data/utilisateurs.json`, puis charge tout depuis ce dossier. Lien absent ou
+  jeton inconnu : message d'erreur dédié, rien ne se charge.
+- « Ajouter à l'écran d'accueil » reste fonctionnel par utilisateur : l'app
+  réécrit dynamiquement le `manifest.json` chargé pour que son `start_url`
+  embarque le jeton.
+
+**Ajouter un utilisateur :**
+
+1. Créer `data/utilisateurs/<dossier>/` avec les quatre JSON (voir
+   `data/SCHEMA.md` pour le détail des schémas) et, si besoin, `archives/`,
+   `seances-index.json` et `workouts/`.
+2. Générer un jeton aléatoire : `openssl rand -hex 24`.
+3. Ajouter une entrée dans `data/utilisateurs.json`.
+4. Communiquer le lien `index.html?u=<jeton>` à l'utilisateur.
+
+**Limite assumée** : le site est statique et public (GitHub Pages). Le lien
+personnel protège par obscurité (jeton non deviné), pas par une vraie
+authentification — quiconque obtient le lien, ou lit `data/utilisateurs.json`,
+accède aux données. Ne pas y mettre d'information sensible au-delà de ce qui
+figure déjà dans un carnet d'entraînement.
 
 ## Le design system « Hello Ted »
 
@@ -121,7 +159,7 @@ python3 -m http.server 8000
 
 puis `http://localhost:8000`.
 
-## Le journal unifié (`data/seances.json`)
+## Le journal unifié (`data/utilisateurs/<utilisateur>/seances.json`)
 
 Un seul tableau `seances`, trié par date, mélangeant passé et futur, course et renforcement. Le champ `statut` (`realise` ou `prevu`) fait toute la différence de rendu — **toute statistique doit filtrer sur `statut === 'realise'`**, sinon une séance à venir fausse silencieusement les agrégats.
 
@@ -158,9 +196,9 @@ Un seul tableau `seances`, trié par date, mélangeant passé et futur, course e
 }
 ```
 
-**Séance de renforcement** (réalisée ou prévue) — `type: "renfo"` et `bloc_renfo` (`"A"` ou `"B"`), qui renvoie à `blocs[]` dans `data/renforcement.json`. La carte de séance affiche automatiquement les exercices du bloc.
+**Séance de renforcement** (réalisée ou prévue) — `type: "renfo"` et `bloc_renfo` (`"A"` ou `"B"`), qui renvoie à `blocs[]` dans `renforcement.json`. La carte de séance affiche automatiquement les exercices du bloc.
 
-## Programme (`data/programme.json`) — vue macro uniquement
+## Programme (`data/utilisateurs/<utilisateur>/programme.json`) — vue macro uniquement
 
 Aucun détail de séance ici : le détail vit dans `seances.json`.
 
@@ -172,4 +210,4 @@ Le graphe de volume compare les kilomètres réellement courus (agrégés par nu
 
 ## Mise à jour assistée
 
-Le plus simple : coller le lien Strava ou les chiffres de la séance dans une conversation avec Claude, dans ce projet. Les JSON de `data/` sont régénérés, il n'y a plus qu'à les commiter.
+Le plus simple : coller le lien Strava ou les chiffres de la séance dans une conversation avec Claude, dans ce projet. Les JSON de `data/utilisateurs/<utilisateur>/` sont régénérés, il n'y a plus qu'à les commiter.

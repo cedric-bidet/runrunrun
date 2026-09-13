@@ -1,5 +1,9 @@
 # Schéma de `data/seances.json`
 
+> Depuis le passage au multi-utilisateurs, tous les chemins `data/*.json` de ce
+> document sont relatifs au dossier de l'utilisateur :
+> `data/utilisateurs/<utilisateur>/*.json`. Voir le README, section « Multi-utilisateurs ».
+
 ## Invariants — à lire avant toute analyse
 
 Valeurs de référence, indépendantes du découpage en fichiers.
